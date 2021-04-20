@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Game.h"
+#include <chrono>
 //declare the game
 Game* game = nullptr;
 int main(int argc, char* argv[])
