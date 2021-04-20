@@ -12,6 +12,10 @@ std::vector<std::string> eventHandle = {};
 void sayHi() {
 	std::cout << "hi";
 }
+void sayno() {
+	eventHandle.push_back("deleteship");
+	std::cout << "no";
+}
 //Game class consturctor and destructor
 Game::Game()
 {
@@ -47,8 +51,10 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	rendererStorage::renderer = renderer;
 	eventHandles = &eventHandle;
 	//allObjects.addObject(new TextObject("title", "arial.ttf", 40, 178, 34, 34, 650, 0, "Viking Raids!"));
-	//allObjects.addObject(new KeyInputObject("hello", &sayHi, SDL_SCANCODE_SPACE));
+	allObjects.addObject(new KeyInputObject("hello", &sayHi, SDL_SCANCODE_SPACE));
+	allObjects.addObject(new KeyInputObject("test", &sayno, SDL_SCANCODE_W));
 	allObjects.addObject(new DetailObject("Homeisland", "assets/otherblueisland2.png", 639, 415, 100, 100));
+
 
 
 
@@ -66,7 +72,10 @@ void Game::handleEvents()
 		std::string action = eventHandles->at(0);
 		
 		//define events in here sent by buttons
-		
+		if (action == "deleteship") {
+			std::cout << "hello";
+			allObjects.deleteDetailObject("Homeisland");
+		}
 
 		//this goes last
 		eventHandles->erase(eventHandles->begin() + 0);

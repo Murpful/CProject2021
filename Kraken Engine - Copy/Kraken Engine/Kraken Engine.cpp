@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 	double frameTime;
 	game = new Game();
 	//initialize
-	game->init("Kraken Engine", 1536, 864, false); //
+	game->init("game", 1536, 864, false); //
 
 	while (game->running())
 	{
