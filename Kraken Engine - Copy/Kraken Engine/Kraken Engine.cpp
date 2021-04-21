@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 	//set random seed
 	srand(time(NULL));
 	// set the frame rate of the game here
-	double FPS = 120; 
+	double FPS = 60; 
 	//frame calculations
 	double frameDelay = 1000 / FPS;
 	//declerations

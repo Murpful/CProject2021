@@ -113,8 +113,13 @@ void Game::handleEvents()
 //runs every frame, where most of your code in this file should take place aside from buttons and event handles
 void Game::update()
 {
-	//std::cout << renderer << std::endl;
-	//std::cout << rendererStorage::renderer << std::endl;
+
+
+
+
+
+
+
 	allObjects.updateObjects();
 }
 //this is where objects are generated on the screen, there is little work you should be doing here unless you are declaring new objects that are not part of the object database

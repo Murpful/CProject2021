@@ -166,22 +166,26 @@ void ButtonObject::update(int offx, int offy) {
 	int xl = 0;
 	int yl = 0;
 	//std::cout << pressed;
-	if (pressed == false) {
-		if (SDL_GetMouseState(&xl, &yl) == 1) {
-			if ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy)) {
-				pressed = true;
-				command();
-				SDL_Delay(200);
-				//std::cout << pressed;
-			}
-		}
-	}
-	else {
+	
+	//else {
 		if (SDL_GetMouseState(&xl, &yl) != 1) {
 			//std::cout << "not down";
+			if (pressed == true && ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy))) {
+				command();
+				//SDL_Delay(200);
+			}
 			pressed = false;
+		} else if (pressed == false) {
+			if (SDL_GetMouseState(&xl, &yl) == 1) {
+				if ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy)) {
+					pressed = true;
+					//command();
+					//SDL_Delay(200);
+					//std::cout << pressed;
+				}
+			}
 		}
-	}
+	//}
 
 
 }
