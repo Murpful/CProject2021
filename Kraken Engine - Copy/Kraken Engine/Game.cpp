@@ -16,6 +16,12 @@ void sayno() {
 	eventHandle.push_back("deleteship");
 	std::cout << "no";
 }
+void optionScreen() {
+	eventHandle.push_back("optionScreen");
+}
+void loadUpGame() {
+	eventHandle.push_back("loadUpGame");
+}
 //Game class consturctor and destructor
 Game::Game()
 {
@@ -53,7 +59,9 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	//allObjects.addObject(new TextObject("title", "arial.ttf", 40, 178, 34, 34, 650, 0, "Viking Raids!"));
 	allObjects.addObject(new KeyInputObject("hello", &sayHi, SDL_SCANCODE_SPACE));
 	allObjects.addObject(new KeyInputObject("test", &sayno, SDL_SCANCODE_W));
-	allObjects.addObject(new DetailObject("Homeisland", "assets/otherblueisland2.png", 639, 415, 100, 100));
+	//allObjects.addObject(new DetailObject("Homeisland", "assets/otherblueisland2.png", 639, 415, 100, 100));
+	allObjects.addObject(new DetailObject("homeBack", "assets/tempHome.png", 0, 0, 1536, 864));
+	allObjects.addObject(new ButtonObject("playButton", "assets/tempPlay.png", &optionScreen, 700, 400, 139, 63));
 
 
 
@@ -72,9 +80,18 @@ void Game::handleEvents()
 		std::string action = eventHandles->at(0);
 		
 		//define events in here sent by buttons
-		if (action == "deleteship") {
-			std::cout << "hello";
-			allObjects.deleteDetailObject("Homeisland");
+		if (action == "optionScreen") {
+			std::cout << "ran";
+			allObjects.deleteButtonObject("playButton");
+			allObjects.deleteDetailObject("homeBack");
+			allObjects.addObject(new DetailObject("optionBack", "assets/tempModeSelect.png", 0, 0, 1536, 864));
+			allObjects.addObject(new ButtonObject("classicButton", "assets/tempClassic.png", &loadUpGame, 700, 400, 242, 58));
+		}
+		else if (action == "loadUpGame") {
+			allObjects.deleteButtonObject("classicButton");
+			allObjects.deleteDetailObject("optionBack");
+			allObjects.addObject(new DetailObject("optionBack", "assets/tempBlank.png", 0, 0, 1536, 864));
+
 		}
 
 		//this goes last
