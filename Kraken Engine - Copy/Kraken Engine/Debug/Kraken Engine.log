@@ -1,2 +1,6 @@
-﻿  ButtonObject.cpp
+﻿  Game.cpp
+  Kraken Engine.cpp
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Kraken Engine.cpp(9,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Kraken Engine.cpp(34,25): warning C4244: 'argument': conversion from 'double' to 'Uint32', possible loss of data
+  Generating Code...
   Kraken Engine.vcxproj -> C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe

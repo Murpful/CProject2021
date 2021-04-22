@@ -8,6 +8,7 @@
 #include <iostream>
 #include "ObjectDataBase.h"
 #include "testObj.h"
+#include "Event.h"
 //#include "rendererStorage.h"
 
 
@@ -29,7 +30,7 @@ public:
 	void clean();
 	bool mouseClick;
 	static SDL_Renderer* renderer;
-	std::vector<std::string>* eventHandles = {};
+	std::vector<Event>* eventHandles = {};
 private:
 
 	bool isRunning = false;

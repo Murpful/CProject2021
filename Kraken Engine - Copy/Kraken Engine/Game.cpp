@@ -8,19 +8,19 @@ ObjectDataBase allObjects;
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event event;
-std::vector<std::string> eventHandle = {};
+std::vector<Event> eventHandle = {};
 void sayHi() {
 	std::cout << "hi";
 }
 void sayno() {
-	eventHandle.push_back("deleteship");
+	eventHandle.push_back(Event("deleteShip", {}));
 	std::cout << "no";
 }
 void optionScreen() {
-	eventHandle.push_back("optionScreen");
+	eventHandle.push_back(Event("optionScreen", {}));
 }
 void loadUpGame() {
-	eventHandle.push_back("loadUpGame");
+	eventHandle.push_back(Event("loadUpGame", {}));
 }
 
 //Game class consturctor and destructor
@@ -78,7 +78,7 @@ void Game::handleEvents()
 	// this section should be used when you need to access variables within the game class from button actions
 	while (eventHandles->size() > 0) {
 		//this goes first
-		std::string action = eventHandles->at(0);
+		std::string action = eventHandles->at(0).ID;
 		
 		//define events in here sent by buttons
 		if (action == "optionScreen") {
