@@ -90,8 +90,8 @@ void Game::handleEvents()
 		else if (action == "loadUpGame") {
 			allObjects.deleteButtonObject("classicButton");
 			allObjects.deleteDetailObject("optionBack");
-			allObjects.addObject(new DetailObject("optionBack", "assets/tempBlank.png", 0, 0, 1536, 864));
-
+			allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
+			allObjects.addObject(new ButtonObject("classicButton", "assets/tempKnightClass.png", &sayHi, 700, 400, 218, 61));
 		}
 
 		//this goes last
