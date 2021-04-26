@@ -28,7 +28,35 @@ public:
 	virtual void update(int offsetx, int offsety);
 	//virtual void executeCommand() = 0;
 };
+class AdvancedButtonObject : public ButtonObject {
+	void (*command1)(int);
+	void (*command2)(std::vector<int>);
+	void (*command3)(std::string);
+	void (*command4)(std::vector<std::string>);
+	void (*command5)(double);
+	void (*command6)(std::vector<double>);
+	int infoInt;
+	int commandType;
+	std::vector<int> infoIntVec;
+	//void update(int offsetx, int offsety);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, bool ani, int frames, int delayTime = 500);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, int sh, int sw);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, int sh, int sw, bool ani, int frames, int delayTime = 500);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, bool oofs);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, bool oofs, bool ani, int frames, int delayTime = 500);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, int sh, int sw, bool oofs);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, int sh, int sw, bool oofs, bool ani, int frames, int delayTime = 500);
 
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info, bool ani, int frames, int delayTime = 500);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info, int sh, int sw);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info, int sh, int sw, bool ani, int frames, int delayTime = 500);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info, bool oofs);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info, bool oofs, bool ani, int frames, int delayTime = 500);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info, int sh, int sw, bool oofs);
+	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info, int sh, int sw, bool oofs, bool ani, int frames, int delayTime = 500);
+};
 class AdvancedHexagonalButtonObject : public ButtonObject {
 	void (*command)(int);
 	int numID;

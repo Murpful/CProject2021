@@ -21,6 +21,11 @@ public:
 	void deleteTextObject(int at);
 	void deleteButtonObject(int at);
 	void deleteKeyInputObject(int at);
+	void deleteAll();
+	void deleteAllDetailObject();
+	void deleteAllButtonObject();
+	void deleteAllTextObject();
+	void deleteAllKeyInputObject();
 	void updateObjects();
 	void renderObjects();
 	void deleteObject(std::string objectID);

@@ -82,15 +82,12 @@ void Game::handleEvents()
 		
 		//define events in here sent by buttons
 		if (action == "optionScreen") {
-			std::cout << "ran";
-			allObjects.deleteButtonObject("playButton");
-			allObjects.deleteDetailObject("homeBack");
+			allObjects.deleteAll();
 			allObjects.addObject(new DetailObject("optionBack", "assets/tempModeSelect.png", 0, 0, 1536, 864));
 			allObjects.addObject(new ButtonObject("classicButton", "assets/tempClassic.png", &loadUpGame, 700, 400, 242, 58));
 		}
 		else if (action == "loadUpGame") {
-			allObjects.deleteButtonObject("classicButton");
-			allObjects.deleteDetailObject("optionBack");
+			allObjects.deleteAll();
 			allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
 		}
 

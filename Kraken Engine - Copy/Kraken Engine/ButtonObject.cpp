@@ -145,13 +145,6 @@ ButtonObject::ButtonObject(std::string ID, const char* textureSheet, void (*func
 	objectID = ID;
 }
 
-
-
-
-
-
-
-
 void ButtonObject::moveObjectTo(int x, int y) {
 	xPos = x;
 	yPos = y;
@@ -195,8 +188,415 @@ void ButtonObject::update(int offx, int offy) {
 
 }
 
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(int), int x, int y, int Width, int Height, int info) : ButtonObject(ID,  texturesheet,  NULL,  x,  y,  Width,  Height) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = 0;
+	animated = false;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = 0;
+	objectID = ID;
+	command1 = function;
+	command2 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 1;
+	infoInt = info;
+	infoIntVec = { };
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(int), int x, int y, int Width, int Height, int info, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  Width,  Height,  ani,  frameCount,  delayTimed) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command1 = function;
+	command2 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 1;
+	objectID = ID;
+	infoInt = info;
+	infoIntVec = { };
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(int), int x, int y, int Width, int Height, int info, int sourceh, int sourcew) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  Width,  Height,  sourceh,  sourcew) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	destRect.w = width;
+	destRect.h = height;
+	frames = 0;
+	animated = false;
+	command1 = function;
+	command2 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 1;
+	delayTime = 0;
+	objectID = ID;
+	infoInt = info;
+	infoIntVec = { };
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int Width, int Height, int info, int sourceh, int sourcew, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  textureSheet, NULL,  x,  y,  Width,  Height,  sourceh,  sourcew,  ani,  frameCount,  delayTimed) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command1 = function;
+	command2 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 1;
+	objectID = ID;
+	infoInt = info;
+	infoIntVec = { };
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(int), int x, int y, int Width, int Height, int info, bool oofs) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  Width,  Height,  oofs) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = 0;
+	animated = false;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	command1 = function;
+	command2 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 1;
+	delayTime = 0;
+	objectID = ID;
+	infoInt = info;
+	infoIntVec = { };
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(int), int x, int y, int Width, int Height, int info, bool oofs, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  Width,  Height,  oofs,  ani,  frameCount,  delayTimed) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command1 = function;
+	command2 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 1;
+	objectID = ID;
+	infoInt = info;
+	infoIntVec = { };
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(int), int x, int y, int Width, int Height, int info, int sourceh, int sourcew, bool oofs) : ButtonObject( ID,  texturesheet, NULL,  x,  y,  Width,  Height,  sourceh,  sourcew,  oofs) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	destRect.w = width;
+	destRect.h = height;
+	frames = 0;
+	animated = false;
+	command1 = function;
+	command2 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 1;
+	delayTime = 0;
+	objectID = ID;
+	infoInt = info;
+	infoIntVec = { };
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int Width, int Height, int info, int sourceh, int sourcew, bool oofs, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  textureSheet,  NULL,  x,  y,  Width,  Height,  sourceh,  sourcew,  oofs,  ani,  frameCount,  delayTimed) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command1 = function;
+	command2 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 1;
+	objectID = ID;
+	infoInt = info;
+	infoIntVec = { };
+}
 
-
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(std::vector<int>), int x, int y, int Width, int Height, std::vector<int> info) : ButtonObject(ID, texturesheet, NULL, x, y, Width, Height) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = 0;
+	animated = false;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = 0;
+	objectID = ID;
+	command2 = function;
+	command1 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 2;
+	infoInt = 0;
+	infoIntVec = info;
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(std::vector<int>), int x, int y, int Width, int Height, std::vector<int> info, bool ani, int frameCount, int delayTimed) : ButtonObject(ID, texturesheet, NULL, x, y, Width, Height, ani, frameCount, delayTimed) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command2 = function;
+	command1 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 2;
+	objectID = ID;
+	infoInt = 0;
+	infoIntVec = info;
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(std::vector<int>), int x, int y, int Width, int Height, std::vector<int> info, int sourceh, int sourcew) : ButtonObject(ID, texturesheet, NULL, x, y, Width, Height, sourceh, sourcew) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	destRect.w = width;
+	destRect.h = height;
+	frames = 0;
+	animated = false;
+	command2 = function;
+	command1 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 2;
+	delayTime = 0;
+	objectID = ID;
+	infoInt = 0;
+	infoIntVec = info;
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int Width, int Height, std::vector<int> info, int sourceh, int sourcew, bool ani, int frameCount, int delayTimed) : ButtonObject(ID, textureSheet, NULL, x, y, Width, Height, sourceh, sourcew, ani, frameCount, delayTimed) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command2 = function;
+	command1 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 2;
+	objectID = ID;
+	infoInt = 0;
+	infoIntVec = info;
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(std::vector<int>), int x, int y, int Width, int Height, std::vector<int> info, bool oofs) : ButtonObject(ID, texturesheet, NULL, x, y, Width, Height, oofs) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = 0;
+	animated = false;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	command2 = function;
+	command1 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 2;
+	delayTime = 0;
+	objectID = ID;
+	infoInt = 0;
+	infoIntVec = info;
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(std::vector<int>), int x, int y, int Width, int Height, std::vector<int> info, bool oofs, bool ani, int frameCount, int delayTimed) : ButtonObject(ID, texturesheet, NULL, x, y, Width, Height, oofs, ani, frameCount, delayTimed) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command2 = function;
+	command1 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 2;
+	objectID = ID;
+	infoInt = 0;
+	infoIntVec = info;
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(std::vector<int>), int x, int y, int Width, int Height, std::vector<int> info, int sourceh, int sourcew, bool oofs) : ButtonObject(ID, texturesheet, NULL, x, y, Width, Height, sourceh, sourcew, oofs) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	destRect.w = width;
+	destRect.h = height;
+	frames = 0;
+	animated = false;
+	command2 = function;
+	command1 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 2;
+	delayTime = 0;
+	objectID = ID;
+	infoInt = 0;
+	infoIntVec = info;
+}
+AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int Width, int Height, std::vector<int> info, int sourceh, int sourcew, bool oofs, bool ani, int frameCount, int delayTimed) : ButtonObject(ID, textureSheet, NULL, x, y, Width, Height, sourceh, sourcew, oofs, ani, frameCount, delayTimed) {
+	width = Width;
+	height = Height;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command2 = function;
+	command1 = NULL;
+	command3 = NULL;
+	command4 = NULL;
+	command5 = NULL;
+	command6 = NULL;
+	commandType = 2;
+	objectID = ID;
+	infoInt = 0;
+	infoIntVec = info;
+}
 
 AdvancedHexagonalButtonObject::~AdvancedHexagonalButtonObject() {
 
@@ -271,8 +671,6 @@ AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, con
 	command = function;
 	objectID = ID;
 }
-
-
 AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, bool oofs) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  0,  0,  oofs) {
 	radius = radi;
 	numID = id;

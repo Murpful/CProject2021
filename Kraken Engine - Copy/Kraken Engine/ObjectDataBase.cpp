@@ -30,6 +30,42 @@ void ObjectDataBase::addObject(KeyInputObject* object) {
 	keyInputObjects.at(keyInputObjects.size() - 1) = new KeyInputObject(newObject);
 	delete object;
 }
+void ObjectDataBase::deleteAllDetailObject() {
+	while (detailedObjects.size() > 0)
+	{
+		delete detailedObjects.at(0);
+		detailedObjects.erase(detailedObjects.begin() + 0);
+	}
+}
+void ObjectDataBase::deleteAllButtonObject() {
+	while (buttonObjects.size() > 0)
+	{
+		delete buttonObjects.at(0);
+		buttonObjects.erase(buttonObjects.begin() + 0);
+	}
+}
+void ObjectDataBase::deleteAllTextObject() {
+	while (textObjects.size() > 0)
+	{
+		delete textObjects.at(0);
+		textObjects.erase(textObjects.begin() + 0);
+	}
+}
+void ObjectDataBase::deleteAllKeyInputObject() {
+	while (keyInputObjects.size() > 0)
+	{
+		InputManager::Release();
+		keyInputObjects.at(0) = NULL;
+		delete keyInputObjects.at(0);
+		keyInputObjects.erase(keyInputObjects.begin() + 0);
+	}
+}
+void ObjectDataBase::deleteAll() {
+	deleteAllButtonObject();
+	deleteAllDetailObject();
+	deleteAllTextObject();
+	deleteAllKeyInputObject();
+}
 void ObjectDataBase::deleteDetailObject(int at) {
 	delete detailedObjects.at(at);
 	detailedObjects.erase(detailedObjects.begin() + at);
