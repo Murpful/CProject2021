@@ -38,7 +38,7 @@ class AdvancedButtonObject : public ButtonObject {
 	int infoInt;
 	int commandType;
 	std::vector<int> infoIntVec;
-	//void update(int offsetx, int offsety);
+	void update(int offsetx, int offsety);
 	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info);
 	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, bool ani, int frames, int delayTime = 500);
 	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, int sh, int sw);
