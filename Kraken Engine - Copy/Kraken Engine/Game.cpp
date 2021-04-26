@@ -22,6 +22,9 @@ void optionScreen() {
 void loadUpGame() {
 	eventHandle.push_back(Event("loadUpGame", {}));
 }
+void startRound() {
+	eventHandle.push_back(Event("startRound", {}));
+}
 
 //Game class consturctor and destructor
 Game::Game()
@@ -46,7 +49,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		}
 
 		isRunning = true;
@@ -84,11 +87,18 @@ void Game::handleEvents()
 		if (action == "optionScreen") {
 			allObjects.deleteAll();
 			allObjects.addObject(new DetailObject("optionBack", "assets/tempModeSelect.png", 0, 0, 1536, 864));
-			allObjects.addObject(new ButtonObject("classicButton", "assets/tempClassic.png", &loadUpGame, 700, 400, 242, 58));
+			allObjects.addObject(new ButtonObject("classicButton", "assets/tempClassic.png", &startRound, 700, 400, 242, 58));
 		}
 		else if (action == "loadUpGame") {
 			allObjects.deleteAll();
 			allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
+		}
+		else if (action == "startRound") {
+			allObjects.deleteAll();
+			allObjects.addObject(new DetailObject("tile1", "assets/RegHex.png", 700, 350, 110, 96));
+			allObjects.addObject(new DetailObject("tile2", "assets/RegHex.png", 617, 303, 110, 96));
+			allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", 700, 255, 110, 96));
+			//allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
 		}
 
 		//this goes last
