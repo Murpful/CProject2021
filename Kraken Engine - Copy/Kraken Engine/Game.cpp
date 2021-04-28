@@ -97,7 +97,7 @@ void Game::handleEvents()
 			allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
 		}
 		else if (action == "startRound") {
-			int mapsize = 5;
+			int mapsize = 100;
 			int currentTile = 0;
 			int currentRad = 1;
 			int completedRad = 0;
@@ -108,6 +108,7 @@ void Game::handleEvents()
 			currentTile += 1;
 			for (int i = 1; i < mapsize; i++)
 			{
+				
 				if (mapTiles.size() > 36) {
 				//	printALLFunc(mapTiles.at(37));
 				}
@@ -135,6 +136,7 @@ void Game::handleEvents()
 				int currenty = (350 - (95 * currentRad));
 				for (int k = 0; k < 6; k++)
 				{
+					
 					totalTiles += 1;
 					std::cout << std::endl << currentTile << std::endl;
 					for (int i = 0; i < completedRad; i++)
@@ -147,12 +149,12 @@ void Game::handleEvents()
 							mapTiles.at(mapTiles.size() - 1).c6 = currentTile - 1;
 							mapTiles.at(mapTiles.size() - 2).c3 = currentTile;
 							//std::cout << "thingy tile: " << (((currentRad-1) * 6) + 1);
-							/*
+							
 							mapTiles.at(mapTiles.size() - 1).c5 = currentTile - (((currentRad-1) * 6) + 1);
 							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 1)).c2 = currentTile;
 							mapTiles.at(mapTiles.size() - 1).c4 = currentTile - (((currentRad - 1) * 6));
 							mapTiles.at(currentTile - (((currentRad - 1) * 6))).c1 = currentTile;
-							*/
+							
 							currentTile += 1;
 						}
 						if (ss == 4) {
@@ -162,10 +164,10 @@ void Game::handleEvents()
 							mapTiles.at(mapTiles.size() - 1).c1 = currentTile - 1;
 							mapTiles.at(mapTiles.size() - 2).c4 = currentTile;
 							
-							/*mapTiles.at(mapTiles.size() - 1).c6 = currentTile - (((currentRad - 1) * 6) + 2); //you were adding thingy direction for side 4, so yeah, finish that it would bew rather nice if you did that, you already did it for one and the code here is for one, just increase c5 and c4 by one value and the +1 to +2 and the +0 to +1
+							mapTiles.at(mapTiles.size() - 1).c6 = currentTile - (((currentRad - 1) * 6) + 2); //you were adding thingy direction for side 4, so yeah, finish that it would bew rather nice if you did that, you already did it for one and the code here is for one, just increase c5 and c4 by one value and the +1 to +2 and the +0 to +1
 							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 2)).c3 = currentTile;
 							mapTiles.at(mapTiles.size() - 1).c5 = currentTile - (((currentRad - 1) * 6) + 1);
-							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 1)).c2 = currentTile;*/
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 1)).c2 = currentTile;
 							
 							currentTile += 1;
 							
@@ -176,6 +178,10 @@ void Game::handleEvents()
 							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
 							mapTiles.at(mapTiles.size() - 1).c2 = currentTile - 1;
 							mapTiles.at(mapTiles.size() - 2).c5 = currentTile;
+							mapTiles.at(mapTiles.size() - 1).c1 = currentTile - (((currentRad - 1) * 6) + 3); //you were adding thingy direction for side 4, so yeah, finish that it would bew rather nice if you did that, you already did it for one and the code here is for one, just increase c5 and c4 by one value and the +1 to +2 and the +0 to +1
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 3)).c4 = currentTile;
+							mapTiles.at(mapTiles.size() - 1).c6 = currentTile - (((currentRad - 1) * 6) + 2);
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 2)).c3 = currentTile;
 							currentTile += 1;
 						}
 						if (ss == 6) {
@@ -184,6 +190,10 @@ void Game::handleEvents()
 							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
 							mapTiles.at(mapTiles.size() - 1).c3 = currentTile - 1;
 							mapTiles.at(mapTiles.size() - 2).c6 = currentTile;
+							mapTiles.at(mapTiles.size() - 1).c2 = currentTile - (((currentRad - 1) * 6) + 4); //you were adding thingy direction for side 4, so yeah, finish that it would bew rather nice if you did that, you already did it for one and the code here is for one, just increase c5 and c4 by one value and the +1 to +2 and the +0 to +1
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 4)).c5 = currentTile;
+							mapTiles.at(mapTiles.size() - 1).c1 = currentTile - (((currentRad - 1) * 6) + 3);
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 3)).c4 = currentTile;
 							currentTile += 1;
 						}
 						if (ss == 1) {
@@ -192,6 +202,10 @@ void Game::handleEvents()
 							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
 							mapTiles.at(mapTiles.size() - 1).c4 = currentTile - 1;
 							mapTiles.at(mapTiles.size() - 2).c1 = currentTile;
+							mapTiles.at(mapTiles.size() - 1).c3 = currentTile - (((currentRad - 1) * 6) + 5); //you were adding thingy direction for side 4, so yeah, finish that it would bew rather nice if you did that, you already did it for one and the code here is for one, just increase c5 and c4 by one value and the +1 to +2 and the +0 to +1
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 5)).c6 = currentTile;
+							mapTiles.at(mapTiles.size() - 1).c2 = currentTile - (((currentRad - 1) * 6) + 4);
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 4)).c5 = currentTile;
 							currentTile += 1;
 						}
 						if (ss == 2) {
@@ -207,10 +221,21 @@ void Game::handleEvents()
 								mapTiles.at((currentTile)-5 - (6 * (currentRad - 1))).c5 = currentTile;
 								mapTiles.at(mapTiles.size() - 1).c5 = currentTile - 1;
 								mapTiles.at(mapTiles.size() - 2).c2 = currentTile;
+
+								//std::cout << "This is wht lok for: " << (((currentRad) * 6)+(currentRad*5)) << std::endl;
+								mapTiles.at(mapTiles.size() - 1).c4 = currentTile - (((currentRad - 1) * 6) + 6); //you were adding thingy direction for side 4, so yeah, finish that it would bew rather nice if you did that, you already did it for one and the code here is for one, just increase c5 and c4 by one value and the +1 to +2 and the +0 to +1
+								mapTiles.at(currentTile - (((currentRad - 1) * 6) + 6)).c1 = currentTile;
+								//ading for last tile the wone before shift
+								mapTiles.at(mapTiles.size() - 1).c3 = currentTile - (((currentRad - 1) * 6) + 5)-((currentRad-1)*6);
+								mapTiles.at(currentTile - (((currentRad - 1) * 6) + 5) - ((currentRad - 1) * 6)).c6 = currentTile;
 							}
 							else {
 								mapTiles.at(mapTiles.size() - 1).c5 = currentTile - 1;
 								mapTiles.at(mapTiles.size() - 2).c2 = currentTile;
+								mapTiles.at(mapTiles.size() - 1).c4 = currentTile - (((currentRad - 1) * 6) + 6); //you were adding thingy direction for side 4, so yeah, finish that it would bew rather nice if you did that, you already did it for one and the code here is for one, just increase c5 and c4 by one value and the +1 to +2 and the +0 to +1
+								mapTiles.at(currentTile - (((currentRad - 1) * 6) + 6)).c1 = currentTile;
+								mapTiles.at(mapTiles.size() - 1).c3 = currentTile - (((currentRad - 1) * 6) + 5);
+								mapTiles.at(currentTile - (((currentRad - 1) * 6) + 5)).c6 = currentTile;
 							}
 							currentTile += 1;
 						}
@@ -311,7 +336,7 @@ void Game::handleEvents()
 				currentRad += 1;
 
 			}
-			//printALLFunc(mapTiles.at(0));
+			printALLFunc(mapTiles.at(19));
 			//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 			std::cout << "Finals: " << mapTiles.size();
 		}
