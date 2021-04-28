@@ -25,6 +25,18 @@ void loadUpGame() {
 void startRound() {
 	eventHandle.push_back(Event("startRound", {}));
 }
+void moveUp() {
+	eventHandle.push_back(Event("scrollUp", {}));
+}
+void moveDown() {
+	eventHandle.push_back(Event("scrollDown", {}));
+}
+void moveLeft() {
+	eventHandle.push_back(Event("scrollLeft", {}));
+}
+void moveRight() {
+	eventHandle.push_back(Event("scrollRight", {}));
+}
 
 //Game class consturctor and destructor
 Game::Game()
@@ -97,12 +109,16 @@ void Game::handleEvents()
 			allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
 		}
 		else if (action == "startRound") {
-			int mapsize = 100;
+			int mapsize = 8;
 			int currentTile = 0;
 			int currentRad = 1;
 			int completedRad = 0;
 			int totalTiles = 1;
 			allObjects.deleteAll();
+			allObjects.addObject(new KeyInputObject("moveUp", &moveUp, SDL_SCANCODE_W,true));
+			allObjects.addObject(new KeyInputObject("moveDown", &moveDown, SDL_SCANCODE_S, true));
+			allObjects.addObject(new KeyInputObject("moveLeft", &moveLeft, SDL_SCANCODE_A, true));
+			allObjects.addObject(new KeyInputObject("moveRight", &moveRight, SDL_SCANCODE_D, true));
 			allObjects.addObject(new DetailObject("tile1", "assets/RegHex.png", 700, 350, 110, 96));
 			mapTiles.push_back(battleMapTile(1, -1, -1, -1, -1, -1));
 			currentTile += 1;
@@ -339,6 +355,18 @@ void Game::handleEvents()
 			printALLFunc(mapTiles.at(19));
 			//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 			std::cout << "Finals: " << mapTiles.size();
+		}
+		else if (action == "scrollUp") {
+		allObjects.yoff += 2;
+		}
+		else if (action == "scrollDown") {
+		allObjects.yoff -= 2;
+		}
+		else if (action == "scrollLeft") {
+		allObjects.xoff += 2;
+		}
+		else if (action == "scrollRight") {
+		allObjects.xoff -= 2;
 		}
 		//this goes last
 		eventHandles->erase(eventHandles->begin() + 0);
