@@ -9,6 +9,7 @@
 #include "ObjectDataBase.h"
 #include "testObj.h"
 #include "Event.h"
+#include "battleMapTile.h"
 //#include "rendererStorage.h"
 
 
@@ -32,7 +33,7 @@ public:
 	static SDL_Renderer* renderer;
 	std::vector<Event>* eventHandles = {};
 private:
-
+	std::vector<battleMapTile> mapTiles = { };
 	bool isRunning = false;
 	int cnt = 0;
 	SDL_Window* window;

@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="battleMapTile.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="DetailObject.cpp" />
     <ClCompile Include="Event.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="battleMapTile.h" />
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="DetailObject.h" />
     <ClInclude Include="Event.h" />

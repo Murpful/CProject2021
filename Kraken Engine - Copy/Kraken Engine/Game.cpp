@@ -76,6 +76,9 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
 }
 //event handler for SDL events and user created button events
+void printALLFunc(battleMapTile tile) {
+	std::cout << "Battle Map Tile: " << std::endl << "C1: " << tile.c1 << std::endl << "C2: " << tile.c2 << std::endl << "C3: " << tile.c3 << std::endl << "C4: " << tile.c4 << std::endl << "C5: " << tile.c5 << std::endl << "C6: " << tile.c6 << std::endl;
+}
 void Game::handleEvents()
 {
 	// this section should be used when you need to access variables within the game class from button actions
@@ -94,13 +97,224 @@ void Game::handleEvents()
 			allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
 		}
 		else if (action == "startRound") {
+			int mapsize = 5;
+			int currentTile = 0;
+			int currentRad = 1;
+			int completedRad = 0;
+			int totalTiles = 1;
 			allObjects.deleteAll();
 			allObjects.addObject(new DetailObject("tile1", "assets/RegHex.png", 700, 350, 110, 96));
-			allObjects.addObject(new DetailObject("tile2", "assets/RegHex.png", 617, 303, 110, 96));
-			allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", 700, 255, 110, 96));
-			//allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
-		}
+			mapTiles.push_back(battleMapTile(1, -1, -1, -1, -1, -1));
+			currentTile += 1;
+			for (int i = 1; i < mapsize; i++)
+			{
+				if (mapTiles.size() > 36) {
+				//	printALLFunc(mapTiles.at(37));
+				}
+				
+				//std::cout << "current tile: " << currentTile << " currentrad: " << currentRad << std::endl;
+				//std::cout << "theTile: " << (currentTile) - (((currentRad-1) * 6)) << std::endl;
+				if (currentTile == 1) {
+					mapTiles.push_back(battleMapTile(-1, -1, -1, 0, -1, -1));
+				}
+				else {
+					mapTiles.push_back(battleMapTile(-1, -1, -1, (currentTile) - (((currentRad - 1) * 6)), -1, -1));
+				}
+				
+				allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", 700, (350 - (95 * currentRad)), 110, 96));
+				mapTiles.at((currentTile)-(((currentRad - 1) * 6))).c1 = currentTile;
+				std::cout << (currentTile-1) << std::endl;
+				if (mapTiles.size() > 36) {
+					std::cout << "Connected to: " << mapTiles.at(11).c3;
+				}
+				totalTiles += 1;
+				currentTile += 1;
 
+				int ss = 3;
+				int currentx = 700;
+				int currenty = (350 - (95 * currentRad));
+				for (int k = 0; k < 6; k++)
+				{
+					totalTiles += 1;
+					std::cout << std::endl << currentTile << std::endl;
+					for (int i = 0; i < completedRad; i++)
+					{
+						mapTiles.push_back(battleMapTile(-1, -1, -1, -1, -1, -1));
+						if (ss == 3) {
+							currenty += 43;
+							currentx += 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c6 = currentTile - 1;
+							mapTiles.at(mapTiles.size() - 2).c3 = currentTile;
+							//std::cout << "thingy tile: " << (((currentRad-1) * 6) + 1);
+							/*
+							mapTiles.at(mapTiles.size() - 1).c5 = currentTile - (((currentRad-1) * 6) + 1);
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 1)).c2 = currentTile;
+							mapTiles.at(mapTiles.size() - 1).c4 = currentTile - (((currentRad - 1) * 6));
+							mapTiles.at(currentTile - (((currentRad - 1) * 6))).c1 = currentTile;
+							*/
+							currentTile += 1;
+						}
+						if (ss == 4) {
+							currenty += 96;
+							//currentx += 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c1 = currentTile - 1;
+							mapTiles.at(mapTiles.size() - 2).c4 = currentTile;
+							
+							/*mapTiles.at(mapTiles.size() - 1).c6 = currentTile - (((currentRad - 1) * 6) + 2); //you were adding thingy direction for side 4, so yeah, finish that it would bew rather nice if you did that, you already did it for one and the code here is for one, just increase c5 and c4 by one value and the +1 to +2 and the +0 to +1
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 2)).c3 = currentTile;
+							mapTiles.at(mapTiles.size() - 1).c5 = currentTile - (((currentRad - 1) * 6) + 1);
+							mapTiles.at(currentTile - (((currentRad - 1) * 6) + 1)).c2 = currentTile;*/
+							
+							currentTile += 1;
+							
+						}
+						if (ss == 5) {
+							currenty += 52;
+							currentx -= 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c2 = currentTile - 1;
+							mapTiles.at(mapTiles.size() - 2).c5 = currentTile;
+							currentTile += 1;
+						}
+						if (ss == 6) {
+							currenty -= 52;
+							currentx -= 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c3 = currentTile - 1;
+							mapTiles.at(mapTiles.size() - 2).c6 = currentTile;
+							currentTile += 1;
+						}
+						if (ss == 1) {
+							currenty -= 96;
+							//currentx -= 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c4 = currentTile - 1;
+							mapTiles.at(mapTiles.size() - 2).c1 = currentTile;
+							currentTile += 1;
+						}
+						if (ss == 2) {
+							currenty -= 43;
+							currentx += 83;
+							//currentx -= 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							
+							
+							if ((i + 1) == completedRad) {
+								std::cout << "added at: " << (currentTile)-5 - (6 * (currentRad -1)) << "at location " << mapTiles.size()-1 << std::endl;
+								mapTiles.at(mapTiles.size()-1).c2 = (currentTile)-5-(6*(currentRad-1));
+								mapTiles.at((currentTile)-5 - (6 * (currentRad - 1))).c5 = currentTile;
+								mapTiles.at(mapTiles.size() - 1).c5 = currentTile - 1;
+								mapTiles.at(mapTiles.size() - 2).c2 = currentTile;
+							}
+							else {
+								mapTiles.at(mapTiles.size() - 1).c5 = currentTile - 1;
+								mapTiles.at(mapTiles.size() - 2).c2 = currentTile;
+							}
+							currentTile += 1;
+						}
+						totalTiles += 1;
+					}
+					
+					if (ss != 2) {
+						mapTiles.push_back(battleMapTile(-1, -1, -1, -1, -1, -1));
+						if (ss == 3) {
+							currenty += 43;
+							currentx += 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c6 = currentTile-1;
+							if (completedRad == 0) {
+								mapTiles.at(mapTiles.size() - 1).c5 = 0;
+								mapTiles.at(0).c2 = currentTile;
+							}
+							else {
+								mapTiles.at(mapTiles.size() - 1).c5 = currentTile - ((completedRad * 6) + 1);
+								mapTiles.at(currentTile - ((completedRad * 6) + 1)).c2 = currentTile;
+							}
+
+							mapTiles.at(mapTiles.size() - 2).c3 = currentTile;
+						}
+						if (ss == 4) {
+							currenty += 96;
+							//currentx += 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c1 = currentTile - 1;
+							if (completedRad == 0) {
+								mapTiles.at(mapTiles.size() - 1).c6 = 0;
+								mapTiles.at(0).c3 = currentTile;
+							}
+							else {
+								mapTiles.at(mapTiles.size() - 1).c6 = currentTile - ((completedRad * 6) + 2);
+								mapTiles.at(currentTile - ((completedRad * 6) + 2)).c3 = currentTile;
+							}
+							mapTiles.at(mapTiles.size() - 2).c4 = currentTile;
+						}
+						if (ss == 5) {
+							currenty += 52;
+							currentx -= 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c2 = currentTile - 1;
+							if (completedRad == 0) {
+								mapTiles.at(mapTiles.size() - 1).c1 = 0;
+								mapTiles.at(0).c4 = currentTile;
+							}
+							else {
+								mapTiles.at(mapTiles.size() - 1).c1 = currentTile - ((completedRad * 6) + 3);
+								mapTiles.at(currentTile - ((completedRad * 6) + 3)).c4 = currentTile;
+							}
+							mapTiles.at(mapTiles.size() - 2).c5 = currentTile;
+						}
+						if (ss == 6) {
+							currenty -= 52;
+							currentx -= 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c3 = currentTile - 1;
+							if (completedRad == 0) {
+								mapTiles.at(mapTiles.size() - 1).c2 = 0;
+								mapTiles.at(0).c5 = currentTile;
+							}
+							else {
+								mapTiles.at(mapTiles.size() - 1).c2 = currentTile - ((completedRad * 6) + 4);
+								mapTiles.at(currentTile - ((completedRad * 6) + 4)).c5 = currentTile;
+							}
+							mapTiles.at(mapTiles.size() - 2).c6 = currentTile;
+						}
+						if (ss == 1) {
+							currenty -= 96;
+							//currentx -= 83;
+							allObjects.addObject(new DetailObject("tile3", "assets/RegHex.png", currentx, currenty, 110, 96));
+							mapTiles.at(mapTiles.size() - 1).c4 = currentTile - 1;
+							if (completedRad == 0) {
+								mapTiles.at(mapTiles.size() - 1).c3 = 0;
+								mapTiles.at(0).c6 = currentTile;
+							}
+							else {
+								mapTiles.at(mapTiles.size() - 1).c3 = currentTile - ((completedRad * 6) + 5);
+								mapTiles.at(currentTile - ((completedRad * 6) + 5)).c6 = currentTile;
+							}
+							mapTiles.at(mapTiles.size() - 2).c1 = currentTile;
+						}
+						currentTile += 1;
+						ss += 1;
+						if (ss == 7) {
+							ss = 1;
+						}
+					}
+					if (completedRad == 0 && ss == 2) {
+						mapTiles.at(mapTiles.size() - 1).c2 = 1;
+						mapTiles.at(1).c5 = 6;
+					}
+					
+				}
+				completedRad += 1;
+				currentRad += 1;
+
+			}
+			//printALLFunc(mapTiles.at(0));
+			//std::cout << " " << mapTiles.at(0).c1 << std::endl;
+			std::cout << "Finals: " << mapTiles.size();
+		}
 		//this goes last
 		eventHandles->erase(eventHandles->begin() + 0);
 	}
