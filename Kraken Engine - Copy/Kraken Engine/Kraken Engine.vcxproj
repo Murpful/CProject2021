@@ -144,6 +144,8 @@
   <ItemGroup>
     <ClCompile Include="battleMapTile.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
+    <ClCompile Include="CardEvent.cpp" />
+    <ClCompile Include="Creature.cpp" />
     <ClCompile Include="DetailObject.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -152,6 +154,7 @@
     <ClCompile Include="KeyInputObject.cpp" />
     <ClCompile Include="Kraken Engine.cpp" />
     <ClCompile Include="ObjectDataBase.cpp" />
+    <ClCompile Include="PlayerCard.cpp" />
     <ClCompile Include="rendererStorage.cpp" />
     <ClCompile Include="testObj.cpp" />
     <ClCompile Include="TextManager.cpp" />
@@ -161,6 +164,8 @@
   <ItemGroup>
     <ClInclude Include="battleMapTile.h" />
     <ClInclude Include="ButtonObject.h" />
+    <ClInclude Include="CardEvent.h" />
+    <ClInclude Include="Creature.h" />
     <ClInclude Include="DetailObject.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Game.h" />
@@ -168,6 +173,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyInputObject.h" />
     <ClInclude Include="ObjectDataBase.h" />
+    <ClInclude Include="PlayerCard.h" />
     <ClInclude Include="rendererStorage.h" />
     <ClInclude Include="testObj.h" />
     <ClInclude Include="TextManager.h" />

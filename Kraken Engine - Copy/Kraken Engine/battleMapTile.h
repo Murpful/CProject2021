@@ -8,8 +8,9 @@ public:
 	int c4;
 	int c5;
 	int c6;
+	bool isUnpassable;
 	bool finalTile;
-	battleMapTile(int, int, int, int, int, int);
+	battleMapTile(int, int, int, int, int, int, bool = false);
 	~battleMapTile();
 };
 

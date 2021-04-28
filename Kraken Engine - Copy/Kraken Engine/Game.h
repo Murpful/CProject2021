@@ -35,6 +35,7 @@ public:
 private:
 	std::vector<battleMapTile> mapTiles = { };
 	bool isRunning = false;
+	bool paused = true;
 	int cnt = 0;
 	SDL_Window* window;
 
