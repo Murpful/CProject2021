@@ -8,7 +8,7 @@ Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase) {
 	currentHealthPoints = 5;
 	faction = monster;
 	coolDown = 100;
-	cardsReady = { PlayerCard("wander",{CardEvent(move,{0,5})}," ") };
+	cardsReady = { PlayerCard("wander",{CardEvent(move,{0,5})}," "),PlayerCard("wandertwo",{CardEvent(move,{1,2})}," ") };
 	cardsUsed = { };
 	currentTile = 0;
 	moveDest = -1;
@@ -84,6 +84,7 @@ void Creature::runTurn() {
 				if (pathWeave.size() == 0) {
 					moving = false;
 				}
+				std::cout << "New current tile: " << currentTile;
 			}
 		}
 		
@@ -91,6 +92,7 @@ void Creature::runTurn() {
 	else if (coolDown == 0) {
 		if ((cardsReady.size() > 0) && mapTiles->size() > 0) {
 			PlayerCard activeCard = cardsReady.at(0);
+			cardsUsed.push_back(cardsReady.at(0));
 			cardsReady.erase(cardsReady.begin() + 0);
 			for (int i = 0; i < activeCard.cardEvents.size(); i++)
 			{
@@ -142,6 +144,56 @@ void Creature::runTurn() {
 						}
 						
 						moving = true;
+						coolDown = 600;
+					}
+					else if (activeCard.cardEvents.at(i).data.at(0) == 1) {
+						
+						int currentloc = currentTile;
+						for (int k = 0; k < activeCard.cardEvents.at(i).data.at(1); k++)
+						{
+							int randDirection = rand() % 6;
+							if (randDirection == 0) {
+								if (mapTiles->at(currentloc).c1 == -1) {
+									break;
+								}
+								moveDest = mapTiles->at(currentloc).c1;
+
+							}
+							else if (randDirection == 1) {
+								if (mapTiles->at(currentloc).c2 == -1) {
+									break;
+								}
+								moveDest = mapTiles->at(currentloc).c2;
+							}
+							else if (randDirection == 2) {
+								if (mapTiles->at(currentloc).c3 == -1) {
+									break;
+								}
+								moveDest = mapTiles->at(currentloc).c3;
+							}
+							else if (randDirection == 3) {
+								if (mapTiles->at(currentloc).c4 == -1) {
+									break;
+								}
+								moveDest = mapTiles->at(currentloc).c4;
+							}
+							else if (randDirection == 4) {
+								if (mapTiles->at(currentloc).c5 == -1) {
+									break;
+								}
+								moveDest = mapTiles->at(currentloc).c5;
+							}
+							else if (randDirection == 5) {
+								if (mapTiles->at(currentloc).c6 == -1) {
+									break;
+								}
+								moveDest = mapTiles->at(currentloc).c6;
+							}
+							currentloc = moveDest;
+							moveDest = rand() % mapTiles->size();
+						}
+
+						moving = true;
 					}
 				}
 			}
@@ -152,7 +204,8 @@ void Creature::runTurn() {
 	}
 }
 void Creature::path() {
-	std::vector<Path> paths = { Path({1},4),Path({2},5),Path({3},6),Path({4},1),Path({5},2),Path({6},3) };
+	//go ahead and make these work starting from any location
+	std::vector<Path> paths = { Path({mapTiles->at(currentTile).c1},4),Path({mapTiles->at(currentTile).c2},5),Path({mapTiles->at(currentTile).c3},6),Path({mapTiles->at(currentTile).c4},1),Path({mapTiles->at(currentTile).c5},2),Path({mapTiles->at(currentTile).c6},3) };
 	if (mapTiles->at(6).isUnpassable) {
 		paths.erase(paths.begin() + 5);
 	}

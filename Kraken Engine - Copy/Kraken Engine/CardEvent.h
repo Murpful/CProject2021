@@ -12,3 +12,16 @@ public:
 	CardEvent(cardAction, std::vector<int>);
 };
 
+/*move event definition:
+* First Number: movement type:
+* 0- wander direction
+* 1- wander random
+* Second Number: 
+* 0- movement distance
+* 
+* 
+* 
+* 
+* 
+* 
+* */

@@ -367,7 +367,7 @@ void Game::handleEvents()
 				}
 
 
-				for (int i = 0; i < 14; i++)
+				for (int i = 0; i < 18; i++)
 				{
 					int pick = rand() % mapTiles.size();
 					std::string name = "tile" + std::to_string(pick);
