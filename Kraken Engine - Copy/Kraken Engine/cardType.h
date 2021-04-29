@@ -8,3 +8,7 @@ class CardType
 	void act();
 };
 
+class cardType
+{
+};
+

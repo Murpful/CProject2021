@@ -1,23 +1,18 @@
 #pragma once
 #include<string>
 #include<vector>
-#include"CardType.h"
+#include"PlayerCard.h"
+#include"battleMapTile.h"
 class Character
 {
-	protected:
-		std::string className;
-		int health, loc, inventorySize, maxHP, targetLoc;
-		bool weakened;
-		std::vector<CardType> deck;
-		Character(std::string);
-
 	public:
-		bool isWeakened();
-		int getHealth();
-		int getMaxHP();
-		int getLoc();
-		int getInventorySize();
-		std::string getClassName();
+		std::string className;
+		int currentHP, maxHP, inventorySize, loc, targetLoc;
+		std::vector<battleMapTile>* currentLoc;
+		bool weakened;
+		std::vector<PlayerCard> deck;
+		std::vector<PlayerCard> hand;
+		Character(std::string);
 		void playCard();
 };
 
