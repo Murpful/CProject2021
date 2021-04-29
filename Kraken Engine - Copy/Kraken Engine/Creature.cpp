@@ -3,12 +3,11 @@ Path::Path(std::vector<int> w, int p) {
 	weave = w;
 	from = p;
 }
-Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase) {
+Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase, std::string named, std::string linkedid, entityFaction fact, int tile, std::vector<PlayerCard> cards) {
 	maxHealthPoints = 5;
 	currentHealthPoints = 5;
 	faction = monster;
 	coolDown = 100;
-	cardsReady = { PlayerCard("wander",{CardEvent(move,{0,5})}," "),PlayerCard("wandertwo",{CardEvent(move,{1,2})}," ") };
 	cardsUsed = { };
 	currentTile = 0;
 	moveDest = -1;
@@ -16,10 +15,18 @@ Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase) {
 	moving = false;
 	pathWeave = { };
 	allObjects = dataBase;
-	linkID = "dino";
-	goalx = 700;
-	goaly = 350;
+	std::string objectTag = "tile" + std::to_string(tile);
+	std::cout << objectTag << " ";
+	goalx = allObjects->getDetailObject(objectTag)->xPos;
+	goaly = allObjects->getDetailObject(objectTag)->yPos;
+	allObjects->getDetailObject(linkedid)->xPos = goalx;
+	allObjects->getDetailObject(linkedid)->yPos = goaly;
 	goalSet = false;
+	name = named;
+	linkID = linkedid;
+	currentTile = tile;
+	faction = fact;
+	cardsReady = cards;
 
 }
 void Creature::runTurn() {
@@ -140,7 +147,6 @@ void Creature::runTurn() {
 								moveDest = mapTiles->at(currentloc).c6;
 							}
 							currentloc = moveDest;
-							moveDest = rand()%mapTiles->size();
 						}
 						
 						moving = true;
@@ -189,8 +195,7 @@ void Creature::runTurn() {
 								}
 								moveDest = mapTiles->at(currentloc).c6;
 							}
-							currentloc = moveDest;
-							moveDest = rand() % mapTiles->size();
+							currentloc = moveDest;;
 						}
 						if (currentTile != moveDest) {
 							moving = true;

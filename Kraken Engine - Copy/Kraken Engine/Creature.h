@@ -9,6 +9,11 @@ enum entityFaction
 class Creature
 {
 public:
+	std::string name;
+
+
+
+
 	std::vector<PlayerCard> cardsReady;
 	std::vector<PlayerCard> cardsUsed;
 	int maxHealthPoints;
@@ -21,12 +26,14 @@ public:
 	bool moving;
 	std::vector<int> pathWeave;
 	std::string linkID;
+
+	
 	int goalx;
 	int goaly;
 	bool goalSet;
 	
 	entityFaction faction;
-	Creature(std::vector<battleMapTile>*,ObjectDataBase*);
+	Creature(std::vector<battleMapTile>*,ObjectDataBase*,std::string,std::string,entityFaction,int,std::vector<PlayerCard>);
 	void runTurn();
 	void path();
 };

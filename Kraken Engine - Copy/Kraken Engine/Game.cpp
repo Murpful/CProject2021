@@ -68,7 +68,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	}
 	//
 	TTF_Init();
-	creatures = { Creature(&mapTiles,&allObjects) };
+	creatures = {};
 	//allObjects.addObject(new TextObject("title", "arial.ttf", 40, 178, 34, 34, 650, 0, "Viking Raids!"));
 	rendererStorage::renderer = renderer;
 	eventHandles = &eventHandle;
@@ -374,7 +374,9 @@ void Game::handleEvents()
 					mapTiles.at(pick).isUnpassable = true;
 					allObjects.getDetailObject(name)->objTexture = TextureManager::loadTexture("assets/RegHexL.png");
 				}
-				allObjects.addObject(new DetailObject("dino", "assets/Dinosaur.Original.png", 700, 350, 74, 41, 740, 410));
+				allObjects.addObject(new DetailObject("dino", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
+				creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino", player, 100, { PlayerCard("Wander Small", {CardEvent(move,{1,2})},"") }));
+
 				//printALLFunc(mapTiles.at(19));
 				//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 				//std::cout << "Finals: " << mapTiles.size();
