@@ -23,7 +23,7 @@ Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase) {
 
 }
 void Creature::runTurn() {
-	
+	//std::cout << "remaining actions: " << cardsReady.size();
 	if (moving) {
 
 		if (goalSet == false) {
@@ -84,7 +84,7 @@ void Creature::runTurn() {
 				if (pathWeave.size() == 0) {
 					moving = false;
 				}
-				std::cout << "New current tile: " << currentTile;
+				//std::cout << "New current tile: " << currentTile;
 			}
 		}
 		
@@ -192,8 +192,10 @@ void Creature::runTurn() {
 							currentloc = moveDest;
 							moveDest = rand() % mapTiles->size();
 						}
+						if (currentTile != moveDest) {
+							moving = true;
+						}
 
-						moving = true;
 					}
 				}
 			}
@@ -206,22 +208,22 @@ void Creature::runTurn() {
 void Creature::path() {
 	//go ahead and make these work starting from any location
 	std::vector<Path> paths = { Path({mapTiles->at(currentTile).c1},4),Path({mapTiles->at(currentTile).c2},5),Path({mapTiles->at(currentTile).c3},6),Path({mapTiles->at(currentTile).c4},1),Path({mapTiles->at(currentTile).c5},2),Path({mapTiles->at(currentTile).c6},3) };
-	if (mapTiles->at(6).isUnpassable) {
+	if (mapTiles->at(currentTile).c6 != -1 && mapTiles->at(mapTiles->at(currentTile).c6).isUnpassable) {
 		paths.erase(paths.begin() + 5);
 	}
-	if (mapTiles->at(5).isUnpassable) {
+	if (mapTiles->at(currentTile).c5 != -1 && mapTiles->at(mapTiles->at(currentTile).c5).isUnpassable) {
 		paths.erase(paths.begin() + 4);
 	}
-	if (mapTiles->at(4).isUnpassable) {
+	if (mapTiles->at(currentTile).c4 != -1 && mapTiles->at(mapTiles->at(currentTile).c4).isUnpassable) {
 		paths.erase(paths.begin() + 3);
 	}
-	if (mapTiles->at(3).isUnpassable) {
+	if (mapTiles->at(currentTile).c3 != -1 && mapTiles->at(mapTiles->at(currentTile).c3).isUnpassable) {
 		paths.erase(paths.begin() + 2);
 	}
-	if (mapTiles->at(2).isUnpassable) {
+	if (mapTiles->at(currentTile).c2 != -1 && mapTiles->at(mapTiles->at(currentTile).c2).isUnpassable) {
 		paths.erase(paths.begin() + 1);
 	}
-	if (mapTiles->at(1).isUnpassable) {
+	if (mapTiles->at(currentTile).c1 != -1 && mapTiles->at(mapTiles->at(currentTile).c1).isUnpassable) {
 		paths.erase(paths.begin() + 0);
 	}
 	//std::vector<int> currentShortest = { };
