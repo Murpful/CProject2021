@@ -61,14 +61,14 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		}
 
 		isRunning = true;
 	}
 	//
 	TTF_Init();
-
+	creatures = { Creature(&mapTiles,&allObjects) };
 	//allObjects.addObject(new TextObject("title", "arial.ttf", 40, 178, 34, 34, 650, 0, "Viking Raids!"));
 	rendererStorage::renderer = renderer;
 	eventHandles = &eventHandle;
@@ -111,7 +111,7 @@ void Game::handleEvents()
 			}
 			else if (action == "startRound") {
 				paused = false;
-				int mapsize = 5;
+				int mapsize = 7;
 				int currentTile = 0;
 				int currentRad = 1;
 				int completedRad = 0;
@@ -123,6 +123,7 @@ void Game::handleEvents()
 				allObjects.addObject(new KeyInputObject("moveLeft", &moveLeft, SDL_SCANCODE_A, true));
 				allObjects.addObject(new KeyInputObject("moveRight", &moveRight, SDL_SCANCODE_D, true));
 				allObjects.addObject(new DetailObject("tile0", "assets/RegHexTrees.png", 700, 350, 110, 96));
+
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png",&sayHi,0,814,50,50,false));
 				mapTiles.push_back(battleMapTile(1, -1, -1, -1, -1, -1));
 				currentTile += 1;
@@ -364,7 +365,17 @@ void Game::handleEvents()
 					currentRad += 1;
 
 				}
-				printALLFunc(mapTiles.at(19));
+
+
+				for (int i = 0; i < 14; i++)
+				{
+					int pick = rand() % mapTiles.size();
+					std::string name = "tile" + std::to_string(pick);
+					mapTiles.at(pick).isUnpassable = true;
+					allObjects.getDetailObject(name)->objTexture = TextureManager::loadTexture("assets/RegHexL.png");
+				}
+				allObjects.addObject(new DetailObject("dino", "assets/Dinosaur.Original.png", 700, 350, 74, 41, 740, 410));
+				//printALLFunc(mapTiles.at(19));
 				//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 				//std::cout << "Finals: " << mapTiles.size();
 			}
@@ -404,7 +415,10 @@ void Game::handleEvents()
 //runs every frame, where most of your code in this file should take place aside from buttons and event handles
 void Game::update()
 {
-
+	for (int i = 0; i < creatures.size(); i++)
+	{
+		creatures.at(i).runTurn();
+	}
 
 
 

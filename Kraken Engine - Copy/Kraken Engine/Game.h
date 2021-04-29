@@ -10,6 +10,7 @@
 #include "testObj.h"
 #include "Event.h"
 #include "battleMapTile.h"
+#include "Creature.h"
 //#include "rendererStorage.h"
 
 
@@ -34,6 +35,8 @@ public:
 	std::vector<Event>* eventHandles = {};
 private:
 	std::vector<battleMapTile> mapTiles = { };
+	std::vector<Creature> creatures;
+	
 	bool isRunning = false;
 	bool paused = true;
 	int cnt = 0;
