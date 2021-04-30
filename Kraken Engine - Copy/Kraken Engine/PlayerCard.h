@@ -11,5 +11,6 @@ public:
 	PlayerCard(std::string,std::vector<CardEvent>,int,const char*);
 	std::vector<CardEvent> getCardEvent();
 	int coolDown;
+	PlayerCard() {};
 };
 

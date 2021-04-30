@@ -2,7 +2,7 @@
 #include <vector>
 enum cardAction
 {
-	attack,heal, move
+	attack, heal, move, dodge
 };
 class CardEvent
 {

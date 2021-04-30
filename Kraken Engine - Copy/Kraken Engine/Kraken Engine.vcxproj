@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Attack.cpp" />
     <ClCompile Include="battleMapTile.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="CardEvent.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KeyInputObject.cpp" />
     <ClCompile Include="Kraken Engine.cpp" />
+    <ClCompile Include="Move.cpp" />
     <ClCompile Include="ObjectDataBase.cpp" />
     <ClCompile Include="PlayerCard.cpp" />
     <ClCompile Include="rendererStorage.cpp" />
@@ -164,6 +166,7 @@
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attack.h" />
     <ClInclude Include="battleMapTile.h" />
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="CardEvent.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyInputObject.h" />
+    <ClInclude Include="Move.h" />
     <ClInclude Include="ObjectDataBase.h" />
     <ClInclude Include="PlayerCard.h" />
     <ClInclude Include="rendererStorage.h" />
