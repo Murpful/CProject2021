@@ -9,7 +9,7 @@ class Character
 		std::string className;
 		int currentHP, maxHP, inventorySize, loc, targetLoc;
 		std::vector<battleMapTile>* currentLoc;
-		bool weakened;
+		bool weakened, iFrame;
 		std::vector<PlayerCard> deck;
 		std::vector<PlayerCard> hand;
 		Character(std::string);
