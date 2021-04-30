@@ -38,6 +38,7 @@ void moveRight() {
 	eventHandle.push_back(Event("scrollRight", {}));
 }
 
+
 //Game class consturctor and destructor
 Game::Game()
 {
@@ -375,9 +376,15 @@ void Game::handleEvents()
 					allObjects.getDetailObject(name)->objTexture = TextureManager::loadTexture("assets/RegHexL.png");
 				}
 				allObjects.addObject(new DetailObject("dino", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
-				creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino", player, 100, { PlayerCard("Wander Small", {CardEvent(move,{1,2})},"") }));
-
-				//printALLFunc(mapTiles.at(19));
+				allObjects.addObject(new DetailObject("dino2", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
+				allObjects.addObject(new DetailObject("dino3", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
+				allObjects.addObject(new DetailObject("dino4", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
+				std::cout << "total tiles: " << mapTiles.size() << "  ";
+				creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino", player, 91, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
+				creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino2", player, 4, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
+				creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino3", player, 74, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
+				creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino4", player, 22, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
+				//printALLFunc(mapTiles.at(126));
 				//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 				//std::cout << "Finals: " << mapTiles.size();
 			}

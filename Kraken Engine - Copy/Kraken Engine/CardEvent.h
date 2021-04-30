@@ -14,10 +14,12 @@ public:
 
 /*move event definition:
 * First Number: movement type:
-* 0- wander direction
+* 0- move target
 * 1- wander random
 * Second Number: 
-* 0- movement distance
+* 0- within range
+* Thrid Number:
+* 0- closest range
 * 
 * 
 * 
