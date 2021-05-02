@@ -153,42 +153,8 @@ void ButtonObject::moveObject(int x, int y) {
 	xPos += x;
 	yPos += y;
 }
-void ButtonObject::update(int offx, int offy) {
-	if (offSet == false) {
-		offx = 0;
-		offy = 0;
-	}
-	if (frames > 1) {
-		srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / (delayTime)) % frames);
-	}
-	int xl = 0;
-	int yl = 0;
-	//std::cout << pressed;
-	
-	//else {
-		if (SDL_GetMouseState(&xl, &yl) != 1) {
-			//std::cout << "not down";
-			if (pressed == true && ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy))) {
-				command();
-				//SDL_Delay(200);
-			}
-			pressed = false;
-		} else if (pressed == false) {
-			if (SDL_GetMouseState(&xl, &yl) == 1) {
-				if ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy)) {
-					pressed = true;
-					//command();
-					//SDL_Delay(200);
-					//std::cout << pressed;
-				}
-			}
-		}
-	//}
-
-
-}
-
 void AdvancedButtonObject::update(int offx, int offy) {
+	std::cout << "run";
 	if (offSet == false) {
 		offx = 0;
 		offy = 0;
@@ -210,7 +176,7 @@ void AdvancedButtonObject::update(int offx, int offy) {
 			else if (commandType == 2) {
 				command2(infoIntVec);
 			}
-			
+
 			//SDL_Delay(200);
 		}
 		pressed = false;
@@ -228,6 +194,43 @@ void AdvancedButtonObject::update(int offx, int offy) {
 	//}
 
 }
+ void ButtonObject::update(int offx, int offy) {
+	if (offSet == false) {
+		offx = 0;
+		offy = 0;
+	}
+	if (frames > 1) {
+		srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / (delayTime)) % frames);
+	}
+	int xl = 0;
+	int yl = 0;
+	//std::cout << pressed;
+	
+	//else {
+		if (SDL_GetMouseState(&xl, &yl) != 1) {
+			//std::cout << "not down";
+			if (pressed == true && ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy))) {
+				std::cout << objectID;
+				command();
+				//SDL_Delay(200);
+			}
+			pressed = false;
+		} else if (pressed == false) {
+			if (SDL_GetMouseState(&xl, &yl) == 1) {
+				if ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy)) {
+					pressed = true;
+					//command();
+					//SDL_Delay(200);
+					//std::cout << pressed;
+				}
+			}
+		}
+	//}
+
+
+}
+
+
 AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* texturesheet, void (*function)(int), int x, int y, int Width, int Height, int info) : ButtonObject(ID,  texturesheet,  NULL,  x,  y,  Width,  Height) {
 	width = Width;
 	height = Height;

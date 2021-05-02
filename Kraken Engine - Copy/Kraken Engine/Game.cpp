@@ -79,9 +79,9 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	//allObjects.addObject(new DetailObject("Homeisland", "assets/otherblueisland2.png", 639, 415, 100, 100));
 	allObjects.addObject(new DetailObject("homeBack", "assets/tempHome.png", 0, 0, 1536, 864));
 	allObjects.addObject(new ButtonObject("playButton", "assets/tempPlay.png", &optionScreen, 700, 400, 139, 63));
-
-
-
+	testcharacter = Character(&mapTiles, &allObjects, "Phil", 0);
+	
+	
 
 	//set all startup items after this
 
@@ -387,6 +387,7 @@ void Game::handleEvents()
 				//printALLFunc(mapTiles.at(126));
 				//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 				//std::cout << "Finals: " << mapTiles.size();
+				testcharacter.updateTurn();
 			}
 		}
 		else {

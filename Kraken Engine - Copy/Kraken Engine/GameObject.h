@@ -6,7 +6,7 @@ class GameObject
 
 
 public:
-	void update();
+	virtual void update();
 	bool offSet;
 	virtual void Render(int offSetx, int offSety);
 	GameObject(const char* textureSheet, int x, int y);

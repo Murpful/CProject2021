@@ -11,6 +11,7 @@
 #include "Event.h"
 #include "battleMapTile.h"
 #include "Creature.h"
+#include "Character.h"
 //#include "rendererStorage.h"
 
 
@@ -41,6 +42,7 @@ private:
 	bool paused = true;
 	int cnt = 0;
 	SDL_Window* window;
+	Character testcharacter;
 
 
 	///these variables are for game purposes and a test, nto the enigine

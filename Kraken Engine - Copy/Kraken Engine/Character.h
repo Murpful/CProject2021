@@ -5,9 +5,12 @@
 #include"battleMapTile.h"
 #include"Attack.h"
 #include"Move.h"
+#include "ObjectDataBase.h"
 class Character
 {
 	public:
+		ObjectDataBase* allObjects;
+		std::vector<battleMapTile>* mapTiles;
 		std::string className;
 		int currentHP, maxHP, inventorySize, loc, targetLoc;
 		std::vector<battleMapTile>* currentLoc;
@@ -18,7 +21,8 @@ class Character
 		std::vector<PlayerCard> hand;
 		std::vector<Attack> attackQueue;
 		std::vector<Move> moveQueue;
-		Character(std::string);
+		Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::string, int);
+		Character();
 		void playCard();
 		void updateTurn();
 };

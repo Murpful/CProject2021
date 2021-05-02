@@ -23,6 +23,13 @@ void ObjectDataBase::addObject(ButtonObject* object) {
 	buttonObjects.at(buttonObjects.size() - 1) = new ButtonObject(newObject);
 	delete object;
 }
+void ObjectDataBase::addObject(AdvancedButtonObject* object) {
+	AdvancedButtonObject newObject = *object;
+	advancedButtonObjects.push_back(NULL);
+	advancedButtonObjects.at(advancedButtonObjects.size() - 1) = NULL;
+	advancedButtonObjects.at(advancedButtonObjects.size() - 1) = new AdvancedButtonObject(newObject);
+	delete object;
+}
 void ObjectDataBase::addObject(KeyInputObject* object) {
 	KeyInputObject newObject = *object;
 	keyInputObjects.push_back(NULL);
@@ -77,6 +84,10 @@ void ObjectDataBase::deleteTextObject(int at) {
 void ObjectDataBase::deleteButtonObject(int at) {
 	delete buttonObjects.at(at);
 	buttonObjects.erase(buttonObjects.begin() + at);
+}
+void ObjectDataBase::deleteAdvancedButtonObject(int at) {
+	delete advancedButtonObjects.at(at);
+	advancedButtonObjects.erase(advancedButtonObjects.begin() + at);
 }
 void ObjectDataBase::deleteKeyInputObject(int at) {
 	InputManager::Release();

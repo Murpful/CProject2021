@@ -13,24 +13,29 @@ public:
 	std::vector<TextObject*> textObjects = {};
 	std::vector<ButtonObject*> buttonObjects = {};
 	std::vector<KeyInputObject*> keyInputObjects = {};
+	std::vector<AdvancedButtonObject*> advancedButtonObjects = {};
 	void addObject(DetailObject* newObject);
 	void addObject(TextObject* newObject);
 	void addObject(ButtonObject* newObject);
 	void addObject(KeyInputObject* newObject);
+	void addObject(AdvancedButtonObject* newObject);
 	void deleteDetailObject(int at);
 	void deleteTextObject(int at);
 	void deleteButtonObject(int at);
+	void deleteAdvancedButtonObject(int at);
 	void deleteKeyInputObject(int at);
-	void deleteAll();
+	void deleteAll();//continue making these pdated to function with the new button type so that the game stops calling the wrong function for the new firing arc buttons, kewl
 	void deleteAllDetailObject();
 	void deleteAllButtonObject();
+	void deleteAllAdvancedButtonObject();//
 	void deleteAllTextObject();
 	void deleteAllKeyInputObject();
-	void updateObjects();
-	void renderObjects();
+	void updateObjects();//
+	void renderObjects();//
 	void deleteObject(std::string objectID);
 	void deleteDetailObject(std::string objectID);
 	void deleteButtonObject(std::string objectID);
+	void deleteAdvancedButtonObject(std::string objectID);//
 	void deleteTextObject(std::string objectID);
 	void deleteKeyInputObject(std::string objectID);
 	bool ObjectCollide(DetailObject* initialObject, DetailObject* otherObject);
@@ -42,10 +47,12 @@ public:
 	bool DetectObject(std::string objectID);
 	bool DetectDetailObject(std::string objectID);
 	bool DetectButtonObject(std::string objectID);
+	bool DetectAdvancedButtonObject(std::string objectID);//
 	bool DetectTextObject(std::string objectID);
 	bool DetectKeyInputObject(std::string objectID);
 	DetailObject* getDetailObject(std::string objectID);
 	ButtonObject* getButtonObject(std::string objectID);
+	AdvancedButtonObject* getAdvancedButtonObject(std::string objectID);//
 	TextObject* getTextObject(std::string objectID);
 	std::vector<DetailObject*> getAllDetailObject(std::string objectID);
 	std::vector<ButtonObject*> getAllButtonObject(std::string objectID);

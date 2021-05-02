@@ -25,10 +25,12 @@ public:
 	ButtonObject(std::string ID, const char* textureSheet, void (*function)(), int x, int y, int width, int height, int sh, int sw, bool oofs, bool ani, int frames, int delayTime = 500);
 	void moveObjectTo(int x, int y);
 	void moveObject(int x, int y);
-	virtual void update(int offsetx, int offsety);
+	virtual void update(int, int);
+	 
 	//virtual void executeCommand() = 0;
 };
 class AdvancedButtonObject : public ButtonObject {
+public:
 	void (*command1)(int);
 	void (*command2)(std::vector<int>);
 	void (*command3)(std::string);
@@ -38,7 +40,7 @@ class AdvancedButtonObject : public ButtonObject {
 	int infoInt;
 	int commandType;
 	std::vector<int> infoIntVec;
-	void update(int offsetx, int offsety);
+	void update(int, int);
 	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info);
 	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, bool ani, int frames, int delayTime = 500);
 	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(int), int x, int y, int width, int height, int info, int sh, int sw);
@@ -57,6 +59,19 @@ class AdvancedButtonObject : public ButtonObject {
 	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info, int sh, int sw, bool oofs);
 	AdvancedButtonObject(std::string ID, const char* textureSheet, void (*function)(std::vector<int>), int x, int y, int width, int height, std::vector<int> info, int sh, int sw, bool oofs, bool ani, int frames, int delayTime = 500);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
 class AdvancedHexagonalButtonObject : public ButtonObject {
 	void (*command)(int);
 	int numID;
