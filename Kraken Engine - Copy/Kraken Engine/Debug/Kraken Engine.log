@@ -1,3 +1,10 @@
 ﻿  Character.cpp
 C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(10,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(26,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(181,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(189,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(375,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(380,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(386,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(392,23): warning C4018: '<': signed/unsigned mismatch
   Kraken Engine.vcxproj -> C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe

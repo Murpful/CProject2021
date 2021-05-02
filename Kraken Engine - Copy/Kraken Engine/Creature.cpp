@@ -225,7 +225,6 @@ void Creature::runTurn() {
 	}
 }
 void Creature::path() {
-	//go ahead and make these work starting from any location
 	std::vector<Path> paths = { Path({mapTiles->at(currentTile).c1},4),Path({mapTiles->at(currentTile).c2},5),Path({mapTiles->at(currentTile).c3},6),Path({mapTiles->at(currentTile).c4},1),Path({mapTiles->at(currentTile).c5},2),Path({mapTiles->at(currentTile).c6},3) };
 	if (mapTiles->at(currentTile).c6 == -1 || mapTiles->at(mapTiles->at(currentTile).c6).isUnpassable) {
 		paths.erase(paths.begin() + 5);

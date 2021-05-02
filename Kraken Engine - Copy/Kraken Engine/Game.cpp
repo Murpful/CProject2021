@@ -79,7 +79,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	//allObjects.addObject(new DetailObject("Homeisland", "assets/otherblueisland2.png", 639, 415, 100, 100));
 	allObjects.addObject(new DetailObject("homeBack", "assets/tempHome.png", 0, 0, 1536, 864));
 	allObjects.addObject(new ButtonObject("playButton", "assets/tempPlay.png", &optionScreen, 700, 400, 139, 63));
-	testcharacter = Character(&mapTiles, &allObjects, "Phil", 0);
+	testcharacter = Character(&mapTiles, &allObjects, "Phil", 64);//40
 	
 	
 
@@ -429,7 +429,10 @@ void Game::update()
 	{
 		creatures.at(i).runTurn();
 	}
-
+	if (!paused) {
+		testcharacter.updateTurn();
+	}
+	
 
 
 

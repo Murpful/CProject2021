@@ -6,9 +6,11 @@
 #include"Attack.h"
 #include"Move.h"
 #include "ObjectDataBase.h"
+#include "Creature.h"
 class Character
 {
 	public:
+		std::string objLink;
 		ObjectDataBase* allObjects;
 		std::vector<battleMapTile>* mapTiles;
 		std::string className;
