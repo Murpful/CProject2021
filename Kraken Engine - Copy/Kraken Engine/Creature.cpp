@@ -245,7 +245,7 @@ void Creature::path() {
 	if (mapTiles->at(currentTile).c1 == -1 || mapTiles->at(mapTiles->at(currentTile).c1).isUnpassable) {
 		paths.erase(paths.begin() + 0);
 	}
-	std::cout << "    Paths in list: " << paths.size() << "      ";
+	//std::cout << "    Paths in list: " << paths.size() << "      ";
 	//std::vector<int> currentShortest = { };
 	bool going = true;
 	int currentLeng = 1;
@@ -365,7 +365,7 @@ void Creature::path() {
 	}
 	for (int i = 0; i < pathWeave.size(); i++)
 	{
-		std::cout << pathWeave.at(i) << "  ";
+		//std::cout << pathWeave.at(i) << "  ";
 	}
 }
 

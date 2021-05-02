@@ -51,6 +51,13 @@ void ObjectDataBase::deleteAllButtonObject() {
 		buttonObjects.erase(buttonObjects.begin() + 0);
 	}
 }
+void ObjectDataBase::deleteAllAdvancedButtonObject() {
+	while (advancedButtonObjects.size() > 0)
+	{
+		delete advancedButtonObjects.at(0);
+		advancedButtonObjects.erase(advancedButtonObjects.begin() + 0);
+	}
+}
 void ObjectDataBase::deleteAllTextObject() {
 	while (textObjects.size() > 0)
 	{
@@ -69,6 +76,7 @@ void ObjectDataBase::deleteAllKeyInputObject() {
 }
 void ObjectDataBase::deleteAll() {
 	deleteAllButtonObject();
+	deleteAllAdvancedButtonObject();
 	deleteAllDetailObject();
 	deleteAllTextObject();
 	deleteAllKeyInputObject();
@@ -112,6 +120,10 @@ void ObjectDataBase::updateObjects() {
 	{
 		keyInputObjects.at(i)->Update();
 	}
+	for (int i = 0; i < advancedButtonObjects.size(); i++)
+	{
+		advancedButtonObjects.at(i)->update(xoff, yoff);
+	}
 }
 void ObjectDataBase::renderObjects() {
 	for (int i = 0; i < detailedObjects.size(); i++)
@@ -125,6 +137,10 @@ void ObjectDataBase::renderObjects() {
 	for (int i = 0; i < buttonObjects.size(); i++)
 	{
 		buttonObjects.at(i)->Render(xoff, yoff);
+	}
+	for (int i = 0; i < advancedButtonObjects.size(); i++)
+	{
+		advancedButtonObjects.at(i)->Render(xoff, yoff);
 	}
 }
 void ObjectDataBase::deleteObject(std::string objID) {
@@ -160,6 +176,14 @@ void ObjectDataBase::deleteButtonObject(std::string objID) {
 	{
 		if (buttonObjects.at(i)->objectID == objID) {
 			buttonObjects.erase(buttonObjects.begin() + i);
+		}
+	}
+}
+void ObjectDataBase::deleteAdvancedButtonObject(std::string objID) {
+	for (int i = advancedButtonObjects.size() - 1; i >= 0; i--)
+	{
+		if (advancedButtonObjects.at(i)->objectID == objID) {
+			advancedButtonObjects.erase(advancedButtonObjects.begin() + i);
 		}
 	}
 }
@@ -314,6 +338,18 @@ bool ObjectDataBase::DetectButtonObject(std::string objID) {
 
 	return detected;
 }
+bool ObjectDataBase::DetectAdvancedButtonObject(std::string objID) {
+	bool detected = false;
+
+	for (int i = 0; i < advancedButtonObjects.size(); i++)
+	{
+		if (advancedButtonObjects.at(i)->objectID == objID) {
+			detected = true;
+		}
+	}
+
+	return detected;
+}
 bool ObjectDataBase::DetectTextObject(std::string objID) {
 	bool detected = false;
 
@@ -358,6 +394,19 @@ ButtonObject* ObjectDataBase::getButtonObject(std::string objID) {
 		if (buttonObjects.at(i)->objectID == objID) {
 			foundReturn = true;
 			return buttonObjects.at(i);
+		}
+	}
+	if (foundReturn == false) {
+		return NULL;
+	}
+}
+AdvancedButtonObject* ObjectDataBase::getAdvancedButtonObject(std::string objID) {
+	bool foundReturn = false;
+	for (int i = advancedButtonObjects.size() - 1; i >= 0; i--)
+	{
+		if (advancedButtonObjects.at(i)->objectID == objID) {
+			foundReturn = true;
+			return advancedButtonObjects.at(i);
 		}
 	}
 	if (foundReturn == false) {

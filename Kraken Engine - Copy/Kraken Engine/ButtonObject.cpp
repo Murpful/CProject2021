@@ -154,7 +154,6 @@ void ButtonObject::moveObject(int x, int y) {
 	yPos += y;
 }
 void AdvancedButtonObject::update(int offx, int offy) {
-	std::cout << "run";
 	if (offSet == false) {
 		offx = 0;
 		offy = 0;
