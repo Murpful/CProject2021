@@ -42,7 +42,7 @@ private:
 	bool paused = true;
 	int cnt = 0;
 	SDL_Window* window;
-	Character testcharacter;
+	Character playerCharacter;
 
 
 	///these variables are for game purposes and a test, nto the enigine

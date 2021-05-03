@@ -5,6 +5,7 @@ Path::Path(std::vector<int> w, int p) {
 }
 Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase, std::string named, std::string linkedid, entityFaction fact, int tile, std::vector<PlayerCard> cards) {
 	maxHealthPoints = 5;
+	halfGoal = 0;
 	currentHealthPoints = 5;
 	faction = monster;
 	coolDown = 100;
@@ -12,13 +13,14 @@ Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase, std
 	currentTile = 0;
 	moveDest = -1;
 	mapTiles = map;
+	map->at(tile).creatureLink = named;
 	moving = false;
 	pathWeave = { };
 	allObjects = dataBase;
 	std::string objectTag = "tile" + std::to_string(tile);
 	std::cout << objectTag << " ";
-	goalx = allObjects->getDetailObject(objectTag)->xPos;
-	goaly = allObjects->getDetailObject(objectTag)->yPos;
+	goalx = allObjects->getDetailObject(objectTag)->xPos+20;
+	goaly = allObjects->getDetailObject(objectTag)->yPos+20;
 	allObjects->getDetailObject(linkedid)->xPos = goalx;
 	allObjects->getDetailObject(linkedid)->yPos = goaly;
 	goalSet = false;
@@ -65,8 +67,14 @@ void Creature::runTurn() {
 			goalSet = true;
 		}
 		else {
+			if (halfGoal == 0)
+			{
+				halfGoal = sqrt(pow(goalx-allObjects->getDetailObject(linkID)->xPos ,2) +pow(goaly - (allObjects->getDetailObject(linkID)->yPos),2))/2;
+
+			}
 			int tilenumb = pathWeave.at(0);
 			bool reached = true;
+			bool half = false;
 			//std::cout << "Goalx: " << goalx << "Goaly: " << goaly;
 			//if (mapTiles->at(tilenumb).isUnpassable == false) {
 				if (allObjects->getDetailObject(linkID)->yPos < goaly) {
@@ -85,14 +93,26 @@ void Creature::runTurn() {
 					allObjects->getDetailObject(linkID)->moveObject(-1, 0);
 					reached = false;
 				}
+				if (sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) >= halfGoal - 5 && sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) <= halfGoal + 5)
+				{
+					half = true;
+				}
+				if (half)
+				{
+					mapTiles->at(currentTile).creatureLink = name;
+					mapTiles->at(currentTile).isUnpassable = true;
+					halfGoal = -6;
+					std::cout << "reached half" << std::endl;
+				}
 				if (reached) {
 					mapTiles->at(currentTile).isUnpassable = false;
 					mapTiles->at(currentTile).creatureLink = "";
 					currentTile = pathWeave.at(0);
-					mapTiles->at(currentTile).creatureLink = name;
-					mapTiles->at(currentTile).isUnpassable = true;
+			
 					pathWeave.erase(pathWeave.begin() + 0);
 					goalSet = false;
+					halfGoal = 0;
+					std::cout << "reached full" << std::endl;
 					if (pathWeave.size() == 0) {
 						moving = false;
 						pathWeave = { };

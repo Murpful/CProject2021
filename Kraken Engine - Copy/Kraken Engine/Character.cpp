@@ -1,11 +1,15 @@
 #include "Character.h"
 //#include<iostream>
 int selectedTile = -1;
+int selectedMoveTile = -1;
 void selectTile(int inf) {
 	selectedTile = inf;
 	std::cout << "info: " << inf << "    ";
 }
-
+void selectMoveTile(int inf) {
+	selectedMoveTile = inf;
+	std::cout << "info: " << inf << "    ";
+}
 
 void Character::playCard() {
 	for (int i = 0; i < selectedCard.cardEvents.size(); i++)
@@ -37,6 +41,7 @@ void Character::updateTurn() {
 	static int attackTimeCounter = 0;
 	//std::cout << targetLoc;
 	targetLoc = selectedTile;
+	moveLoc = selectedMoveTile;
 	if (attackQueue.size() > 0 && !isAttacking && !isMoving) {
 		isAttacking = true;
 		attackTimeCounter = 300;
@@ -332,173 +337,6 @@ void Character::updateTurn() {
 			allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget5.png",&selectTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 110, 96, it));
 		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-		//startingTileOfCreation = mapTiles->at(loc).c1;
-		/*
-		int currentSide = 0;
-		if (mapTiles->at(loc).c1 != -1) {
-			startingTileOfCreation = mapTiles->at(loc).c1;
-			
-		}
-		else {
-			int revertedLocation = loc;
-				if (mapTiles->at(loc).c2 != -1) {
-					startingTileOfCreation = mapTiles->at(loc).c2;
-					currentSide += 1;
-				}
-				else if (mapTiles->at(loc).c3 != -1) {
-					startingTileOfCreation = mapTiles->at(loc).c3;
-					currentSide += 2;
-					
-				}
-				else {
-					startingTileOfCreation = mapTiles->at(loc).c4;
-					currentSide += 3;
-				}
-		}
-		int distReduct = 0;
-		for (int i = 0; i < attackQueue.at(0).range; i++)
-		{
-			std::string firstTileLink = "tile" + std::to_string(startingTileOfCreation);
-			allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png",&selectTile, allObjects->getDetailObject(firstTileLink)->xPos, allObjects->getDetailObject(firstTileLink)->yPos, 110, 96, startingTileOfCreation));
-			for (int k = 0; k < i+1; k++)
-			{
-				if (currentSide == 0) {
-					
-					
-					startingTileOfCreation = mapTiles->at(startingTileOfCreation).c3;
-					//std::cout << "Creating tile at: " << startingTileOfCreation << "    ";
-					firstTileLink = "tile" + std::to_string(startingTileOfCreation);
-					
-					if (k== i) {
-						currentSide += 1;
-					}
-					
-					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png", &selectTile, allObjects->getDetailObject(firstTileLink)->xPos, allObjects->getDetailObject(firstTileLink)->yPos, 110, 96, startingTileOfCreation));
-				}
-				
-			}
-			for (int k = 0; k < i + 1 - distReduct; k++)
-			{
-				if (currentSide == 1) {
-					
-					startingTileOfCreation = mapTiles->at(startingTileOfCreation).c4;
-					firstTileLink = "tile" + std::to_string(startingTileOfCreation);
-					if (k == i - distReduct) {
-						currentSide += 1;
-					}
-					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png", &selectTile, allObjects->getDetailObject(firstTileLink)->xPos, allObjects->getDetailObject(firstTileLink)->yPos, 110, 96, startingTileOfCreation));
-				}
-				
-			}
-			for (int k = 0; k < i + 1; k++)
-			{
-				if (currentSide == 2) {
-					startingTileOfCreation = mapTiles->at(startingTileOfCreation).c5;
-					firstTileLink = "tile" + std::to_string(startingTileOfCreation);
-					if (k == i) {
-						currentSide += 1;
-					}
-					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png", &selectTile, allObjects->getDetailObject(firstTileLink)->xPos, allObjects->getDetailObject(firstTileLink)->yPos, 110, 96, startingTileOfCreation));
-				}
-				
-			}
-			for (int k = 0; k < i + 1; k++)
-			{
-				if (currentSide == 3) {
-					if (k == i) {
-						currentSide += 1;
-					}
-					startingTileOfCreation = mapTiles->at(startingTileOfCreation).c6;
-					firstTileLink = "tile" + std::to_string(startingTileOfCreation);
-					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png", &selectTile, allObjects->getDetailObject(firstTileLink)->xPos, allObjects->getDetailObject(firstTileLink)->yPos, 110, 96, startingTileOfCreation));
-				}
-			}
-			for (int k = 0; k < i + 1; k++)
-			{
-				if (currentSide == 4) {
-					if (k == i) {
-						currentSide += 1;
-					}
-					startingTileOfCreation = mapTiles->at(startingTileOfCreation).c1;
-					firstTileLink = "tile" + std::to_string(startingTileOfCreation);
-					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png", &selectTile, allObjects->getDetailObject(firstTileLink)->xPos, allObjects->getDetailObject(firstTileLink)->yPos, 110, 96, startingTileOfCreation));
-				}
-			}
-			for (int k = 0; k < i; k++)
-			{
-				if (currentSide == 5) {
-					
-					//std::cout << "side 5 starter: " << startingTileOfCreation << "    ";
-					if (mapTiles->at(startingTileOfCreation).c2 != -1) {
-						startingTileOfCreation = mapTiles->at(startingTileOfCreation).c2;
-						firstTileLink = "tile" + std::to_string(startingTileOfCreation);
-						allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png", &selectTile, allObjects->getDetailObject(firstTileLink)->xPos, allObjects->getDetailObject(firstTileLink)->yPos, 110, 96, startingTileOfCreation));
-					}
-					else {
-						std::cout << "ASDFASDFASDF";
-						currentSide = -1;
-					}
-					
-				}
-			}
-
-			
-			if (attackQueue.at(0).range > i + 1 ) {
-				//startingTileOfCreation = mapTiles->at(startingTileOfCreation).c2;
-				//startingTileOfCreation = mapTiles->at(startingTileOfCreation).c1;
-				//currentSide = 0;
-				if (currentSide != -1) {
-					currentSide = 0;
-					if (mapTiles->at(startingTileOfCreation).c2 != -1) {
-						startingTileOfCreation = mapTiles->at(startingTileOfCreation).c2;
-						if (mapTiles->at(startingTileOfCreation).c1 != -1) {
-
-							startingTileOfCreation = mapTiles->at(startingTileOfCreation).c1;
-
-						}
-						else {
-							for (int s = 0; s < i + 2; s++)
-							{
-								distReduct = i;
-								startingTileOfCreation = mapTiles->at(startingTileOfCreation).c3;
-								//std::cout << "yeah this was used so not go well for matt";
-								currentSide = 1;
-								//std::cout << "New starting location: " << startingTileOfCreation << "   ";
-							}
-						}
-
-					}
-					else {
-						startingTileOfCreation = loc;
-						startingTileOfCreation += (i + (2*(i+1)));
-						//std::cout << "New starting location: " << startingTileOfCreation << "   ";
-					}
-					std::cout << "New starting location: " << startingTileOfCreation << "   ";
-				}
-				else {
-					startingTileOfCreation = 100;
-					currentSide = 0;
-				}
-				
-			
-			
-			}
-		}
-		*/
 	}
 	if (isAttacking) {
 
@@ -546,7 +384,7 @@ void Character::updateTurn() {
 					allObjects->advancedButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget1.png");
 				}
 			}
-			
+			attackQueue.erase(attackQueue.begin() + 0);
 		}
 		else {
 			allObjects->deleteAllAdvancedButtonObject();
@@ -554,8 +392,387 @@ void Character::updateTurn() {
 	}
 	if (moveQueue.size() > 0 && !isMoving && !isAttacking) {
 		isMoving = true;
+		std::vector<Path> paths = { Path({mapTiles->at(loc).c1},4),Path({mapTiles->at(loc).c2},5),Path({mapTiles->at(loc).c3},6),Path({mapTiles->at(loc).c4},1),Path({mapTiles->at(loc).c5},2),Path({mapTiles->at(loc).c6},3) };
+		if (mapTiles->at(loc).c6 == -1 || mapTiles->at(mapTiles->at(loc).c6).isUnpassable) {
+			paths.erase(paths.begin() + 5);
+			int marked = mapTiles->at(mapTiles->at(loc).c6).c5;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c5;
+				}
+			}
+			marked = mapTiles->at(mapTiles->at(loc).c6).c1;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c1;
+				}
+			}
+		}
+		if (mapTiles->at(loc).c5 == -1 || mapTiles->at(mapTiles->at(loc).c5).isUnpassable) {
+			paths.erase(paths.begin() + 4);
+			int marked = mapTiles->at(mapTiles->at(loc).c5).c6;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c6;
+				}
+			}
+			marked = mapTiles->at(mapTiles->at(loc).c5).c4;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c4;
+				}
+			}
+		}
+		if (mapTiles->at(loc).c4 == -1 || mapTiles->at(mapTiles->at(loc).c4).isUnpassable) {
+			paths.erase(paths.begin() + 3);
+			int marked = mapTiles->at(mapTiles->at(loc).c4).c5;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c5;
+				}
+			}
+			marked = mapTiles->at(mapTiles->at(loc).c4).c3;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c3;
+				}
+			}
+
+		}
+		if (mapTiles->at(loc).c3 == -1 || mapTiles->at(mapTiles->at(loc).c3).isUnpassable) {
+			paths.erase(paths.begin() + 2);
+			int marked = mapTiles->at(mapTiles->at(loc).c3).c4;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c4;
+				}
+			}
+			marked = mapTiles->at(mapTiles->at(loc).c3).c2;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c2;
+				}
+			}
+		}
+		if (mapTiles->at(loc).c2 == -1 || mapTiles->at(mapTiles->at(loc).c2).isUnpassable) {
+			paths.erase(paths.begin() + 1);
+			int marked = mapTiles->at(mapTiles->at(loc).c2).c1;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c1;
+				}
+			}
+			marked = mapTiles->at(mapTiles->at(loc).c2).c3;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c3;
+				}
+			}
+		}
+		if (mapTiles->at(loc).c1 == -1 || mapTiles->at(mapTiles->at(loc).c1).isUnpassable) {
+			paths.erase(paths.begin() + 0);
+			int marked = mapTiles->at(mapTiles->at(loc).c1).c6;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c6;
+				}
+			}
+			marked = mapTiles->at(mapTiles->at(loc).c1).c2;
+			for (int l = 0; l < moveQueue.at(0).range; l++)
+			{
+				if (marked != -1) {
+					marked = mapTiles->at(marked).c2;
+				}
+			}
+		}
+		//std::cout << "    Paths in list: " << paths.size() << "      ";
+		//std::vector<int> currentShortest = { };
+		bool going = true;
+		int currentLeng = 1;
+		for (int f = 0; f < moveQueue.at(0).range; f++)
+		{
+			int pathSize = paths.size();
+			for (int i = 0; i < pathSize; i++)
+			{
+				if (paths.at(i).from == 4) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 4;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
+					}
+					/*
+					else if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == true) {
+						int marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1).c6;
+						for (int l = 0; l < attackQueue.at(0).range; l++)
+						{
+							if (marked != -1) {
+								mapTiles->at(marked).isShadowed = true;
+								marked = mapTiles->at(marked).c6;
+							}
+						}
+						marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1).c2;
+						for (int l = 0; l < attackQueue.at(0).range; l++)
+						{
+							if (marked != -1) {
+								mapTiles->at(marked).isShadowed = true;
+								marked = mapTiles->at(marked).c2;
+							}
+						}
+					}*/
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 3;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
+					}
+
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 5;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
+					}
+
+
+
+				}
+				else if (paths.at(i).from == 5) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 4;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 6;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 5;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
+					}
+				}
+				else if (paths.at(i).from == 6) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 5;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 1;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 6;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3);
+					}
+				}
+				else if (paths.at(i).from == 1) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 6;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 2;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 1;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4);
+					}
+				}
+				else if (paths.at(i).from == 2) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 1;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isShadowed == false) {
+
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 3;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 2;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5);
+					}
+				}
+				else if (paths.at(i).from == 3) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 3;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
+					}
+					/*else if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == true) {
+						int marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6).c1;
+						for (int l = 0; l < attackQueue.at(0).range; l++)
+						{
+							if (marked != -1) {
+								mapTiles->at(marked).isShadowed = true;
+								marked = mapTiles->at(marked).c1;
+							}
+						}
+						marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6).c5;
+						for (int l = 0; l < attackQueue.at(0).range; l++)
+						{
+							if (marked != -1) {
+								mapTiles->at(marked).isShadowed = true;
+								marked = mapTiles->at(marked).c5;
+							}
+						}
+					}
+					*/
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 2;
+
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isShadowed == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 4;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
+					}
+
+				}
+			}
+		}
+
+		std::vector<int> finalTiles = { };
+		for (int i = 0; i < paths.size(); i++)
+		{
+			int it = paths.at(i).weave.at(paths.at(i).weave.size() - 1);
+			if (!(doesContain(finalTiles, it)) && it != loc) {
+				finalTiles.push_back(it);
+			}
+
+		}
+		for (int i = 0; i < finalTiles.size(); i++)
+		{
+			int it = finalTiles.at(i);
+			std::string name = "tile" + std::to_string(it);
+			//std::cout << "  asdf        " << name << "      "  ;
+			allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget5.png", &selectMoveTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 110, 96, it));
+		}
 	}
 	if (isMoving) {
+		//std::cout << "lloopeded";
+		if (moveLoc != -1) {
+			allObjects->deleteAllAdvancedButtonObject();
+			if (goalSet == false) {
+
+				if (pathWeave.size() == 0) {
+					//std::cout << "Destintation: " << moveDest << "   ";
+					path();
+				}
+
+				if (mapTiles->at(loc).c1 == pathWeave.at(0)) {
+					goaly -= 96;
+				}
+				else if (mapTiles->at(loc).c2 == pathWeave.at(0)) {
+					goaly -= 48;
+					goalx += 83;
+				}
+				else if (mapTiles->at(loc).c3 == pathWeave.at(0)) {
+					goaly += 48;
+					goalx += 83;
+				}
+				else if (mapTiles->at(loc).c4 == pathWeave.at(0)) {
+					goaly += 96;
+				}
+				else if (mapTiles->at(loc).c5 == pathWeave.at(0)) {
+					goaly += 48;
+					goalx -= 83;
+				}
+				else if (mapTiles->at(loc).c6 == pathWeave.at(0)) {
+					goaly -= 48;
+					goalx -= 83;
+				}
+				goalSet = true;
+			}
+			else if (goalSet == true)
+			{
+				
+				if (halfGoal == 0)
+				{
+					halfGoal = sqrt(pow(goalx - allObjects->getDetailObject(className)->xPos, 2) + pow(goaly - (allObjects->getDetailObject(className)->yPos), 2)) / 2;
+
+				}
+				int tilenumb = pathWeave.at(0);
+				bool reached = true;
+				bool half = false;
+				//std::cout << "Goalx: " << goalx << "Goaly: " << goaly;
+				//if (mapTiles->at(tilenumb).isUnpassable == false) {
+				if (allObjects->getDetailObject(className)->yPos < goaly) {
+					allObjects->getDetailObject(className)->moveObject(0, 1);
+					reached = false;
+				}
+				else if (allObjects->getDetailObject(className)->yPos > goaly) {
+					allObjects->getDetailObject(className)->moveObject(0, -1);
+					reached = false;
+				}
+				if (allObjects->getDetailObject(className)->xPos < goalx) {
+					allObjects->getDetailObject(className)->moveObject(1, 0);
+					reached = false;
+				}
+				else if (allObjects->getDetailObject(className)->xPos > goalx) {
+					allObjects->getDetailObject(className)->moveObject(-1, 0);
+					reached = false;
+				}
+				if (sqrt(pow(abs(goalx - allObjects->getDetailObject(className)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(className)->yPos)), 2)) >= halfGoal - 5 && sqrt(pow(abs(goalx - allObjects->getDetailObject(className)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(className)->yPos)), 2)) <= halfGoal + 5)
+				{
+					half = true;
+				}
+				if (half)
+				{
+					mapTiles->at(loc).characterLink = className;
+					mapTiles->at(loc).isUnpassable = true;
+					halfGoal = -6;
+					std::cout << "reached half" << std::endl;
+				}
+				if (reached) {
+					mapTiles->at(loc).isUnpassable = false;
+					mapTiles->at(loc).characterLink = "";
+					loc = pathWeave.at(0);
+
+					pathWeave.erase(pathWeave.begin() + 0);
+					goalSet = false;
+					halfGoal = 0;
+					std::cout << "reached full" << std::endl;
+					if (pathWeave.size() == 0) {
+						moveLoc = -1;
+						isMoving = false;
+						moveQueue.erase(moveQueue.begin() + 0);
+						pathWeave = { };
+					}
+					//std::cout << "New current tile: " << loc;
+				}
+				//}
+				//else {
+				//	moving = false;
+				//	goalSet = false;
+				//}
+			}
+		}
+		
+		
 
 	}
 }
@@ -565,12 +782,21 @@ Character::Character() {
 Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::vector<Creature>* creat, std::string setClassName, int startingTile) {
 	isAttacking = false;
 	isMoving = false;
-	attackQueue.push_back(Attack(1, 2));
+	goalSet = false;
+	moveQueue.push_back(Move(1, 2));
 	loc = startingTile;
 	allObjects = dataBase;
 	mapTiles = map;
+	className = setClassName;
+	map->at(0).characterLink = className;
 	creatures = creat;
 	targetLoc = -1;
+	std::string objectTag = "tile" + std::to_string(startingTile);
+	std::cout << objectTag << " ";
+	goalx = allObjects->getDetailObject(objectTag)->xPos;
+	goaly = allObjects->getDetailObject(objectTag)->yPos;
+	allObjects->getDetailObject(setClassName)->xPos = goalx;
+	allObjects->getDetailObject(setClassName)->yPos = goaly;
 	if (setClassName == "Brute")
 	{
 		className = setClassName;
@@ -597,4 +823,151 @@ Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, 
 	}
 
 }
+
+void Character::path() {
+	std::vector<Path> paths = { Path({mapTiles->at(loc).c1},4),Path({mapTiles->at(loc).c2},5),Path({mapTiles->at(loc).c3},6),Path({mapTiles->at(loc).c4},1),Path({mapTiles->at(loc).c5},2),Path({mapTiles->at(loc).c6},3) };
+	if (mapTiles->at(loc).c6 == -1 || mapTiles->at(mapTiles->at(loc).c6).isUnpassable) {
+		paths.erase(paths.begin() + 5);
+	}
+	if (mapTiles->at(loc).c5 == -1 || mapTiles->at(mapTiles->at(loc).c5).isUnpassable) {
+		paths.erase(paths.begin() + 4);
+	}
+	if (mapTiles->at(loc).c4 == -1 || mapTiles->at(mapTiles->at(loc).c4).isUnpassable) {
+		paths.erase(paths.begin() + 3);
+	}
+	if (mapTiles->at(loc).c3 == -1 || mapTiles->at(mapTiles->at(loc).c3).isUnpassable) {
+		paths.erase(paths.begin() + 2);
+	}
+	if (mapTiles->at(loc).c2 == -1 || mapTiles->at(mapTiles->at(loc).c2).isUnpassable) {
+		paths.erase(paths.begin() + 1);
+	}
+	if (mapTiles->at(loc).c1 == -1 || mapTiles->at(mapTiles->at(loc).c1).isUnpassable) {
+		paths.erase(paths.begin() + 0);
+	}
+	//std::cout << "    Paths in list: " << paths.size() << "      ";
+	//std::vector<int> currentShortest = { };
+	bool going = true;
+	int currentLeng = 1;
+	while (going) {
+		std::cout << "Patthsloop";
+		int pathSize = paths.size();
+		for (int i = 0; i < pathSize; i++)
+		{
+			if (paths.at(i).weave.at(paths.at(i).weave.size() - 1) == moveLoc) {
+				going = false;
+				going = false;
+				pathWeave = paths.at(i).weave;
+				break;
+			}
+			else {
+				if (paths.at(i).from == 4) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 3;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
+					}
+
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 5;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
+					}
+
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false) {
+						paths.at(i).from = 4;
+						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
+					}
+
+				}
+				else if (paths.at(i).from == 5) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 4;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 6;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false) {
+						paths.at(i).from = 5;
+						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
+					}
+				}
+				else if (paths.at(i).from == 6) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 5;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 1;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isUnpassable == false) {
+						paths.at(i).from = 6;
+						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3);
+					}
+				}
+				else if (paths.at(i).from == 1) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 6;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 2;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isUnpassable == false) {
+						paths.at(i).from = 1;
+						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4);
+					}
+				}
+				else if (paths.at(i).from == 2) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 1;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false) {
+
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 3;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false) {
+						paths.at(i).from = 2;
+						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5);
+					}
+				}
+				else if (paths.at(i).from == 3) {
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 2;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false) {
+						paths.push_back(paths.at(i));
+						paths.at(paths.size() - 1).from = 4;
+						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
+					}
+					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false) {
+						paths.at(i).from = 3;
+						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
+					}
+				}
+			}
+		}
+	}
+	for (int i = 0; i < pathWeave.size(); i++)
+	{
+		//std::cout << pathWeave.at(i) << "  ";
+	}
+}
+
+
 

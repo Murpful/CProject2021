@@ -15,6 +15,7 @@ class Character
 		std::vector<battleMapTile>* mapTiles;
 		std::string className;
 		int currentHP, maxHP, inventorySize, loc, targetLoc;
+		int moveLoc;
 		std::vector<battleMapTile>* currentLoc;
 		bool weakened, iFrame;
 		bool isAttacking, isMoving;
@@ -24,9 +25,15 @@ class Character
 		std::vector<Attack> attackQueue;
 		std::vector<Move> moveQueue;
 		std::vector<Creature>* creatures;
+		int goalx;
+		int goaly;
+		bool goalSet;
+		int halfGoal;
+		std::vector<int> pathWeave;
 		Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::vector<Creature>* creat, std::string, int);
 		Character();
 		void playCard();
 		void updateTurn();
+		void path();
 };
 

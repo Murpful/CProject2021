@@ -1,11 +1,15 @@
 ﻿  Character.cpp
-\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(11,20): warning C4018: '<': signed/unsigned mismatch
-\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(27,20): warning C4018: '<': signed/unsigned mismatch
-\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(319,21): warning C4018: '<': signed/unsigned mismatch
-\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(327,21): warning C4018: '<': signed/unsigned mismatch
-\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(511,35): warning C4018: '<': signed/unsigned mismatch
-\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(527,23): warning C4018: '<': signed/unsigned mismatch
-\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(532,23): warning C4018: '<': signed/unsigned mismatch
-\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(538,23): warning C4018: '<': signed/unsigned mismatch
-\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(544,23): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(15,20): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(31,20): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(324,21): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(332,21): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(349,35): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(365,23): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(370,23): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(376,23): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(382,23): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(659,21): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(667,21): warning C4018: '<': signed/unsigned mismatch
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(715,149): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+\\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(966,20): warning C4018: '<': signed/unsigned mismatch
   Kraken Engine.vcxproj -> \\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe

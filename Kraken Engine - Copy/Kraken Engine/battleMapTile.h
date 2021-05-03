@@ -15,6 +15,7 @@ public:
 	battleMapTile(int, int, int, int, int, int, bool = false);
 	~battleMapTile();
 	std::string creatureLink;
+	std::string characterLink;
 
 };
 

@@ -13,7 +13,7 @@ public:
 
 
 
-
+	int halfGoal;
 	std::vector<PlayerCard> cardsReady;
 	std::vector<PlayerCard> cardsUsed;
 	int maxHealthPoints;

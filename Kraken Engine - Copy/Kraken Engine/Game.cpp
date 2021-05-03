@@ -79,7 +79,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	//allObjects.addObject(new DetailObject("Homeisland", "assets/otherblueisland2.png", 639, 415, 100, 100));
 	allObjects.addObject(new DetailObject("homeBack", "assets/tempHome.png", 0, 0, 1536, 864));
 	allObjects.addObject(new ButtonObject("playButton", "assets/tempPlay.png", &optionScreen, 700, 400, 139, 63));
-	testcharacter = Character(&mapTiles, &allObjects, &creatures, "Phil", 64);//40
+
 	
 	
 
@@ -376,18 +376,20 @@ void Game::handleEvents()
 					allObjects.getDetailObject(name)->objTexture = TextureManager::loadTexture("assets/RegHexL.png");
 				}
 				allObjects.addObject(new DetailObject("dino", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
-				allObjects.addObject(new DetailObject("dino2", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
-				allObjects.addObject(new DetailObject("dino3", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
-				allObjects.addObject(new DetailObject("dino4", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
+				//allObjects.addObject(new DetailObject("dino2", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
+				//allObjects.addObject(new DetailObject("dino3", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
+				//allObjects.addObject(new DetailObject("dino4", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				std::cout << "total tiles: " << mapTiles.size() << "  ";
 				creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino", player, 91, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
-				creatures.push_back(Creature(&mapTiles, &allObjects, "dino2", "dino2", player, 4, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
-				creatures.push_back(Creature(&mapTiles, &allObjects, "dino3", "dino3", player, 74, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
-				creatures.push_back(Creature(&mapTiles, &allObjects, "dino4", "dino4", player, 22, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
+				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino2", "dino2", player, 4, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
+				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino3", "dino3", player, 74, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
+				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino4", "dino4", player, 22, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
+				allObjects.addObject(new DetailObject("Phil", "assets/Phil.png", 0, 0, 50, 50));
+				playerCharacter = Character(&mapTiles, &allObjects, &creatures, "Phil", 0);//40
 				//printALLFunc(mapTiles.at(126));
 				//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 				//std::cout << "Finals: " << mapTiles.size();
-				testcharacter.updateTurn();
+				//playerCharacter.updateTurn();
 			}
 		}
 		else {
@@ -430,7 +432,7 @@ void Game::update()
 		creatures.at(i).runTurn();
 	}
 	if (!paused) {
-		testcharacter.updateTurn();
+		playerCharacter.updateTurn();
 	}
 	
 
