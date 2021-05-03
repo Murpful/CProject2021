@@ -42,5 +42,6 @@ public:
 	std::vector<int> weave;
 	int from;
 	Path(std::vector<int>, int);
+	bool pure = true;
 };
 

@@ -68,7 +68,7 @@ void Creature::runTurn() {
 			int tilenumb = pathWeave.at(0);
 			bool reached = true;
 			//std::cout << "Goalx: " << goalx << "Goaly: " << goaly;
-			if (mapTiles->at(tilenumb).isUnpassable == false) {
+			//if (mapTiles->at(tilenumb).isUnpassable == false) {
 				if (allObjects->getDetailObject(linkID)->yPos < goaly) {
 					allObjects->getDetailObject(linkID)->moveObject(0, 1);
 					reached = false;
@@ -97,11 +97,11 @@ void Creature::runTurn() {
 					}
 					//std::cout << "New current tile: " << currentTile;
 				}
-			}
-			else {
-				moving = false;
-				goalSet = false;
-			}
+			//}
+			//else {
+			//	moving = false;
+			//	goalSet = false;
+			//}
 			
 		}
 		

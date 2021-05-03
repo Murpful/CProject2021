@@ -8,6 +8,7 @@ battleMapTile::battleMapTile(int co1 ,int co2 ,int co3,int co4,int co5 ,int co6,
 	c5 = co5;
 	c6 = co6;
 	isUnpassable = noPass;
+	isShadowed = false;
 }
 battleMapTile::~battleMapTile() {
 

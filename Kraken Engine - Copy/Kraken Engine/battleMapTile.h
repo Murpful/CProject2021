@@ -9,7 +9,7 @@ public:
 	int c5;
 	int c6;
 	bool isUnpassable;
-
+	bool isShadowed;
 	bool finalTile;
 	battleMapTile(int, int, int, int, int, int, bool = false);
 	~battleMapTile();
