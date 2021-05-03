@@ -23,7 +23,8 @@ class Character
 		std::vector<PlayerCard> hand;
 		std::vector<Attack> attackQueue;
 		std::vector<Move> moveQueue;
-		Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::string, int);
+		std::vector<Creature>* creatures;
+		Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::vector<Creature>* creat, std::string, int);
 		Character();
 		void playCard();
 		void updateTurn();

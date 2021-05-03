@@ -1,4 +1,5 @@
 #pragma once
+#include<string>
 class battleMapTile
 {
 public:
@@ -13,5 +14,7 @@ public:
 	bool finalTile;
 	battleMapTile(int, int, int, int, int, int, bool = false);
 	~battleMapTile();
+	std::string creatureLink;
+
 };
 

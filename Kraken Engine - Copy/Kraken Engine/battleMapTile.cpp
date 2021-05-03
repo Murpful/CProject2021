@@ -9,6 +9,7 @@ battleMapTile::battleMapTile(int co1 ,int co2 ,int co3,int co4,int co5 ,int co6,
 	c6 = co6;
 	isUnpassable = noPass;
 	isShadowed = false;
+	creatureLink = "";
 }
 battleMapTile::~battleMapTile() {
 

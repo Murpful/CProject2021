@@ -1,4 +1,5 @@
 #include "Character.h"
+//#include<iostream>
 int selectedTile = -1;
 void selectTile(int inf) {
 	selectedTile = inf;
@@ -504,6 +505,20 @@ void Character::updateTurn() {
 		if (targetLoc != -1) {
 			allObjects->deleteAllAdvancedButtonObject();
 			selectedTile = -1;
+
+			if (mapTiles->at(targetLoc).creatureLink != "") {
+				int creatureDataLoc;
+				for (int counter = 0; counter < creatures->size(); counter++) {
+					if (creatures->at(counter).name == mapTiles->at(targetLoc).creatureLink) {
+						creatureDataLoc = counter;
+					}
+				}
+				std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
+				creatures->at(creatureDataLoc).currentHealthPoints -= attackQueue.at(0).damagePoints;
+				std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
+			}
+			else {std::cout << "???" << std::endl; }
+			
 			//deal dammage and effects to the entiteis in the square here, if its an area of effect or somthing of the like you can add that here too.
 		}
 		else if (attackTimeCounter > 0) {
@@ -547,13 +562,14 @@ void Character::updateTurn() {
 Character::Character() {
 
 }
-Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::string setClassName, int startingTile) {
+Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::vector<Creature>* creat, std::string setClassName, int startingTile) {
 	isAttacking = false;
 	isMoving = false;
 	attackQueue.push_back(Attack(1, 2));
 	loc = startingTile;
 	allObjects = dataBase;
 	mapTiles = map;
+	creatures = creat;
 	targetLoc = -1;
 	if (setClassName == "Brute")
 	{

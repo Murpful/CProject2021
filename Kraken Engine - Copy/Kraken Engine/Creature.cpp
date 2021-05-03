@@ -87,7 +87,9 @@ void Creature::runTurn() {
 				}
 				if (reached) {
 					mapTiles->at(currentTile).isUnpassable = false;
+					mapTiles->at(currentTile).creatureLink = "";
 					currentTile = pathWeave.at(0);
+					mapTiles->at(currentTile).creatureLink = name;
 					mapTiles->at(currentTile).isUnpassable = true;
 					pathWeave.erase(pathWeave.begin() + 0);
 					goalSet = false;
