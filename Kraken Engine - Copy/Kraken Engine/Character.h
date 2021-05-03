@@ -7,6 +7,7 @@
 #include"Move.h"
 #include "ObjectDataBase.h"
 #include "Creature.h"
+
 class Character
 {
 	public:
@@ -25,6 +26,7 @@ class Character
 		std::vector<Attack> attackQueue;
 		std::vector<Move> moveQueue;
 		std::vector<Creature>* creatures;
+		std::vector<cardAction> pick;
 		int goalx;
 		int goaly;
 		bool goalSet;

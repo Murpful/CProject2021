@@ -12,6 +12,13 @@ std::vector<Event> eventHandle = {};
 void sayHi() {
 	std::cout << "hi";
 }
+void openHand() {
+	eventHandle.push_back(Event("openHand", {}));
+
+}
+void closeHand() {
+	eventHandle.push_back(Event("closeHand", {}));
+}
 void sayno() {
 	eventHandle.push_back(Event("deleteShip", {}));
 	std::cout << "no";
@@ -37,7 +44,9 @@ void moveLeft() {
 void moveRight() {
 	eventHandle.push_back(Event("scrollRight", {}));
 }
-
+void playCard(int cardNumber) {
+	eventHandle.push_back(Event("playCard", { cardNumber }));
+}
 
 //Game class consturctor and destructor
 Game::Game()
@@ -125,7 +134,7 @@ void Game::handleEvents()
 				allObjects.addObject(new KeyInputObject("moveRight", &moveRight, SDL_SCANCODE_D, true));
 				allObjects.addObject(new DetailObject("tile0", "assets/RegHexTrees.png", 700, 350, 110, 96));
 
-				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png",&sayHi,0,814,50,50,false));
+				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png",&openHand,0,814,50,50,false));
 				mapTiles.push_back(battleMapTile(1, -1, -1, -1, -1, -1));
 				currentTile += 1;
 				for (int i = 1; i < mapsize; i++)
@@ -393,18 +402,52 @@ void Game::handleEvents()
 			}
 		}
 		else {
-		if (action == "scrollUp") {
-			allObjects.yoff += 2;
-		}
-		else if (action == "scrollDown") {
-			allObjects.yoff -= 2;
-		}
-		else if (action == "scrollLeft") {
-			allObjects.xoff += 2;
-		}
-		else if (action == "scrollRight") {
-			allObjects.xoff -= 2;
-		}
+			if (action == "scrollUp") {
+				allObjects.yoff += 2;
+			}
+			else if (action == "scrollDown") {
+				allObjects.yoff -= 2;
+			}
+			else if (action == "scrollLeft") {
+				allObjects.xoff += 2;
+			}
+			else if (action == "scrollRight") {
+				allObjects.xoff -= 2;
+			}
+			else if (action == "openHand") {
+				allObjects.deleteButtonObject("cardButton");
+				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(0).cardImage, &playCard, 100, 600, 150, 200, 0));
+				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(1).cardImage, &playCard, 300, 600, 150, 200, 1));
+				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(2).cardImage, &playCard, 500, 600, 150, 200, 2));
+				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(3).cardImage, &playCard, 700, 600, 150, 200, 3));
+				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &closeHand, 0, 814, 50, 50, false));
+
+			}
+			else if (action == "closeHand") {
+				allObjects.deleteAllAdvancedButtonObject();
+				allObjects.deleteButtonObject("cardButton");
+				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &openHand, 0, 814, 50, 50, false));
+			}
+			else if (action == "playCard") {
+				allObjects.deleteAllAdvancedButtonObject();
+				allObjects.deleteButtonObject("cardButton");
+				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &openHand, 0, 814, 50, 50, false));
+
+				for (int counter = 0; counter < playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.size(); counter++) {
+					playerCharacter.pick.push_back(playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action);
+					if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == attack) {
+						CardEvent thisCardEvent = playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter);
+						Attack createdAttack = Attack(thisCardEvent.data.at(0), thisCardEvent.data.at(1));						
+						playerCharacter.attackQueue.push_back(createdAttack);
+					}
+					if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == move) {
+						CardEvent thisCardEvent = playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter);
+						Move createdMove = Move(thisCardEvent.data.at(0), thisCardEvent.data.at(1));
+						playerCharacter.moveQueue.push_back(createdMove);
+					}
+				}
+
+			}
 		}
 		
 		 
