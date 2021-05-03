@@ -65,36 +65,44 @@ void Creature::runTurn() {
 			goalSet = true;
 		}
 		else {
+			int tilenumb = pathWeave.at(0);
 			bool reached = true;
 			//std::cout << "Goalx: " << goalx << "Goaly: " << goaly;
-			if (allObjects->getDetailObject(linkID)->yPos < goaly) {
-				allObjects->getDetailObject(linkID)->moveObject(0, 1);
-				reached = false;
-			} 
-			else if (allObjects->getDetailObject(linkID)->yPos > goaly) {
-				allObjects->getDetailObject(linkID)->moveObject(0, -1);
-				reached = false;
-			}
-			if (allObjects->getDetailObject(linkID)->xPos < goalx) {
-				allObjects->getDetailObject(linkID)->moveObject(1, 0);
-				reached = false;
-			}
-			else if (allObjects->getDetailObject(linkID)->xPos > goalx) {
-				allObjects->getDetailObject(linkID)->moveObject(-1, 0);
-				reached = false;
-			}
-
-			if (reached) {
-				mapTiles->at(currentTile).isUnpassable = false;
-				currentTile = pathWeave.at(0);
-				mapTiles->at(currentTile).isUnpassable = true;
-				pathWeave.erase(pathWeave.begin() + 0);
-				goalSet = false;
-				if (pathWeave.size() == 0) {
-					moving = false;
+			if (mapTiles->at(tilenumb).isUnpassable == false) {
+				if (allObjects->getDetailObject(linkID)->yPos < goaly) {
+					allObjects->getDetailObject(linkID)->moveObject(0, 1);
+					reached = false;
 				}
-				//std::cout << "New current tile: " << currentTile;
+				else if (allObjects->getDetailObject(linkID)->yPos > goaly) {
+					allObjects->getDetailObject(linkID)->moveObject(0, -1);
+					reached = false;
+				}
+				if (allObjects->getDetailObject(linkID)->xPos < goalx) {
+					allObjects->getDetailObject(linkID)->moveObject(1, 0);
+					reached = false;
+				}
+				else if (allObjects->getDetailObject(linkID)->xPos > goalx) {
+					allObjects->getDetailObject(linkID)->moveObject(-1, 0);
+					reached = false;
+				}
+				if (reached) {
+					mapTiles->at(currentTile).isUnpassable = false;
+					currentTile = pathWeave.at(0);
+					mapTiles->at(currentTile).isUnpassable = true;
+					pathWeave.erase(pathWeave.begin() + 0);
+					goalSet = false;
+					if (pathWeave.size() == 0) {
+						moving = false;
+						pathWeave = { };
+					}
+					//std::cout << "New current tile: " << currentTile;
+				}
 			}
+			else {
+				moving = false;
+				goalSet = false;
+			}
+			
 		}
 		
 	} 
