@@ -1,1 +1,89 @@
-﻿  Kraken Engine.vcxproj -> \\kamose.sm.hls\Users\Profiles\jmurdoch\Desktop\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe
+﻿  Attack.cpp
+  battleMapTile.cpp
+  ButtonObject.cpp
+  CardEvent.cpp
+  cardType.cpp
+  Character.cpp
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(15,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(31,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(344,22): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(352,22): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(369,36): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(391,24): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(397,24): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(403,24): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(409,24): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(572,23): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(580,23): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(628,151): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(891,20): warning C4018: '<': signed/unsigned mismatch
+  Creature.cpp
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(72,137): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(136,22): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(394,20): warning C4018: '<': signed/unsigned mismatch
+  DetailObject.cpp
+  Event.cpp
+  Game.cpp
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Game.cpp(442,35): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Game.cpp(479,20): warning C4018: '<': signed/unsigned mismatch
+  GameObject.cpp
+  InputManager.cpp
+  KeyInputObject.cpp
+  Kraken Engine.cpp
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Kraken Engine.cpp(9,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Kraken Engine.cpp(34,25): warning C4244: 'argument': conversion from 'double' to 'Uint32', possible loss of data
+  Move.cpp
+  ObjectDataBase.cpp
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(107,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(111,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(115,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(119,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(123,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(129,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(133,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(137,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(141,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(291,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(297,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(303,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(309,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(320,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(332,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(344,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(356,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(368,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(431,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(441,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(451,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(461,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(469,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(477,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(743,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(762,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(781,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(800,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(821,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(825,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(846,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(850,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(896,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(926,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(956,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(986,20): warning C4018: '<': signed/unsigned mismatch
+  PlayerCard.cpp
+  rendererStorage.cpp
+  testObj.cpp
+  TextManager.cpp
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\TextManager.cpp(5,22): warning C4838: conversion from 'int' to 'Uint8' requires a narrowing conversion
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\TextManager.cpp(5,30): warning C4838: conversion from 'int' to 'Uint8' requires a narrowing conversion
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\TextManager.cpp(5,38): warning C4838: conversion from 'int' to 'Uint8' requires a narrowing conversion
+  Generating Code...
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(389): warning C4715: 'ObjectDataBase::getDetailObject': not all control paths return a value
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(402): warning C4715: 'ObjectDataBase::getButtonObject': not all control paths return a value
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(415): warning C4715: 'ObjectDataBase::getAdvancedButtonObject': not all control paths return a value
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\ObjectDataBase.cpp(428): warning C4715: 'ObjectDataBase::getTextObject': not all control paths return a value
+  Compiling...
+  TextObject.cpp
+  TextureManager.cpp
+  Generating Code...
+  Kraken Engine.vcxproj -> D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe
