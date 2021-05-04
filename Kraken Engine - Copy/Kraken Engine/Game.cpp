@@ -416,10 +416,10 @@ void Game::handleEvents()
 			}
 			else if (action == "openHand") {
 				allObjects.deleteButtonObject("cardButton");
-				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(0).cardImage, &playCard, 100, 600, 150, 200, 0));
-				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(1).cardImage, &playCard, 300, 600, 150, 200, 1));
-				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(2).cardImage, &playCard, 500, 600, 150, 200, 2));
-				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(3).cardImage, &playCard, 700, 600, 150, 200, 3));
+				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(0).cardImage, &playCard, 100, 600, 150, 200, 0,false));
+				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(1).cardImage, &playCard, 300, 600, 150, 200, 1,false));
+				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(2).cardImage, &playCard, 500, 600, 150, 200, 2,false));
+				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(3).cardImage, &playCard, 700, 600, 150, 200, 3,false));
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &closeHand, 0, 814, 50, 50, false));
 
 			}

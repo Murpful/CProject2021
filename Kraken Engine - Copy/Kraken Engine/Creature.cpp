@@ -99,16 +99,15 @@ void Creature::runTurn() {
 				}
 				if (half)
 				{
+					mapTiles->at(currentTile).isUnpassable = false;
+					mapTiles->at(currentTile).creatureLink = "";
+					currentTile = pathWeave.at(0);
 					mapTiles->at(currentTile).creatureLink = name;
 					mapTiles->at(currentTile).isUnpassable = true;
 					halfGoal = -6;
 					std::cout << "reached half" << std::endl;
 				}
 				if (reached) {
-					mapTiles->at(currentTile).isUnpassable = false;
-					mapTiles->at(currentTile).creatureLink = "";
-					currentTile = pathWeave.at(0);
-			
 					pathWeave.erase(pathWeave.begin() + 0);
 					goalSet = false;
 					halfGoal = 0;
