@@ -48,7 +48,7 @@ void Character::updateTurn() {
 			isAttacking = true;
 			attackTimeCounter = 300;
 			std::vector<Path> paths = { Path({mapTiles->at(loc).c1},4),Path({mapTiles->at(loc).c2},5),Path({mapTiles->at(loc).c3},6),Path({mapTiles->at(loc).c4},1),Path({mapTiles->at(loc).c5},2),Path({mapTiles->at(loc).c6},3) };
-			if (mapTiles->at(loc).c6 == -1 || mapTiles->at(mapTiles->at(loc).c6).isUnpassable) {
+			if (mapTiles->at(mapTiles->at(loc).c6).isUnpassable && mapTiles->at(mapTiles->at(loc).c6).creatureLink == "") {
 				paths.erase(paths.begin() + 5);
 				int marked = mapTiles->at(mapTiles->at(loc).c6).c5;
 				for (int l = 0; l < attackQueue.at(0).range; l++)
@@ -66,6 +66,9 @@ void Character::updateTurn() {
 						marked = mapTiles->at(marked).c1;
 					}
 				}
+			}
+			else if (mapTiles->at(loc).c6 == -1) {
+				paths.erase(paths.begin() + 5);
 			}
 			if (mapTiles->at(loc).c5 == -1 || mapTiles->at(mapTiles->at(loc).c5).isUnpassable) {
 				paths.erase(paths.begin() + 4);

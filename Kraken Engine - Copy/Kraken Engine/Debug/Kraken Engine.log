@@ -1,15 +1,15 @@
 ﻿  Character.cpp
 C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(15,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(31,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(326,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(334,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(351,36): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(373,24): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(379,24): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(385,24): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(391,24): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(554,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(562,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(610,151): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(873,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(329,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(337,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(354,36): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(376,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(382,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(388,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(394,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(557,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(565,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(613,151): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Character.cpp(876,20): warning C4018: '<': signed/unsigned mismatch
   Kraken Engine.vcxproj -> C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe
