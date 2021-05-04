@@ -135,6 +135,9 @@ void Game::handleEvents()
 				allObjects.addObject(new DetailObject("tile0", "assets/RegHexTrees.png", 700, 350, 110, 96));
 
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png",&openHand,0,814,50,50,false));
+				//tells number of cards in deck
+				std::cout << std::endl << playerCharacter.deck.size() << std::endl;
+				allObjects.addObject(new TextObject("cardsInDeck", "ariali.ttf", 20, 255, 255, 255, 50, 815, std::to_string(playerCharacter.deck.size())));
 				mapTiles.push_back(battleMapTile(1, -1, -1, -1, -1, -1));
 				currentTile += 1;
 				for (int i = 1; i < mapsize; i++)
@@ -415,13 +418,15 @@ void Game::handleEvents()
 				allObjects.xoff -= 2;
 			}
 			else if (action == "openHand") {
+				std::cout << "handopen" << std::endl;
 				allObjects.deleteButtonObject("cardButton");
+				std::cout << "Handsize: " << playerCharacter.hand.size() <<std::endl;
 				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(0).cardImage, &playCard, 100, 600, 150, 200, 0,false));
 				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(1).cardImage, &playCard, 300, 600, 150, 200, 1,false));
 				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(2).cardImage, &playCard, 500, 600, 150, 200, 2,false));
 				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(3).cardImage, &playCard, 700, 600, 150, 200, 3,false));
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &closeHand, 0, 814, 50, 50, false));
-
+				
 			}
 			else if (action == "closeHand") {
 				allObjects.deleteAllAdvancedButtonObject();
@@ -429,10 +434,11 @@ void Game::handleEvents()
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &openHand, 0, 814, 50, 50, false));
 			}
 			else if (action == "playCard") {
+				std::cout << "playCard" << std::endl;
 				allObjects.deleteAllAdvancedButtonObject();
 				allObjects.deleteButtonObject("cardButton");
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &openHand, 0, 814, 50, 50, false));
-
+				allObjects.changeText("cardsInHand",std::to_string(playerCharacter.deck.size()));
 				for (int counter = 0; counter < playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.size(); counter++) {
 					playerCharacter.pick.push_back(playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action);
 					if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == attack) {
