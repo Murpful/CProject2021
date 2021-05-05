@@ -26,7 +26,7 @@ public:
 	bool moving;
 	std::vector<int> pathWeave;
 	std::string linkID;
-
+	bool killed;
 	
 	int goalx;
 	int goaly;

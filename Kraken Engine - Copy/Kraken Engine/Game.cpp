@@ -135,9 +135,10 @@ void Game::handleEvents()
 				allObjects.addObject(new DetailObject("tile0", "assets/RegHexTrees.png", 700, 350, 110, 96));
 
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png",&openHand,0,814,50,50,false));
+				allObjects.addObject(new KeyInputObject("cardKey", &openHand, SDL_SCANCODE_E, false));
 				//tells number of cards in deck
 				std::cout << std::endl << playerCharacter.deck.size() << std::endl;
-				allObjects.addObject(new TextObject("cardsInDeck", "ariali.ttf", 20, 255, 255, 255, 50, 815, std::to_string(playerCharacter.deck.size())));
+				allObjects.addObject(new TextObject("cardsInHand", "ariali.ttf", 20, 255, 255, 255, 50, 815, std::to_string(playerCharacter.deck.size())));
 				mapTiles.push_back(battleMapTile(1, -1, -1, -1, -1, -1));
 				currentTile += 1;
 				for (int i = 1; i < mapsize; i++)
@@ -388,12 +389,12 @@ void Game::handleEvents()
 					allObjects.getDetailObject(name)->objTexture = TextureManager::loadTexture("assets/RegHexL.png");
 				}
 				allObjects.addObject(new DetailObject("dino", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
-				//allObjects.addObject(new DetailObject("dino2", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
+				allObjects.addObject(new DetailObject("dino2", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				//allObjects.addObject(new DetailObject("dino3", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				//allObjects.addObject(new DetailObject("dino4", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				std::cout << "total tiles: " << mapTiles.size() << "  ";
 				creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino", player, 91, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
-				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino2", "dino2", player, 4, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
+				creatures.push_back(Creature(&mapTiles, &allObjects, "dino2", "dino2", player, 4, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino3", "dino3", player, 74, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino4", "dino4", player, 22, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				allObjects.addObject(new DetailObject("Phil", "assets/Phil.png", 0, 0, 50, 50));
@@ -421,37 +422,53 @@ void Game::handleEvents()
 				std::cout << "handopen" << std::endl;
 				allObjects.deleteButtonObject("cardButton");
 				std::cout << "Handsize: " << playerCharacter.hand.size() <<std::endl;
-				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(0).cardImage, &playCard, 100, 600, 150, 200, 0,false));
-				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(1).cardImage, &playCard, 300, 600, 150, 200, 1,false));
-				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(2).cardImage, &playCard, 500, 600, 150, 200, 2,false));
-				allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(3).cardImage, &playCard, 700, 600, 150, 200, 3,false));
+				for (int i = 0; i < playerCharacter.hand.size(); i++)
+				{
+					std::string thaName = "card" + std::to_string(i) + "Button";
+					allObjects.addObject(new AdvancedButtonObject(thaName, playerCharacter.hand.at(i).cardImage, &playCard, 100+(200*i), 600, 150, 200, i, false));
+				}
+				//allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(0).cardImage, &playCard, 100, 600, 150, 200, 0,false));
+				//allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(1).cardImage, &playCard, 300, 600, 150, 200, 1,false));
+				//allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(2).cardImage, &playCard, 500, 600, 150, 200, 2,false));
+				//allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(3).cardImage, &playCard, 700, 600, 150, 200, 3,false));
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &closeHand, 0, 814, 50, 50, false));
+				allObjects.getKeyInputObject("cardKey")->command = &closeHand;
 				
 			}
 			else if (action == "closeHand") {
 				allObjects.deleteAllAdvancedButtonObject();
 				allObjects.deleteButtonObject("cardButton");
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &openHand, 0, 814, 50, 50, false));
+				//std::cout << "woah";
+				allObjects.getKeyInputObject("cardKey")->command = &openHand;
 			}
 			else if (action == "playCard") {
-				std::cout << "playCard" << std::endl;
-				allObjects.deleteAllAdvancedButtonObject();
-				allObjects.deleteButtonObject("cardButton");
-				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &openHand, 0, 814, 50, 50, false));
-				allObjects.changeText("cardsInHand",std::to_string(playerCharacter.deck.size()));
-				for (int counter = 0; counter < playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.size(); counter++) {
-					playerCharacter.pick.push_back(playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action);
-					if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == attack) {
-						CardEvent thisCardEvent = playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter);
-						Attack createdAttack = Attack(thisCardEvent.data.at(0), thisCardEvent.data.at(1));						
-						playerCharacter.attackQueue.push_back(createdAttack);
+				if (playerCharacter.pick.size() == 0) {
+					std::cout << "playCard" << std::endl;
+					allObjects.deleteAllAdvancedButtonObject();
+					allObjects.deleteButtonObject("cardButton");
+					allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &openHand, 0, 814, 50, 50, false));
+					allObjects.changeText("cardsInHand", std::to_string(playerCharacter.deck.size()));
+					allObjects.getKeyInputObject("cardKey")->command = &openHand;
+
+					
+					for (int counter = 0; counter < playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.size(); counter++) {
+						playerCharacter.pick.push_back(playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action);
+						if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == attack) {
+							CardEvent thisCardEvent = playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter);
+							Attack createdAttack = Attack(thisCardEvent.data.at(0), thisCardEvent.data.at(1));
+							playerCharacter.attackQueue.push_back(createdAttack);
+						}
+						if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == move) {
+							CardEvent thisCardEvent = playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter);
+							Move createdMove = Move(thisCardEvent.data.at(0), thisCardEvent.data.at(1));
+							playerCharacter.moveQueue.push_back(createdMove);
+						}
 					}
-					if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == move) {
-						CardEvent thisCardEvent = playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter);
-						Move createdMove = Move(thisCardEvent.data.at(0), thisCardEvent.data.at(1));
-						playerCharacter.moveQueue.push_back(createdMove);
-					}
+					playerCharacter.discard.push_back(playerCharacter.hand.at(eventHandles->at(0).integers.at(0)));
+					playerCharacter.hand.erase(playerCharacter.hand.begin() + eventHandles->at(0).integers.at(0));
 				}
+				
 
 			}
 		}
@@ -476,9 +493,19 @@ void Game::handleEvents()
 //runs every frame, where most of your code in this file should take place aside from buttons and event handles
 void Game::update()
 {
-	for (int i = 0; i < creatures.size(); i++)
+	for (int i = creatures.size()-1; i > -1; i--)
 	{
-		creatures.at(i).runTurn();
+		//std::cout << "ran";
+		if (creatures.at(i).killed == true) {
+			allObjects.deleteDetailObject(creatures.at(i).linkID);
+			creatures.erase(creatures.begin() + i);
+		}
+		else {
+			creatures.at(i).runTurn();
+		}
+
+
+		
 	}
 	if (!paused) {
 		playerCharacter.updateTurn();

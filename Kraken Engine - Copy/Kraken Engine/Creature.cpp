@@ -29,10 +29,14 @@ Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase, std
 	currentTile = tile;
 	faction = fact;
 	cardsReady = cards;
+	killed = false;
 
 }
 void Creature::runTurn() {
 	//std::cout << "remaining actions: " << cardsReady.size();
+	if (currentHealthPoints <= 0) {
+		killed = true;
+	}
 	if (moving) {
 
 		if (goalSet == false) {

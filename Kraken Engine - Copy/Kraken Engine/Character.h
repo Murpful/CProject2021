@@ -23,6 +23,7 @@ class Character
 		PlayerCard selectedCard;
 		std::vector<PlayerCard> deck;
 		std::vector<PlayerCard> hand;
+		std::vector<PlayerCard> discard;
 		std::vector<Attack> attackQueue;
 		std::vector<Move> moveQueue;
 		std::vector<Creature>* creatures;

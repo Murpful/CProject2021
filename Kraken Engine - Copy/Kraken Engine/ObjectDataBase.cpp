@@ -387,6 +387,19 @@ DetailObject* ObjectDataBase::getDetailObject(std::string objID) {
 		return NULL;
 	}
 }
+KeyInputObject* ObjectDataBase::getKeyInputObject(std::string objID) {
+	bool foundReturn = false;
+	for (int i = keyInputObjects.size() - 1; i >= 0; i--)
+	{
+		if (keyInputObjects.at(i)->objectID == objID) {
+			foundReturn = true;
+			return keyInputObjects.at(i);
+		}
+	}
+	if (foundReturn == false) {
+		return NULL;
+	}
+}
 ButtonObject* ObjectDataBase::getButtonObject(std::string objID) {
 	bool foundReturn = false;
 	for (int i = buttonObjects.size() - 1; i >= 0; i--)

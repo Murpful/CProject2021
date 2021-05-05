@@ -50,6 +50,7 @@ public:
 	bool DetectAdvancedButtonObject(std::string objectID);
 	bool DetectTextObject(std::string objectID);
 	bool DetectKeyInputObject(std::string objectID);
+	KeyInputObject* getKeyInputObject(std::string objectID);
 	DetailObject* getDetailObject(std::string objectID);
 	ButtonObject* getButtonObject(std::string objectID);
 	AdvancedButtonObject* getAdvancedButtonObject(std::string objectID);
