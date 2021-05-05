@@ -784,6 +784,7 @@ Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, 
 	discard.push_back(PlayerCard("atk", { CardEvent(attack, {3,1}) }, 30, "assets/AtkCard.png"));
 	discard.push_back(PlayerCard("mve", { CardEvent(move, {1,1}) }, 30, "assets/MovCard.png"));
 	discard.push_back(PlayerCard("mvenatk", { CardEvent(move, {1,1}),CardEvent(attack, {3,1}) }, 30, "assets/MovnAtkCard.png"));
+	discard.push_back(PlayerCard("mvenatkmov", { CardEvent(move, {2,1}),CardEvent(attack, {2,0}),CardEvent(move, {2,1}) }, 30, "assets/moveatkmovCard.png"));
 	discard.push_back(PlayerCard("mvefar", { CardEvent(move, {3,2})}, 30, "assets/LongMovCard.png"));
 	if (setClassName == "Brute")
 	{
