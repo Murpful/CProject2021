@@ -583,7 +583,7 @@ void Character::updateTurn() {
 					int it = finalTiles.at(i);
 					std::string name = "tile" + std::to_string(it);
 					//std::cout << "  asdf        " << name << "      "  ;
-					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget5.png", &selectMoveTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 110, 96, it));
+					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png", &selectMoveTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 110, 96, it));
 				}
 			}
 			if (isMoving) {
@@ -813,7 +813,7 @@ Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, 
 	int repaeats = discard.size();
 	for (int f = 0; f < repaeats; f++)
 	{
-		std::cout << "  ASDFASDFASDF";
+		//std::cout << "  ASDFASDFASDF";
 		int location = rand() % discard.size();
 		deck.push_back(discard.at(location));
 		discard.erase(discard.begin() + location);
