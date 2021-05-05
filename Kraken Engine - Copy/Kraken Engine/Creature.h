@@ -1,5 +1,5 @@
 #pragma once
-#include "PlayerCard.h"
+#include "CreatureCard.h"
 #include "battleMapTile.h"
 #include "ObjectDataBase.h"
 enum entityFaction
@@ -14,8 +14,8 @@ public:
 
 
 	int halfGoal;
-	std::vector<PlayerCard> cardsReady;
-	std::vector<PlayerCard> cardsUsed;
+	std::vector<CreatureCard> cardsReady;
+	std::vector<CreatureCard> cardsUsed;
 	int maxHealthPoints;
 	int currentHealthPoints;
 	int coolDown;
