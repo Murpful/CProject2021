@@ -70,6 +70,20 @@ void Creature::runTurn() {
 				}
 			goalSet = true;
 		}
+		else if (goalSet == true && mapTiles->at(pathWeave.at(0)).characterLink != "") {
+			goalSet = false;
+			halfGoal = 0;
+			pathWeave = { };
+			std::string objectTag = "tile" + std::to_string(currentTile);
+			//std::cout << objectTag << " ";
+			goalx = allObjects->getDetailObject(objectTag)->xPos + 30;
+			goaly = allObjects->getDetailObject(objectTag)->yPos + 20;
+			allObjects->getDetailObject(linkID)->xPos = goalx;
+			allObjects->getDetailObject(linkID)->yPos = goaly;
+			moving = false;
+			pathWeave = { };
+		}
+
 		else {
 			if (halfGoal == 0)
 			{
@@ -129,7 +143,7 @@ void Creature::runTurn() {
 			//}
 			
 		}
-		
+	
 	} 
 	else if (coolDown == 0) {
 		if ((cardsReady.size() > 0) && mapTiles->size() > 0) {
