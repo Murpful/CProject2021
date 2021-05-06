@@ -354,14 +354,14 @@ void Character::updateTurn() {
 				int it = finalTiles.at(i);
 				std::string name = "tile" + std::to_string(it);
 				//std::cout << "  asdf        " << name << "      "  ;
-				allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget5.png", &selectTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 110, 96, it));
+				allObjects->addObject(new AdvancedHexagonalButtonObject("targetButton", "assets/RegHexBaseTarget5.png",it, &selectTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 48, 110, 96));
 			}
 
 		}
 			if (isAttacking) {
 
 			if (targetLoc != -1) {
-				allObjects->deleteAllAdvancedButtonObject();
+				allObjects->deleteAllAdvancedHexagonalButtonObject();
 				selectedTile = -1;
 
 				if (mapTiles->at(targetLoc).creatureLink != "") {
@@ -388,33 +388,33 @@ void Character::updateTurn() {
 			else if (attackTimeCounter > 0) {
 				attackTimeCounter -= 1;
 				if (attackTimeCounter == 240) {
-					for (int i = 0; i < allObjects->advancedButtonObjects.size(); i++)
+					for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
 					{
-						allObjects->advancedButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget4.png");
+						allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget4.png");
 					}
 				}
 				else if (attackTimeCounter == 180) {
-					for (int i = 0; i < allObjects->advancedButtonObjects.size(); i++)
+					for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
 					{
-						allObjects->advancedButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget3.png");
+						allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget3.png");
 					}
 				}
 				else if (attackTimeCounter == 120) {
-					for (int i = 0; i < allObjects->advancedButtonObjects.size(); i++)
+					for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
 					{
-						allObjects->advancedButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget2.png");
+						allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget2.png");
 					}
 				}
 				else if (attackTimeCounter == 60) {
-					for (int i = 0; i < allObjects->advancedButtonObjects.size(); i++)
+					for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
 					{
-						allObjects->advancedButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget1.png");
+						allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget1.png");
 					}
 				}
 				
 			}
 			else {
-				allObjects->deleteAllAdvancedButtonObject();
+				allObjects->deleteAllAdvancedHexagonalButtonObject();
 				pick.erase(pick.begin() + 0);
 				attackQueue.erase(attackQueue.begin() + 0);
 				attackTimeCounter = 300;
@@ -583,7 +583,7 @@ void Character::updateTurn() {
 					int it = finalTiles.at(i);
 					std::string name = "tile" + std::to_string(it);
 					//std::cout << "  asdf        " << name << "      "  ;
-					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png", &selectMoveTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 110, 96, it));
+					allObjects->addObject(new AdvancedHexagonalButtonObject("targetButton", "assets/RegHexBaseTarget.png", it, &selectMoveTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 48, 110, 96));
 				}
 			}
 			if (isMoving) {
@@ -591,12 +591,14 @@ void Character::updateTurn() {
 				if (moveLoc != -1) {
 					bool nomove = false;
 					if (goalSet == true && pathWeave.size() == 0) {
+						
+						std::cout << "goalSet" << std::endl;
 						nomove = true;
 					}
 					if (goalSet == false) {
-
+						std::cout << "Why?" << std::endl;
 						if (pathWeave.size() == 0) {
-							allObjects->deleteAllAdvancedButtonObject();
+							allObjects->deleteAllAdvancedHexagonalButtonObject();
 							//std::cout << "Destintation: " << moveDest << "   ";
 							path();
 						}

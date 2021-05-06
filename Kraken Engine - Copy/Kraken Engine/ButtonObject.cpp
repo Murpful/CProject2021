@@ -643,7 +643,7 @@ AdvancedButtonObject::AdvancedButtonObject(std::string ID, const char* textureSh
 AdvancedHexagonalButtonObject::~AdvancedHexagonalButtonObject() {
 
 }
-AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet,int id, void (*function)(int), int x, int y, int radi) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  0,  0) {
+AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet,int id, void (*function)(int), int x, int y, int radi, int width, int height ) : ButtonObject( ID,  texturesheet,  NULL,  x,  y, width, height ) {
 	radius = radi;
 	numID = id;
 	pressed = false;
@@ -661,77 +661,7 @@ AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, con
 	delayTime = 0;
 	objectID = ID;
 }
-AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  0,  0,  ani,  frameCount,  delayTimed) {
-	radius = radi;
-	numID = id;
-	pressed = false;
-	srcRect.x = 0;
-	srcRect.y = 0;
-	srcRect.h = height;
-	srcRect.w = width;
-	frames = frameCount;
-	animated = ani;
-	destRect.x = xPos;
-	destRect.y = yPos;
-	destRect.w = width;
-	destRect.h = height;
-	delayTime = delayTimed;
-	command = function;
-	objectID = ID;
-}
-AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, int sourceh, int sourcew) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  0,  0,  sourceh,  sourcew) {
-	radius = radi;
-	numID = id;
-	pressed = false;
-	srcRect.x = 0;
-	srcRect.y = 0;
-	srcRect.h = sourceh;
-	srcRect.w = sourcew;
-	destRect.w = width;
-	destRect.h = height;
-	frames = 0;
-	animated = false;
-	command = function;
-	delayTime = 0;
-	objectID = ID;
-}
-AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int sourceh, int sourcew, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  textureSheet,  NULL,  x,  y,  0,  0,  sourceh,  sourcew,  ani,  frameCount,  delayTimed) {
-	radius = radi;
-	numID = id;
-	pressed = false;
-	srcRect.x = 0;
-	srcRect.y = 0;
-	srcRect.h = sourceh;
-	srcRect.w = sourcew;
-	frames = frameCount;
-	animated = ani;
-	destRect.x = xPos;
-	destRect.y = yPos;
-	destRect.w = width;
-	destRect.h = height;
-	delayTime = delayTimed;
-	command = function;
-	objectID = ID;
-}
-AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, bool oofs) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  0,  0,  oofs) {
-	radius = radi;
-	numID = id;
-	pressed = false;
-	srcRect.x = 0;
-	srcRect.y = 0;
-	srcRect.h = height;
-	srcRect.w = width;
-	frames = 0;
-	animated = false;
-	destRect.x = xPos;
-	destRect.y = yPos;
-	destRect.w = width;
-	destRect.h = height;
-	command = function;
-	delayTime = 0;
-	objectID = ID;
-}
-AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, bool oofs, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  0,  0,  oofs,  ani,  frameCount,  delayTimed) {
+AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  texturesheet,  NULL,  x,  y, width, height, ani,  frameCount,  delayTimed) {
 	radius = radi;
 	numID = id;
 	pressed = false;
@@ -749,7 +679,7 @@ AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, con
 	command = function;
 	objectID = ID;
 }
-AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, int sourceh, int sourcew, bool oofs) : ButtonObject( ID,  texturesheet,  NULL,  x,  y,  0,  0,  sourceh,  sourcew,  oofs) {
+AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, int sourceh, int sourcew) : ButtonObject( ID,  texturesheet,  NULL,  x,  y, width, height, sourceh,  sourcew) {
 	radius = radi;
 	numID = id;
 	pressed = false;
@@ -765,7 +695,77 @@ AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, con
 	delayTime = 0;
 	objectID = ID;
 }
-AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int sourceh, int sourcew, bool oofs, bool ani, int frameCount, int delayTimed)  : ButtonObject(ID,  textureSheet,  nullptr,  x,  y,  0,  0,  sourceh,  sourcew,  oofs,  ani,  frameCount,  delayTimed) {
+AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, int sourceh, int sourcew, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  textureSheet,  NULL,  x,  y,  width,  height, sourceh,  sourcew,  ani,  frameCount,  delayTimed) {
+	radius = radi;
+	numID = id;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command = function;
+	objectID = ID;
+}
+AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, bool oofs) : ButtonObject( ID,  texturesheet,  NULL,  x,  y, width, height, oofs) {
+	radius = radi;
+	numID = id;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = 0;
+	animated = false;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	command = function;
+	delayTime = 0;
+	objectID = ID;
+}
+AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, bool oofs, bool ani, int frameCount, int delayTimed) : ButtonObject( ID,  texturesheet,  NULL,  x,  y, width, height, oofs,  ani,  frameCount,  delayTimed) {
+	radius = radi;
+	numID = id;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = height;
+	srcRect.w = width;
+	frames = frameCount;
+	animated = ani;
+	destRect.x = xPos;
+	destRect.y = yPos;
+	destRect.w = width;
+	destRect.h = height;
+	delayTime = delayTimed;
+	command = function;
+	objectID = ID;
+}
+AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* texturesheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, int sourceh, int sourcew, bool oofs) : ButtonObject( ID,  texturesheet,  NULL,  x,  y, width, height, sourceh,  sourcew,  oofs) {
+	radius = radi;
+	numID = id;
+	pressed = false;
+	srcRect.x = 0;
+	srcRect.y = 0;
+	srcRect.h = sourceh;
+	srcRect.w = sourcew;
+	destRect.w = width;
+	destRect.h = height;
+	frames = 0;
+	animated = false;
+	command = function;
+	delayTime = 0;
+	objectID = ID;
+}
+AdvancedHexagonalButtonObject::AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, int sourceh, int sourcew, bool oofs, bool ani, int frameCount, int delayTimed)  : ButtonObject(ID,  textureSheet,  nullptr,  x,  y,  width,  height,  sourceh,  sourcew,  oofs,  ani,  frameCount,  delayTimed) {
 	radius = radi;
 	numID = id;
 	pressed = false;
@@ -801,16 +801,41 @@ void AdvancedHexagonalButtonObject::update(int offx, int offy) {
 	//else {
 	if (SDL_GetMouseState(&xl, &yl) != 1) {
 		//std::cout << "not down";
-		if (pressed == true && ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy))) {
-			command(numID);
-			//SDL_Delay(200);
+		if (pressed == true){
+			if ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy)) {
+				if (yl < radius) {
+					if ((xl > xPos + offx + tan(30) * yl) && (xl < xPos + destRect.w + offx - tan(30) * yl)) {
+						command(numID);
+						//SDL_Delay(200);
+					}
+				}
+				else if (yl > radius) {
+					if ((xl > xPos + offx + tan(30) * (yl-radius)) && (xl < xPos + destRect.w + offx - tan(30) * (yl-radius))) {
+						command(numID);
+						//SDL_Delay(200);
+					}
+				}
+				else if (yl == radius) { command(numID); }
+			}
 		}
 		pressed = false;
 	}
 	else if (pressed == false) {
 		if (SDL_GetMouseState(&xl, &yl) == 1) {
 			if ((xl > xPos + offx) && (yl > yPos + offy) && (xl < xPos + destRect.w + offx) && (yl < yPos + destRect.h + offy)) {
-				pressed = true;
+				if (yl < radius) {
+					if ((xl > xPos + offx + tan(30) * yl) && (xl < xPos + destRect.w + offx - tan(30) * yl)) {
+						pressed = true;
+						//SDL_Delay(200);
+					}
+				}
+				else if (yl > radius) {
+					if ((xl > xPos + offx + tan(30) * (yl - radius)) && (xl < xPos + destRect.w + offx - tan(30) * (yl - radius))) {
+						pressed = true;
+						//SDL_Delay(200);
+					}
+				}
+				else if (yl == radius) { pressed = true; }
 			}
 		}
 	}
