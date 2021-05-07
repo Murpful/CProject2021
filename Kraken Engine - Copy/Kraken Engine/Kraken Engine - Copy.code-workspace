@@ -1,0 +1,19 @@
+{
+    "folders": [
+      {
+        "path": "Debug"
+      },
+      {
+        "path": "include"
+      },
+      {
+        "path": "Kraken Engine"
+      },
+      {
+        "path": "lib"
+      },
+      {
+        "path": "SDL2_ttf-2.0.15"
+      }
+    ]
+  }
