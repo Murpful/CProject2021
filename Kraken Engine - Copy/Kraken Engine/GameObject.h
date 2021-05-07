@@ -17,7 +17,7 @@ public:
 	SDL_Texture* objTexture; //this is the object texture file c string
 	int renderOffSetx;
 	int renderOffSety;
-protected:
+
 
 	SDL_Rect srcRect, destRect;
 	bool diry = true;

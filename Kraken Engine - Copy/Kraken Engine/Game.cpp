@@ -464,6 +464,11 @@ void Game::handleEvents()
 							Move createdMove = Move(thisCardEvent.data.at(0), thisCardEvent.data.at(1));
 							playerCharacter.moveQueue.push_back(createdMove);
 						}
+						if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == dodge) {
+							CardEvent thisCardEvent = playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter);
+							Dodge createdDodge= Dodge(thisCardEvent.data.at(0));
+							playerCharacter.dodgeQueue.push_back(createdDodge);
+						}
 					}
 					playerCharacter.discard.push_back(playerCharacter.hand.at(eventHandles->at(0).integers.at(0)));
 					playerCharacter.hand.erase(playerCharacter.hand.begin() + eventHandles->at(0).integers.at(0));
@@ -507,6 +512,7 @@ void Game::update()
 
 		
 	}
+
 	if (!paused) {
 		playerCharacter.updateTurn();
 	}

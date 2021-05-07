@@ -20,7 +20,9 @@ void Character::playCard() {
 		if (selectedCard.cardEvents.at(i).action == move) {
 			moveQueue.push_back(Move(selectedCard.cardEvents.at(i).data.at(0), selectedCard.cardEvents.at(i).data.at(1)));
 		}
-		
+		if (selectedCard.cardEvents.at(i).action == dodge) {
+			dodgeQueue.push_back(Dodge(selectedCard.cardEvents.at(i).data.at(0)));
+		}
 	}
 	
 }
@@ -39,12 +41,13 @@ bool doesContain(std::vector<int> list, int val) {
 }
 void Character::updateTurn() {
 	static int attackTimeCounter = 0;
+	//int iFrameCounter = 0;
 	//std::cout << targetLoc;
 	targetLoc = selectedTile;
 	moveLoc = selectedMoveTile;
 	if (pick.size() > 0) {
 		if (pick.at(0) == attack) {
-			if (attackQueue.size() > 0 && !isAttacking && !isMoving) {
+			if (attackQueue.size() > 0 && !isAttacking && !isMoving && !isDodging) {
 			isAttacking = true;
 			attackTimeCounter = 300;
 			std::vector<Path> paths = { Path({mapTiles->at(loc).c1},4),Path({mapTiles->at(loc).c2},5),Path({mapTiles->at(loc).c3},6),Path({mapTiles->at(loc).c4},1),Path({mapTiles->at(loc).c5},2),Path({mapTiles->at(loc).c6},3) };
@@ -423,7 +426,7 @@ void Character::updateTurn() {
 		}
 	}
 		else if (pick.at(0) == move) {
-			if (moveQueue.size() > 0 && !isMoving && !isAttacking) {
+			if (moveQueue.size() > 0 && !isMoving && !isAttacking && !isDodging) {
 				isMoving = true;
 				std::vector<Path> paths = { Path({mapTiles->at(loc).c1},4),Path({mapTiles->at(loc).c2},5),Path({mapTiles->at(loc).c3},6),Path({mapTiles->at(loc).c4},1),Path({mapTiles->at(loc).c5},2),Path({mapTiles->at(loc).c6},3) };
 				if (mapTiles->at(loc).c6 == -1 || (mapTiles->at(mapTiles->at(loc).c6).isUnpassable && mapTiles->at(mapTiles->at(loc).c6).creatureLink == "")) {
@@ -586,7 +589,7 @@ void Character::updateTurn() {
 					allObjects->addObject(new AdvancedHexagonalButtonObject("targetButton", "assets/RegHexBaseTarget.png", it, &selectMoveTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 48, 110, 96));
 				}
 			}
-			if (isMoving) {
+			else if (isMoving) {
 				//std::cout << "lloopeded";
 				if (moveLoc != -1) {
 					bool nomove = false;
@@ -743,6 +746,26 @@ void Character::updateTurn() {
 			}
 
 		}
+		else if (pick.at(0) == dodge) {
+			if (dodgeQueue.size() > 0 && !isMoving && !isAttacking && !isDodging) {
+				isDodging = true;
+				iFrameCounter = 0;
+				allObjects->getDetailObject(className)->srcRect.y = allObjects->getDetailObject(className)->height;
+				dodgeQueue.erase(dodgeQueue.begin() + 0);
+
+			}
+			else if (isDodging) {
+				if (iFrameCounter >= 30) {
+					std::cout << "Dodge" << std::endl;
+					isDodging = false;
+					allObjects->getDetailObject(className)->srcRect.y = 0;
+					iFrameCounter = 0;
+					pick.erase(pick.begin() + 0);
+				}
+				else iFrameCounter++;
+			}
+			//
+}
 	}
 	if (deck.size() == 0) {
 		for (int i = 0; i < discard.size(); i++)
@@ -765,7 +788,9 @@ Character::Character() {
 Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::vector<Creature>* creat, std::string setClassName, int startingTile) {
 	isAttacking = false;
 	isMoving = false;
+	isDodging = false;
 	goalSet = false;
+	iFrameCounter = 0;
 	discard = { };
 	deck = { };
 	//moveQueue.push_back(Move(1, 2));
@@ -788,6 +813,7 @@ Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, 
 	discard.push_back(PlayerCard("mvenatk", { CardEvent(move, {1,1}),CardEvent(attack, {3,1}) }, 30, "assets/MovnAtkCard.png"));
 	discard.push_back(PlayerCard("mvenatkmov", { CardEvent(move, {2,1}),CardEvent(attack, {2,0}),CardEvent(move, {2,1}) }, 30, "assets/moveatkmovCard.png"));
 	discard.push_back(PlayerCard("mvefar", { CardEvent(move, {3,2})}, 30, "assets/LongMovCard.png"));
+	discard.push_back(PlayerCard("ddg", { CardEvent(dodge,{30}) }, 30, "assets/DdgCard.png"));
 	if (setClassName == "Brute")
 	{
 		className = setClassName;

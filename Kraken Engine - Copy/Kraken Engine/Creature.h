@@ -2,6 +2,7 @@
 #include "CreatureCard.h"
 #include "battleMapTile.h"
 #include "ObjectDataBase.h"
+#include "PlayerCard.h"
 enum entityFaction
 {
 	player,monster
@@ -14,8 +15,8 @@ public:
 
 
 	int halfGoal;
-	std::vector<CreatureCard> cardsReady;
-	std::vector<CreatureCard> cardsUsed;
+	std::vector<PlayerCard> cardsReady;
+	std::vector<PlayerCard> cardsUsed;
 	int maxHealthPoints;
 	int currentHealthPoints;
 	int coolDown;
