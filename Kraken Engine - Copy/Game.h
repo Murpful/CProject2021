@@ -1,8 +1,7 @@
 #pragma once
 //
-
-#include <SDL_ttf.h>
-#include <SDL_image.h>
+#include "SDL_ttf.h"
+#include "SDL_image.h"
 #include <vector>
 #include <string>
 #include <iostream>
