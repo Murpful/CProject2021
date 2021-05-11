@@ -50,7 +50,16 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 	name = named;
 	currentTile = tile;
 	killed = false;
-	for (int i = 0; i < creatureStats.size()-1; i++)
+	maxHealthPoints = 0;
+	currentHealthPoints = 0;
+	armorStat = 0;
+	pierceable = 1;
+	fazes = 0;
+	Attack newStat = Attack(0,0);
+	attackStat.push_back(newStat);
+	Move newStat2 = Move(0,0);
+	moveStat.push_back(newStat2);
+	for (int i = 0; i < creatureStats.size(); i++)
 	{
 		if (creatureStats.at(i).witch == attackType)
 		{
@@ -59,25 +68,37 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 		}
 		if (creatureStats.at(i).witch == health)
 		{
-			currentHealthPoints = creatureStats.at(i).value.at(0);
-			maxHealthPoints = creatureStats.at(i).value.at(1);
+			if (creatureStats.at(i).value.size() > 1)
+			{
+				currentHealthPoints = creatureStats.at(i).value.at(0);
+				maxHealthPoints = creatureStats.at(i).value.at(1);
+			}
+			else
+			{
+				currentHealthPoints = creatureStats.at(i).value.at(0);
+				maxHealthPoints = creatureStats.at(i).value.at(0);
+			}
 		}
 		if (creatureStats.at(i).witch == moveStats)
 		{
-			Move newStat = Move(creatureStats.at(i).value.at(0), creatureStats.at(i).value.at(1));
+			Move newStat(creatureStats.at(i).crtrMvmt,creatureStats.at(i).value.at(0), creatureStats.at(i).value.at(1));
 			moveStat.push_back(newStat);
 		}
-		if (creatureStats.at(i).witch = faze)
+		if (creatureStats.at(i).witch == faze)
 		{
 			fazes = creatureStats.at(i).value.at(0);
 		}
 		if (creatureStats.at(i).witch == armor)
 		{
 			armorStat = creatureStats.at(i).value.at(0);
-			pierceable = static_cast<bool>(creatureStats.at(i).value.at(1));
+			std::cout << "armorvalue: " << creatureStats.at(i).value.at(0) << std::endl;
+			if (creatureStats.at(i).value.size() > 1)
+			{
+				pierceable = static_cast<bool>(creatureStats.at(i).value.at(1));
+			}
 		}
 	}
-
+	std::cout << "armor: " << armorStat << std::endl;
 }
 void Creature::runTurn() {
 	//std::cout << "remaining actions: " << cardsReady.size();
@@ -193,6 +214,10 @@ void Creature::runTurn() {
 	
 	} 
 	else if (coolDown == 0) {
+		if (mapTiles->size() > 0)
+		{
+
+		}
 		if ((cardsReady.size() > 0) && mapTiles->size() > 0) {
 			PlayerCard activeCard = cardsReady.at(0);
 			cardsUsed.push_back(cardsReady.at(0));
