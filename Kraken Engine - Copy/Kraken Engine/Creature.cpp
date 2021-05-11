@@ -32,6 +32,53 @@ Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase, std
 	killed = false;
 
 }
+Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::string named, int tile, std::vector<Component> creatureStats)
+{
+	moveDest = -1;
+	mapTiles = map;
+	map->at(tile).creatureLink = named;
+	moving = false;
+	pathWeave = { };
+	allObjects = dataBase;
+	std::string objectTag = "tile" + std::to_string(tile);
+	std::cout << objectTag << " ";
+	goalx = allObjects->getDetailObject(objectTag)->xPos + 20;
+	goaly = allObjects->getDetailObject(objectTag)->yPos + 20;
+	allObjects->getDetailObject(named)->xPos = goalx;
+	allObjects->getDetailObject(named)->yPos = goaly;
+	goalSet = false;
+	name = named;
+	currentTile = tile;
+	killed = false;
+	for (int i = 0; i < creatureStats.size()-1; i++)
+	{
+		if (creatureStats.at(i).witch == attackType)
+		{
+			Attack newStat = Attack(creatureStats.at(i).value.at(0), creatureStats.at(i).value.at(1));
+			attackStat.push_back(newStat);
+		}
+		if (creatureStats.at(i).witch == health)
+		{
+			currentHealthPoints = creatureStats.at(i).value.at(0);
+			maxHealthPoints = creatureStats.at(i).value.at(1);
+		}
+		if (creatureStats.at(i).witch == moveStats)
+		{
+			Move newStat = Move(creatureStats.at(i).value.at(0), creatureStats.at(i).value.at(1));
+			moveStat.push_back(newStat);
+		}
+		if (creatureStats.at(i).witch = faze)
+		{
+			fazes = creatureStats.at(i).value.at(0);
+		}
+		if (creatureStats.at(i).witch == armor)
+		{
+			armorStat = creatureStats.at(i).value.at(0);
+			pierceable = static_cast<bool>(creatureStats.at(i).value.at(1));
+		}
+	}
+
+}
 void Creature::runTurn() {
 	//std::cout << "remaining actions: " << cardsReady.size();
 	if (currentHealthPoints <= 0) {

@@ -84,7 +84,7 @@
     <ClCompile Include="CreatureCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Dodge.cpp">
+    <ClCompile Include="Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -155,7 +155,7 @@
     <ClInclude Include="CreatureCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Dodge.h">
+    <ClInclude Include="Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
