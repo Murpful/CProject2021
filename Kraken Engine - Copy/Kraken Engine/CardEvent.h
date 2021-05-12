@@ -9,7 +9,8 @@ class CardEvent
 public:
 	cardAction action;
 	std::vector<int> data;
-	CardEvent(cardAction, std::vector<int>);
+	CardEvent(cardAction, std::vector<int>, const char* = "");
+	const char* actionAnim;
 };
 
 /*move event definition:
