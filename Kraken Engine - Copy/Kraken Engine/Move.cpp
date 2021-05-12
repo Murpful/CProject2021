@@ -1,6 +1,7 @@
 #include "Move.h"
-Move::Move(moveTypes mvmt, int spd, int rng) {
-	movement = mvmt;
+Move::Move(int spd, int rng, moveTypes rdm) {
 	speed = spd;
 	range = rng;
+	movement = rdm;
 }
+

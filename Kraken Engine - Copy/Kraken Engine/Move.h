@@ -4,10 +4,12 @@ enum moveTypes
 	random, toward, away
 };
 class Move
-{public:
+{
+public:
 	moveTypes movement;
 	int speed;
 	int range;
-	Move(moveTypes, int, int);
+	Move(int, int, moveTypes = random);
 };
+
 

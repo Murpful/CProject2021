@@ -26,7 +26,7 @@ public:
 	void moveObjectTo(int x, int y);
 	void moveObject(int x, int y);
 	virtual void update(int, int);
-	 
+
 	//virtual void executeCommand() = 0;
 };
 class AdvancedButtonObject : public ButtonObject {
@@ -73,18 +73,19 @@ public:
 
 
 class AdvancedHexagonalButtonObject : public ButtonObject {
+public:
 	void (*command)(int);
 	int numID;
 	int radius;
 	~AdvancedHexagonalButtonObject();
-	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet,int id, void (*function)(int), int x, int y, int radi);
-	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet,int id, void (*function)(int), int x, int y, int radi, bool ani, int frames, int delayTime = 500);
-	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet,int id, void (*function)(int), int x, int y, int radi, int sh, int sw);
-	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet,int id, void (*function)(int), int x, int y, int radi, int sh, int sw, bool ani, int frames, int delayTime = 500);
+	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height);
+	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, bool ani, int frames, int delayTime = 500);
+	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, int sh, int sw);
+	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, int sh, int sw, bool ani, int frames, int delayTime = 500);
 
-	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, bool oofs);
-	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, bool oofs, bool ani, int frames, int delayTime = 500);
-	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int sh, int sw, bool oofs);
-	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int sh, int sw, bool oofs, bool ani, int frames, int delayTime = 500);
+	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, bool oofs);
+	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, bool oofs, bool ani, int frames, int delayTime = 500);
+	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, int sh, int sw, bool oofs);
+	AdvancedHexagonalButtonObject(std::string ID, const char* textureSheet, int id, void (*function)(int), int x, int y, int radi, int width, int height, int sh, int sw, bool oofs, bool ani, int frames, int delayTime = 500);
 	void update(int offsetx, int offsety);
 };

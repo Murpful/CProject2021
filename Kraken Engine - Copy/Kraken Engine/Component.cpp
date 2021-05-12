@@ -1,5 +1,5 @@
 #include "Component.h"
-Component::Component(stats chess, std::vector<int> checkers, moveTypes monopoly = random)
+Component::Component(stats chess, std::vector<int> checkers, moveTypes monopoly)
 {
 	witch = chess;
 	if (chess == moveStats)
@@ -8,3 +8,6 @@ Component::Component(stats chess, std::vector<int> checkers, moveTypes monopoly 
 	}
 	value = checkers;
 }
+
+
+

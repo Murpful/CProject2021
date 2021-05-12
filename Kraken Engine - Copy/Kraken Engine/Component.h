@@ -11,7 +11,8 @@ public:
 	stats witch;
 	std::vector<int> value;
 	moveTypes crtrMvmt;
-	Component(stats, std::vector<int>, moveTypes);
+	Component(stats, std::vector<int>, moveTypes = random);
 
 };
+
 

@@ -3,7 +3,7 @@ Path::Path(std::vector<int> w, int p) {
 	weave = w;
 	from = p;
 }
-Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase, std::string named, std::string linkedid, entityFaction fact, int tile, std::vector<PlayerCard> cards) {
+Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::string named, std::string linkedid, entityFaction fact, int tile, std::vector<PlayerCard> cards) {
 	maxHealthPoints = 5;
 	halfGoal = 0;
 	currentHealthPoints = 5;
@@ -19,8 +19,8 @@ Creature::Creature(std::vector<battleMapTile>* map,ObjectDataBase* dataBase, std
 	allObjects = dataBase;
 	std::string objectTag = "tile" + std::to_string(tile);
 	std::cout << objectTag << " ";
-	goalx = allObjects->getDetailObject(objectTag)->xPos+20;
-	goaly = allObjects->getDetailObject(objectTag)->yPos+20;
+	goalx = allObjects->getDetailObject(objectTag)->xPos + 20;
+	goaly = allObjects->getDetailObject(objectTag)->yPos + 20;
 	allObjects->getDetailObject(linkedid)->xPos = goalx;
 	allObjects->getDetailObject(linkedid)->yPos = goaly;
 	goalSet = false;
@@ -55,9 +55,9 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 	armorStat = 0;
 	pierceable = 1;
 	fazes = 0;
-	Attack newStat = Attack(0,0);
+	Attack newStat = Attack(0, 0);
 	attackStat.push_back(newStat);
-	Move newStat2 = Move(0,0);
+	Move newStat2 = Move(0, 0);
 	moveStat.push_back(newStat2);
 	for (int i = 0; i < creatureStats.size(); i++)
 	{
@@ -81,7 +81,7 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 		}
 		if (creatureStats.at(i).witch == moveStats)
 		{
-			Move newStat(creatureStats.at(i).crtrMvmt,creatureStats.at(i).value.at(0), creatureStats.at(i).value.at(1));
+			Move newStat(creatureStats.at(i).value.at(0), creatureStats.at(i).value.at(1), creatureStats.at(i).crtrMvmt);
 			moveStat.push_back(newStat);
 		}
 		if (creatureStats.at(i).witch == faze)
@@ -108,34 +108,34 @@ void Creature::runTurn() {
 	if (moving) {
 
 		if (goalSet == false) {
-			
+
 			if (pathWeave.size() == 0) {
 				//std::cout << "Destintation: " << moveDest << "   ";
 				path();
 			}
-			
-				if (mapTiles->at(currentTile).c1 == pathWeave.at(0)) {
-					goaly -= 96;
-				} 
-				else if (mapTiles->at(currentTile).c2 == pathWeave.at(0)) {
-					goaly -= 48;
-					goalx += 83;
-				}
-				else if (mapTiles->at(currentTile).c3 == pathWeave.at(0)) {
-					goaly += 48;
-					goalx += 83;
-				}
-				else if (mapTiles->at(currentTile).c4 == pathWeave.at(0)) {
-					goaly += 96;
-				}
-				else if (mapTiles->at(currentTile).c5 == pathWeave.at(0)) {
-					goaly += 48;
-					goalx -= 83;
-				}
-				else if (mapTiles->at(currentTile).c6 == pathWeave.at(0)) {
-					goaly -= 48;
-					goalx -= 83;
-				}
+
+			if (mapTiles->at(currentTile).c1 == pathWeave.at(0)) {
+				goaly -= 96;
+			}
+			else if (mapTiles->at(currentTile).c2 == pathWeave.at(0)) {
+				goaly -= 48;
+				goalx += 83;
+			}
+			else if (mapTiles->at(currentTile).c3 == pathWeave.at(0)) {
+				goaly += 48;
+				goalx += 83;
+			}
+			else if (mapTiles->at(currentTile).c4 == pathWeave.at(0)) {
+				goaly += 96;
+			}
+			else if (mapTiles->at(currentTile).c5 == pathWeave.at(0)) {
+				goaly += 48;
+				goalx -= 83;
+			}
+			else if (mapTiles->at(currentTile).c6 == pathWeave.at(0)) {
+				goaly -= 48;
+				goalx -= 83;
+			}
 			goalSet = true;
 		}
 		else if (goalSet == true && mapTiles->at(pathWeave.at(0)).characterLink != "") {
@@ -155,7 +155,7 @@ void Creature::runTurn() {
 		else {
 			if (halfGoal == 0)
 			{
-				halfGoal = sqrt(pow(goalx-allObjects->getDetailObject(linkID)->xPos ,2) +pow(goaly - (allObjects->getDetailObject(linkID)->yPos),2))/2;
+				halfGoal = sqrt(pow(goalx - allObjects->getDetailObject(linkID)->xPos, 2) + pow(goaly - (allObjects->getDetailObject(linkID)->yPos), 2)) / 2;
 
 			}
 			int tilenumb = pathWeave.at(0);
@@ -163,56 +163,56 @@ void Creature::runTurn() {
 			bool half = false;
 			//std::cout << "Goalx: " << goalx << "Goaly: " << goaly;
 			//if (mapTiles->at(tilenumb).isUnpassable == false) {
-				if (allObjects->getDetailObject(linkID)->yPos < goaly) {
-					allObjects->getDetailObject(linkID)->moveObject(0, 1);
-					reached = false;
+			if (allObjects->getDetailObject(linkID)->yPos < goaly) {
+				allObjects->getDetailObject(linkID)->moveObject(0, 1);
+				reached = false;
+			}
+			else if (allObjects->getDetailObject(linkID)->yPos > goaly) {
+				allObjects->getDetailObject(linkID)->moveObject(0, -1);
+				reached = false;
+			}
+			if (allObjects->getDetailObject(linkID)->xPos < goalx) {
+				allObjects->getDetailObject(linkID)->moveObject(1, 0);
+				reached = false;
+			}
+			else if (allObjects->getDetailObject(linkID)->xPos > goalx) {
+				allObjects->getDetailObject(linkID)->moveObject(-1, 0);
+				reached = false;
+			}
+			if (sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) >= halfGoal - 5 && sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) <= halfGoal + 5)
+			{
+				half = true;
+			}
+			if (half)
+			{
+				mapTiles->at(currentTile).isUnpassable = false;
+				mapTiles->at(currentTile).creatureLink = "";
+				currentTile = pathWeave.at(0);
+				mapTiles->at(currentTile).creatureLink = name;
+				mapTiles->at(currentTile).isUnpassable = true;
+				halfGoal = -6;
+				std::cout << "reached half" << std::endl;
+			}
+			if (reached) {
+				pathWeave.erase(pathWeave.begin() + 0);
+				goalSet = false;
+				halfGoal = 0;
+				std::cout << "reached full" << std::endl;
+				if (pathWeave.size() == 0) {
+					moving = false;
+					pathWeave = { };
 				}
-				else if (allObjects->getDetailObject(linkID)->yPos > goaly) {
-					allObjects->getDetailObject(linkID)->moveObject(0, -1);
-					reached = false;
-				}
-				if (allObjects->getDetailObject(linkID)->xPos < goalx) {
-					allObjects->getDetailObject(linkID)->moveObject(1, 0);
-					reached = false;
-				}
-				else if (allObjects->getDetailObject(linkID)->xPos > goalx) {
-					allObjects->getDetailObject(linkID)->moveObject(-1, 0);
-					reached = false;
-				}
-				if (sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) >= halfGoal - 5 && sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) <= halfGoal + 5)
-				{
-					half = true;
-				}
-				if (half)
-				{
-					mapTiles->at(currentTile).isUnpassable = false;
-					mapTiles->at(currentTile).creatureLink = "";
-					currentTile = pathWeave.at(0);
-					mapTiles->at(currentTile).creatureLink = name;
-					mapTiles->at(currentTile).isUnpassable = true;
-					halfGoal = -6;
-					std::cout << "reached half" << std::endl;
-				}
-				if (reached) {
-					pathWeave.erase(pathWeave.begin() + 0);
-					goalSet = false;
-					halfGoal = 0;
-					std::cout << "reached full" << std::endl;
-					if (pathWeave.size() == 0) {
-						moving = false;
-						pathWeave = { };
-					}
-					//std::cout << "New current tile: " << currentTile;
-				}
+				//std::cout << "New current tile: " << currentTile;
+			}
 			//}
 			//else {
 			//	moving = false;
 			//	goalSet = false;
 			//}
-			
+
 		}
-	
-	} 
+
+	}
 	else if (coolDown == 0) {
 		if (mapTiles->size() > 0)
 		{
@@ -229,7 +229,7 @@ void Creature::runTurn() {
 					if (activeCard.cardEvents.at(i).data.at(0) == 0) {
 						int thisTile = currentTile;
 						std::vector<int> targets = { };
-						
+
 						for (int i = 0; i < activeCard.cardEvents.at(i).data.at(1); i++)
 						{
 							thisTile = mapTiles->at(thisTile).c1;
@@ -237,7 +237,7 @@ void Creature::runTurn() {
 								targets.push_back(0); // add a new variable to tiles that stores who/what is in the tile at a given moment.
 							}
 						}
-						
+
 						moving = true;
 						coolDown = 600;
 					}
@@ -247,7 +247,7 @@ void Creature::runTurn() {
 						for (int k = 0; k < activeCard.cardEvents.at(i).data.at(1); k++)
 						{
 							//std::cout << "    Current loc at loop start: " << currentloc << "   ";
-							
+
 							if (randDirection == 0) {
 								if (mapTiles->at(currentloc).c1 == -1 || mapTiles->at(mapTiles->at(currentloc).c1).isUnpassable == true) {
 									k--;
@@ -255,7 +255,7 @@ void Creature::runTurn() {
 								}
 								else {
 									moveDest = mapTiles->at(currentloc).c1;
-									
+
 								}
 							}
 							else if (randDirection == 1) {
@@ -265,9 +265,9 @@ void Creature::runTurn() {
 								}
 								else {
 									moveDest = mapTiles->at(currentloc).c2;
-									
+
 								}
-								
+
 							}
 							else if (randDirection == 2) {
 								if (mapTiles->at(currentloc).c3 == -1 || mapTiles->at(mapTiles->at(currentloc).c3).isUnpassable == true) {
@@ -276,9 +276,9 @@ void Creature::runTurn() {
 								}
 								else {
 									moveDest = mapTiles->at(currentloc).c3;
-									
+
 								}
-								
+
 							}
 							else if (randDirection == 3) {
 								if (mapTiles->at(currentloc).c4 == -1 || mapTiles->at(mapTiles->at(currentloc).c4).isUnpassable == true) {
@@ -287,9 +287,9 @@ void Creature::runTurn() {
 								}
 								else {
 									moveDest = mapTiles->at(currentloc).c4;
-								
+
 								}
-								
+
 							}
 							else if (randDirection == 4) {
 								if (mapTiles->at(currentloc).c5 == -1 || mapTiles->at(mapTiles->at(currentloc).c5).isUnpassable == true) {
@@ -298,9 +298,9 @@ void Creature::runTurn() {
 								}
 								else {
 									moveDest = mapTiles->at(currentloc).c5;
-								
+
 								}
-								
+
 							}
 							else if (randDirection == 5) {
 								if (mapTiles->at(currentloc).c6 == -1 || mapTiles->at(mapTiles->at(currentloc).c6).isUnpassable == true) {
@@ -309,16 +309,16 @@ void Creature::runTurn() {
 								}
 								else {
 									moveDest = mapTiles->at(currentloc).c6;
-									
+
 								}
-								
+
 							}
 							//std::cout << "    Move destination is currently set to: " << moveDest << "     ";
 							currentloc = moveDest;
 							if (rand() % 5 == 0) {
 								randDirection = rand() % 6;
 							}
-							
+
 						}
 						//std::cout << "   Selecting Destination of: " << moveDest << "  ";
 						if (currentTile != moveDest) {
@@ -331,15 +331,15 @@ void Creature::runTurn() {
 		}
 	}
 	else {
-	if (cardsReady.size() < 1) {
-		int size = cardsUsed.size();
-		for (int i = 0; i < size; i++)
-		{
-			int loc = (rand() % cardsUsed.size());
-			cardsReady.push_back(cardsUsed.at(loc));
-			cardsUsed.erase(cardsUsed.begin() + loc);
+		if (cardsReady.size() < 1) {
+			int size = cardsUsed.size();
+			for (int i = 0; i < size; i++)
+			{
+				int loc = (rand() % cardsUsed.size());
+				cardsReady.push_back(cardsUsed.at(loc));
+				cardsUsed.erase(cardsUsed.begin() + loc);
+			}
 		}
-	}
 		coolDown -= 1;
 	}
 }
@@ -384,19 +384,19 @@ void Creature::path() {
 						paths.at(paths.size() - 1).from = 3;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
 					}
-					
+
 					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 5;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
 					}
-					
+
 					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false) {
 						paths.at(i).from = 4;
 						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
 					}
-					
-				} 
+
+				}
 				else if (paths.at(i).from == 5) {
 					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false) {
 						paths.push_back(paths.at(i));
@@ -486,6 +486,7 @@ void Creature::path() {
 		//std::cout << pathWeave.at(i) << "  ";
 	}
 }
+
 
 
 
