@@ -1,7 +1,7 @@
 #pragma once
 class Dodge
-{public:
+{
+public:
 	int duration;
 	Dodge(int);
 };
-

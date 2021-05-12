@@ -1,9 +1,5 @@
 #pragma once
 #include "TextObject.h"
-
-
-
-
 class ObjectDataBase
 {
 public:
@@ -103,5 +99,3 @@ public:
 	bool directionalCollisionButtonDetailHandlerGroup(bool& up, bool& left, bool& down, bool& right, ButtonObject* initialObject, std::vector<DetailObject*> otherObjects);
 	void changeText(std::string, std::string);
 };
-
-

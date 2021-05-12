@@ -1101,4 +1101,3 @@ void ObjectDataBase::changeText(std::string objID, std::string newText) {
 		}
 	}
 }
-

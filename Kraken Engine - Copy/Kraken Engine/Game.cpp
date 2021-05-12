@@ -89,8 +89,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	allObjects.addObject(new DetailObject("homeBack", "assets/tempHome.png", 0, 0, 1536, 864));
 	allObjects.addObject(new ButtonObject("playButton", "assets/tempPlay.png", &optionScreen, 700, 400, 139, 63));
 
-	
-	
+
+
 
 	//set all startup items after this
 
@@ -107,7 +107,7 @@ void Game::handleEvents()
 	while (eventHandles->size() > 0) {
 		//this goes first
 		std::string action = eventHandles->at(0).ID;
-		
+
 		//define events in here sent by buttons
 		if (paused) {
 			if (action == "optionScreen") {
@@ -134,7 +134,7 @@ void Game::handleEvents()
 				allObjects.addObject(new KeyInputObject("moveRight", &moveRight, SDL_SCANCODE_D, true));
 				allObjects.addObject(new DetailObject("tile0", "assets/RegHexTrees.png", 700, 350, 110, 96));
 
-				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png",&openHand,0,814,50,50,false));
+				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &openHand, 0, 814, 50, 50, false));
 				allObjects.addObject(new KeyInputObject("cardKey", &openHand, SDL_SCANCODE_E, false));
 				//tells number of cards in deck
 				std::cout << std::endl << playerCharacter.deck.size() << std::endl;
@@ -421,11 +421,11 @@ void Game::handleEvents()
 			else if (action == "openHand") {
 				std::cout << "handopen" << std::endl;
 				allObjects.deleteButtonObject("cardButton");
-				std::cout << "Handsize: " << playerCharacter.hand.size() <<std::endl;
+				std::cout << "Handsize: " << playerCharacter.hand.size() << std::endl;
 				for (int i = 0; i < playerCharacter.hand.size(); i++)
 				{
 					std::string thaName = "card" + std::to_string(i) + "Button";
-					allObjects.addObject(new AdvancedButtonObject(thaName, playerCharacter.hand.at(i).cardImage, &playCard, 100+(200*i), 600, 150, 200, i, false));
+					allObjects.addObject(new AdvancedButtonObject(thaName, playerCharacter.hand.at(i).cardImage, &playCard, 100 + (200 * i), 600, 150, 200, i, false));
 				}
 				//allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(0).cardImage, &playCard, 100, 600, 150, 200, 0,false));
 				//allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(1).cardImage, &playCard, 300, 600, 150, 200, 1,false));
@@ -433,7 +433,7 @@ void Game::handleEvents()
 				//allObjects.addObject(new AdvancedButtonObject("card1Button", playerCharacter.hand.at(3).cardImage, &playCard, 700, 600, 150, 200, 3,false));
 				allObjects.addObject(new ButtonObject("cardButton", "assets/cardsIcon.png", &closeHand, 0, 814, 50, 50, false));
 				allObjects.getKeyInputObject("cardKey")->command = &closeHand;
-				
+
 			}
 			else if (action == "closeHand") {
 				allObjects.deleteAllAdvancedButtonObject();
@@ -451,7 +451,7 @@ void Game::handleEvents()
 					allObjects.changeText("cardsInHand", std::to_string(playerCharacter.deck.size()));
 					allObjects.getKeyInputObject("cardKey")->command = &openHand;
 
-					
+
 					for (int counter = 0; counter < playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.size(); counter++) {
 						playerCharacter.pick.push_back(playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action);
 						if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == attack) {
@@ -466,23 +466,23 @@ void Game::handleEvents()
 						}
 						if (playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter).action == dodge) {
 							CardEvent thisCardEvent = playerCharacter.hand.at(eventHandles->at(0).integers.at(0)).cardEvents.at(counter);
-							Dodge createdDodge= Dodge(thisCardEvent.data.at(0));
+							Dodge createdDodge = Dodge(thisCardEvent.data.at(0));
 							playerCharacter.dodgeQueue.push_back(createdDodge);
 						}
 					}
 					playerCharacter.discard.push_back(playerCharacter.hand.at(eventHandles->at(0).integers.at(0)));
 					playerCharacter.hand.erase(playerCharacter.hand.begin() + eventHandles->at(0).integers.at(0));
 				}
-				
+
 
 			}
 		}
-		
-		 
+
+
 		//this goes last
 		eventHandles->erase(eventHandles->begin() + 0);
 	}
-	
+
 
 	//this is SDL's event handling section
 	SDL_PollEvent(&event);
@@ -498,7 +498,7 @@ void Game::handleEvents()
 //runs every frame, where most of your code in this file should take place aside from buttons and event handles
 void Game::update()
 {
-	for (int i = creatures.size()-1; i > -1; i--)
+	for (int i = creatures.size() - 1; i > -1; i--)
 	{
 		//std::cout << "ran";
 		if (creatures.at(i).killed == true) {
@@ -510,13 +510,13 @@ void Game::update()
 		}
 
 
-		
+
 	}
 
 	if (!paused) {
 		playerCharacter.updateTurn();
 	}
-	
+
 
 
 

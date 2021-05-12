@@ -18,7 +18,6 @@ public:
 	int renderOffSetx;
 	int renderOffSety;
 
-
 	SDL_Rect srcRect, destRect;
 	bool diry = true;
 	bool dirx = true;
