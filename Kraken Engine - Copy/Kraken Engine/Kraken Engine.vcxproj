@@ -150,7 +150,9 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="CreatureCard.cpp" />
     <ClCompile Include="DetailObject.cpp" />
+    <ClCompile Include="Dodge.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -175,7 +177,9 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Creature.h" />
+    <ClInclude Include="CreatureCard.h" />
     <ClInclude Include="DetailObject.h" />
+    <ClInclude Include="Dodge.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />

@@ -37,6 +37,14 @@ void ObjectDataBase::addObject(KeyInputObject* object) {
 	keyInputObjects.at(keyInputObjects.size() - 1) = new KeyInputObject(newObject);
 	delete object;
 }
+void ObjectDataBase::addObject(AdvancedHexagonalButtonObject* object) {
+	AdvancedHexagonalButtonObject newObject = *object;
+	advancedHexagonalButtonObjects.push_back(NULL);
+	advancedHexagonalButtonObjects.at(advancedHexagonalButtonObjects.size() - 1) = NULL;
+	advancedHexagonalButtonObjects.at(advancedHexagonalButtonObjects.size() - 1) = new AdvancedHexagonalButtonObject(newObject);
+	delete object;
+}
+
 void ObjectDataBase::deleteAllDetailObject() {
 	while (detailedObjects.size() > 0)
 	{
@@ -56,6 +64,13 @@ void ObjectDataBase::deleteAllAdvancedButtonObject() {
 	{
 		delete advancedButtonObjects.at(0);
 		advancedButtonObjects.erase(advancedButtonObjects.begin() + 0);
+	}
+}
+void ObjectDataBase::deleteAllAdvancedHexagonalButtonObject() {
+	while (advancedHexagonalButtonObjects.size() > 0)
+	{
+		delete advancedHexagonalButtonObjects.at(0);
+		advancedHexagonalButtonObjects.erase(advancedHexagonalButtonObjects.begin() + 0);
 	}
 }
 void ObjectDataBase::deleteAllTextObject() {
@@ -80,6 +95,7 @@ void ObjectDataBase::deleteAll() {
 	deleteAllDetailObject();
 	deleteAllTextObject();
 	deleteAllKeyInputObject();
+	deleteAllAdvancedHexagonalButtonObject();
 }
 void ObjectDataBase::deleteDetailObject(int at) {
 	delete detailedObjects.at(at);
@@ -96,6 +112,10 @@ void ObjectDataBase::deleteButtonObject(int at) {
 void ObjectDataBase::deleteAdvancedButtonObject(int at) {
 	delete advancedButtonObjects.at(at);
 	advancedButtonObjects.erase(advancedButtonObjects.begin() + at);
+}
+void ObjectDataBase::deleteAdvancedHexagonalButtonObject(int at) {
+	delete advancedHexagonalButtonObjects.at(at);
+	advancedHexagonalButtonObjects.erase(advancedHexagonalButtonObjects.begin() + at);
 }
 void ObjectDataBase::deleteKeyInputObject(int at) {
 	InputManager::Release();
@@ -124,6 +144,10 @@ void ObjectDataBase::updateObjects() {
 	{
 		advancedButtonObjects.at(i)->update(xoff, yoff);
 	}
+	for (int i = 0; i < advancedHexagonalButtonObjects.size(); i++)
+	{
+		advancedHexagonalButtonObjects.at(i)->update(xoff, yoff);
+	}
 }
 void ObjectDataBase::renderObjects() {
 	for (int i = 0; i < detailedObjects.size(); i++)
@@ -141,6 +165,10 @@ void ObjectDataBase::renderObjects() {
 	for (int i = 0; i < advancedButtonObjects.size(); i++)
 	{
 		advancedButtonObjects.at(i)->Render(xoff, yoff);
+	}
+	for (int i = 0; i < advancedHexagonalButtonObjects.size(); i++)
+	{
+		advancedHexagonalButtonObjects.at(i)->Render(xoff, yoff);
 	}
 }
 void ObjectDataBase::deleteObject(std::string objID) {
@@ -160,6 +188,18 @@ void ObjectDataBase::deleteObject(std::string objID) {
 	{
 		if (textObjects.at(i)->objectID == objID) {
 			textObjects.erase(textObjects.begin() + i);
+		}
+	}
+	for (int i = advancedButtonObjects.size() - 1; i >= 0; i--)
+	{
+		if (advancedButtonObjects.at(i)->objectID == objID) {
+			advancedButtonObjects.erase(advancedButtonObjects.begin() + i);
+		}
+	}
+	for (int i = advancedHexagonalButtonObjects.size() - 1; i >= 0; i--)
+	{
+		if (advancedHexagonalButtonObjects.at(i)->objectID == objID) {
+			advancedHexagonalButtonObjects.erase(advancedHexagonalButtonObjects.begin() + i);
 		}
 	}
 }
@@ -184,6 +224,14 @@ void ObjectDataBase::deleteAdvancedButtonObject(std::string objID) {
 	{
 		if (advancedButtonObjects.at(i)->objectID == objID) {
 			advancedButtonObjects.erase(advancedButtonObjects.begin() + i);
+		}
+	}
+}
+void ObjectDataBase::deleteAdvancedHexagonalButtonObject(std::string objID) {
+	for (int i = advancedHexagonalButtonObjects.size() - 1; i >= 0; i--)
+	{
+		if (advancedHexagonalButtonObjects.at(i)->objectID == objID) {
+			advancedHexagonalButtonObjects.erase(advancedHexagonalButtonObjects.begin() + i);
 		}
 	}
 }
@@ -350,6 +398,18 @@ bool ObjectDataBase::DetectAdvancedButtonObject(std::string objID) {
 
 	return detected;
 }
+bool ObjectDataBase::DetectAdvancedHexagonalButtonObject(std::string objID) {
+	bool detected = false;
+
+	for (int i = 0; i < advancedHexagonalButtonObjects.size(); i++)
+	{
+		if (advancedHexagonalButtonObjects.at(i)->objectID == objID) {
+			detected = true;
+		}
+	}
+
+	return detected;
+}
 bool ObjectDataBase::DetectTextObject(std::string objID) {
 	bool detected = false;
 
@@ -420,6 +480,19 @@ AdvancedButtonObject* ObjectDataBase::getAdvancedButtonObject(std::string objID)
 		if (advancedButtonObjects.at(i)->objectID == objID) {
 			foundReturn = true;
 			return advancedButtonObjects.at(i);
+		}
+	}
+	if (foundReturn == false) {
+		return NULL;
+	}
+}
+AdvancedHexagonalButtonObject* ObjectDataBase::getAdvancedHexagonalButtonObject(std::string objID) {
+	bool foundReturn = false;
+	for (int i = advancedHexagonalButtonObjects.size() - 1; i >= 0; i--)
+	{
+		if (advancedHexagonalButtonObjects.at(i)->objectID == objID) {
+			foundReturn = true;
+			return advancedHexagonalButtonObjects.at(i);
 		}
 	}
 	if (foundReturn == false) {
@@ -1028,4 +1101,3 @@ void ObjectDataBase::changeText(std::string objID, std::string newText) {
 		}
 	}
 }
-

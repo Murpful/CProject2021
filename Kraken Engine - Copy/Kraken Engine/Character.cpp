@@ -20,7 +20,9 @@ void Character::playCard() {
 		if (selectedCard.cardEvents.at(i).action == move) {
 			moveQueue.push_back(Move(selectedCard.cardEvents.at(i).data.at(0), selectedCard.cardEvents.at(i).data.at(1)));
 		}
-
+		if (selectedCard.cardEvents.at(i).action == dodge) {
+			dodgeQueue.push_back(Dodge(selectedCard.cardEvents.at(i).data.at(0)));
+		}
 	}
 
 }
@@ -39,12 +41,13 @@ bool doesContain(std::vector<int> list, int val) {
 }
 void Character::updateTurn() {
 	static int attackTimeCounter = 0;
+	//int iFrameCounter = 0;
 	//std::cout << targetLoc;
 	targetLoc = selectedTile;
 	moveLoc = selectedMoveTile;
 	if (pick.size() > 0) {
 		if (pick.at(0) == attack) {
-			if (attackQueue.size() > 0 && !isAttacking && !isMoving) {
+			if (attackQueue.size() > 0 && !isAttacking && !isMoving && !isDodging) {
 				isAttacking = true;
 				attackTimeCounter = 300;
 				std::vector<Path> paths = { Path({mapTiles->at(loc).c1},4),Path({mapTiles->at(loc).c2},5),Path({mapTiles->at(loc).c3},6),Path({mapTiles->at(loc).c4},1),Path({mapTiles->at(loc).c5},2),Path({mapTiles->at(loc).c6},3) };
@@ -198,22 +201,22 @@ void Character::updateTurn() {
 							}
 							/*
 							else if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == true) {
-								int marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1).c6;
-								for (int l = 0; l < attackQueue.at(0).range; l++)
-								{
-									if (marked != -1) {
-										mapTiles->at(marked).isShadowed = true;
-										marked = mapTiles->at(marked).c6;
-									}
-								}
-								marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1).c2;
-								for (int l = 0; l < attackQueue.at(0).range; l++)
-								{
-									if (marked != -1) {
-										mapTiles->at(marked).isShadowed = true;
-										marked = mapTiles->at(marked).c2;
-									}
-								}
+							int marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1).c6;
+							for (int l = 0; l < attackQueue.at(0).range; l++)
+							{
+							if (marked != -1) {
+							mapTiles->at(marked).isShadowed = true;
+							marked = mapTiles->at(marked).c6;
+							}
+							}
+							marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1).c2;
+							for (int l = 0; l < attackQueue.at(0).range; l++)
+							{
+							if (marked != -1) {
+							mapTiles->at(marked).isShadowed = true;
+							marked = mapTiles->at(marked).c2;
+							}
+							}
 							}*/
 							if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && (mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false || (mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == true && (mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).creatureLink != ""))) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isShadowed == false) {
 								paths.push_back(paths.at(i));
@@ -307,22 +310,22 @@ void Character::updateTurn() {
 								paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
 							}
 							/*else if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == true) {
-								int marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6).c1;
-								for (int l = 0; l < attackQueue.at(0).range; l++)
-								{
-									if (marked != -1) {
-										mapTiles->at(marked).isShadowed = true;
-										marked = mapTiles->at(marked).c1;
-									}
-								}
-								marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6).c5;
-								for (int l = 0; l < attackQueue.at(0).range; l++)
-								{
-									if (marked != -1) {
-										mapTiles->at(marked).isShadowed = true;
-										marked = mapTiles->at(marked).c5;
-									}
-								}
+							int marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6).c1;
+							for (int l = 0; l < attackQueue.at(0).range; l++)
+							{
+							if (marked != -1) {
+							mapTiles->at(marked).isShadowed = true;
+							marked = mapTiles->at(marked).c1;
+							}
+							}
+							marked = mapTiles->at(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6).c5;
+							for (int l = 0; l < attackQueue.at(0).range; l++)
+							{
+							if (marked != -1) {
+							mapTiles->at(marked).isShadowed = true;
+							marked = mapTiles->at(marked).c5;
+							}
+							}
 							}
 							*/
 							if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && (mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false || (mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == true && (mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).creatureLink != ""))) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isShadowed == false) {
@@ -354,14 +357,14 @@ void Character::updateTurn() {
 					int it = finalTiles.at(i);
 					std::string name = "tile" + std::to_string(it);
 					//std::cout << "  asdf        " << name << "      "  ;
-					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget5.png", &selectTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 110, 96, it));
+					allObjects->addObject(new AdvancedHexagonalButtonObject("targetButton", "assets/RegHexBaseTarget5.png", it, &selectTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 48, 110, 96));
 				}
 
 			}
 			if (isAttacking) {
 
 				if (targetLoc != -1) {
-					allObjects->deleteAllAdvancedButtonObject();
+					allObjects->deleteAllAdvancedHexagonalButtonObject();
 					selectedTile = -1;
 
 					if (mapTiles->at(targetLoc).creatureLink != "") {
@@ -372,12 +375,7 @@ void Character::updateTurn() {
 							}
 						}
 						std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
-						int damageTaken = attackQueue.at(0).damagePoints - creatures->at(creatureDataLoc).armorStat;
-						if (damageTaken < 0)
-						{
-							damageTaken = 0;
-						}
-						creatures->at(creatureDataLoc).currentHealthPoints -= damageTaken;
+						creatures->at(creatureDataLoc).currentHealthPoints -= attackQueue.at(0).damagePoints;
 						std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
 
 					}
@@ -393,33 +391,33 @@ void Character::updateTurn() {
 				else if (attackTimeCounter > 0) {
 					attackTimeCounter -= 1;
 					if (attackTimeCounter == 240) {
-						for (int i = 0; i < allObjects->advancedButtonObjects.size(); i++)
+						for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
 						{
-							allObjects->advancedButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget4.png");
+							allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget4.png");
 						}
 					}
 					else if (attackTimeCounter == 180) {
-						for (int i = 0; i < allObjects->advancedButtonObjects.size(); i++)
+						for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
 						{
-							allObjects->advancedButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget3.png");
+							allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget3.png");
 						}
 					}
 					else if (attackTimeCounter == 120) {
-						for (int i = 0; i < allObjects->advancedButtonObjects.size(); i++)
+						for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
 						{
-							allObjects->advancedButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget2.png");
+							allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget2.png");
 						}
 					}
 					else if (attackTimeCounter == 60) {
-						for (int i = 0; i < allObjects->advancedButtonObjects.size(); i++)
+						for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
 						{
-							allObjects->advancedButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget1.png");
+							allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget1.png");
 						}
 					}
 
 				}
 				else {
-					allObjects->deleteAllAdvancedButtonObject();
+					allObjects->deleteAllAdvancedHexagonalButtonObject();
 					pick.erase(pick.begin() + 0);
 					attackQueue.erase(attackQueue.begin() + 0);
 					attackTimeCounter = 300;
@@ -428,7 +426,7 @@ void Character::updateTurn() {
 			}
 		}
 		else if (pick.at(0) == move) {
-			if (moveQueue.size() > 0 && !isMoving && !isAttacking) {
+			if (moveQueue.size() > 0 && !isMoving && !isAttacking && !isDodging) {
 				isMoving = true;
 				std::vector<Path> paths = { Path({mapTiles->at(loc).c1},4),Path({mapTiles->at(loc).c2},5),Path({mapTiles->at(loc).c3},6),Path({mapTiles->at(loc).c4},1),Path({mapTiles->at(loc).c5},2),Path({mapTiles->at(loc).c6},3) };
 				if (mapTiles->at(loc).c6 == -1 || (mapTiles->at(mapTiles->at(loc).c6).isUnpassable && mapTiles->at(mapTiles->at(loc).c6).creatureLink == "")) {
@@ -588,20 +586,22 @@ void Character::updateTurn() {
 					int it = finalTiles.at(i);
 					std::string name = "tile" + std::to_string(it);
 					//std::cout << "  asdf        " << name << "      "  ;
-					allObjects->addObject(new AdvancedButtonObject("targetButton", "assets/RegHexBaseTarget.png", &selectMoveTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 110, 96, it));
+					allObjects->addObject(new AdvancedHexagonalButtonObject("targetButton", "assets/RegHexBaseTarget.png", it, &selectMoveTile, allObjects->getDetailObject(name)->xPos, allObjects->getDetailObject(name)->yPos, 48, 110, 96));
 				}
 			}
-			if (isMoving) {
+			else if (isMoving) {
 				//std::cout << "lloopeded";
 				if (moveLoc != -1) {
 					bool nomove = false;
 					if (goalSet == true && pathWeave.size() == 0) {
+
+						std::cout << "goalSet" << std::endl;
 						nomove = true;
 					}
 					if (goalSet == false) {
-
+						std::cout << "Why?" << std::endl;
 						if (pathWeave.size() == 0) {
-							allObjects->deleteAllAdvancedButtonObject();
+							allObjects->deleteAllAdvancedHexagonalButtonObject();
 							//std::cout << "Destintation: " << moveDest << "   ";
 							path();
 						}
@@ -701,8 +701,8 @@ void Character::updateTurn() {
 						}
 						//}
 						//else {
-						//	moving = false;
-						//	goalSet = false;
+						// moving = false;
+						// goalSet = false;
 						//}
 					}
 					else if (!nomove && (goalSet == true && mapTiles->at(pathWeave.at(0)).creatureLink != "")) {
@@ -746,6 +746,26 @@ void Character::updateTurn() {
 			}
 
 		}
+		else if (pick.at(0) == dodge) {
+			if (dodgeQueue.size() > 0 && !isMoving && !isAttacking && !isDodging) {
+				isDodging = true;
+				iFrameCounter = 0;
+				allObjects->getDetailObject(className)->srcRect.y = allObjects->getDetailObject(className)->height;
+				dodgeQueue.erase(dodgeQueue.begin() + 0);
+
+			}
+			else if (isDodging) {
+				if (iFrameCounter >= 30) {
+					std::cout << "Dodge" << std::endl;
+					isDodging = false;
+					allObjects->getDetailObject(className)->srcRect.y = 0;
+					iFrameCounter = 0;
+					pick.erase(pick.begin() + 0);
+				}
+				else iFrameCounter++;
+			}
+			//
+		}
 	}
 	if (deck.size() == 0) {
 		for (int i = 0; i < discard.size(); i++)
@@ -768,7 +788,9 @@ Character::Character() {
 Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::vector<Creature>* creat, std::string setClassName, int startingTile) {
 	isAttacking = false;
 	isMoving = false;
+	isDodging = false;
 	goalSet = false;
+	iFrameCounter = 0;
 	discard = { };
 	deck = { };
 	//moveQueue.push_back(Move(1, 2));
@@ -791,6 +813,7 @@ Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, 
 	discard.push_back(PlayerCard("mvenatk", { CardEvent(move, {1,1}),CardEvent(attack, {3,1}) }, 30, "assets/MovnAtkCard.png"));
 	discard.push_back(PlayerCard("mvenatkmov", { CardEvent(move, {2,1}),CardEvent(attack, {2,0}),CardEvent(move, {2,1}) }, 30, "assets/moveatkmovCard.png"));
 	discard.push_back(PlayerCard("mvefar", { CardEvent(move, {3,2}) }, 30, "assets/LongMovCard.png"));
+	discard.push_back(PlayerCard("ddg", { CardEvent(dodge,{30}) }, 30, "assets/DdgCard.png"));
 	if (setClassName == "Brute")
 	{
 		className = setClassName;
@@ -977,4 +1000,3 @@ void Character::path() {
 	}
 
 }
-

@@ -5,6 +5,7 @@
 #include"battleMapTile.h"
 #include"Attack.h"
 #include"Move.h"
+#include"Dodge.h"
 #include "ObjectDataBase.h"
 #include "Creature.h"
 
@@ -19,13 +20,15 @@ public:
 	int moveLoc;
 	std::vector<battleMapTile>* currentLoc;
 	bool weakened, iFrame;
-	bool isAttacking, isMoving;
+	bool isAttacking, isMoving, isDodging;
+	int iFrameCounter;
 	PlayerCard selectedCard;
 	std::vector<PlayerCard> deck;
 	std::vector<PlayerCard> hand;
 	std::vector<PlayerCard> discard;
 	std::vector<Attack> attackQueue;
 	std::vector<Move> moveQueue;
+	std::vector<Dodge> dodgeQueue;
 	std::vector<Creature>* creatures;
 	std::vector<cardAction> pick;
 	int goalx;
@@ -39,6 +42,3 @@ public:
 	void updateTurn();
 	void path();
 };
-
-
-

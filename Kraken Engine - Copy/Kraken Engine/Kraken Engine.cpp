@@ -1,4 +1,9 @@
 #include <iostream>
+/* To resolve file-inclusion errors, pursue:
+* JSON file for multi-root workspaces: https://code.visualstudio.com/docs/editor/workspaces
+* vcpkg: https://docs.microsoft.com/en-us/cpp/build/vcpkg?view=msvc-160
+* ^Zp8w5mC7jsw
+*/
 #include "Game.h"
 #include <chrono>
 //declare the game
