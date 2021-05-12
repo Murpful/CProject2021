@@ -37,7 +37,7 @@ public:
 private:
 	std::vector<battleMapTile> mapTiles = { };
 	std::vector<Creature> creatures;
-	
+
 	bool isRunning = false;
 	bool paused = true;
 	int cnt = 0;
@@ -50,4 +50,5 @@ private:
 
 
 };
+
 
