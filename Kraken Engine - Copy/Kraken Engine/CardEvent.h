@@ -10,7 +10,7 @@ public:
 	cardAction action;
 	std::vector<int> data;
 	CardEvent(cardAction, std::vector<int>, const char* = "");
-	const char* actionAnim;
+	const char* actionAnimation;
 };
 
 /*move event definition:

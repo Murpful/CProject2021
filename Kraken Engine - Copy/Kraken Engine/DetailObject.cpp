@@ -15,6 +15,7 @@ DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int 
 	delayTime = 0;
 	objectID = ID;
 	aniInit = false;
+	aniCounter = 0;
 }
 DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int y, int w, int h, bool anim, int frame, int delay) : GameObject(textureSheet, x, y) {
 	width = w;
@@ -32,6 +33,7 @@ DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int 
 	sy = 0;
 	sx = 0;
 	aniInit = false;
+	aniCounter = 0;
 }
 DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int y, int w, int h, int sw, int sh, bool anim, int frame, int delay, bool loops) : GameObject(textureSheet, x, y) {
 	width = w;
@@ -52,6 +54,7 @@ DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int 
 	sy = sh;
 	sx = sw;
 	aniInit = false;
+	aniCounter = 0;
 }
 DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int y, int w, int h, int sw, int sh) : GameObject(textureSheet, x, y) {
 	width = w;
@@ -69,6 +72,7 @@ DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int 
 	sy = sh;
 	sx = sw;
 	aniInit = false;
+	aniCounter = 0;
 }
 DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int y, int w, int h, bool offs) : GameObject(textureSheet, x, y, offs) {
 	width = w;
@@ -86,6 +90,7 @@ DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int 
 	delayTime = 0;
 	objectID = ID;
 	aniInit = false;
+	aniCounter = 0;
 }
 DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int y, int w, int h, int sw, int sh, bool offs) : GameObject(textureSheet, x, y, offs) {
 	width = w;
@@ -103,6 +108,7 @@ DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int 
 	sy = sh;
 	sx = sw;
 	aniInit = false;
+	aniCounter = 0;
 }
 DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int y, int w, int h, bool offs, bool anim, int frame, int delay) : GameObject(textureSheet, x, y, offs) {
 	width = w;
@@ -120,6 +126,7 @@ DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int 
 	sy = 0;
 	sx = 0;
 	aniInit = false;
+	aniCounter = 0;
 }
 DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int y, int w, int h, int sw, int sh, bool offs, bool anim, int frame, int delay, bool looper) : GameObject(textureSheet, x, y, offs) {
 	width = w;
@@ -140,6 +147,7 @@ DetailObject::DetailObject(std::string ID, const char* textureSheet, int x, int 
 	sy = sh;
 	sx = sw;
 	aniInit = false;
+	aniCounter = 0;
 }
 
 
@@ -164,19 +172,28 @@ void DetailObject::update() {
 		else if (loop == false) {
 
 			if (aniInit == false) {
-				offSet = static_cast<int>((SDL_GetTicks() / (delayTime)) % frames);
+				//offSet = static_cast<int>((SDL_GetTicks() / (delayTime)) % frames);
+				offSet = static_cast<int>((aniCounter / (delayTime)) % frames);
 				aniInit = true;
 			}
 
 			if (frames > 1) {
-
-				if ((static_cast<int>((SDL_GetTicks() / (delayTime)) % frames) - offSet) >= 0) {
-					srcRect.x = srcRect.w * (static_cast<int>((SDL_GetTicks() / (delayTime)) % frames) - offSet);
+				if (aniCounter < frames * delayTime) {
+					//std::cout << "aniCounter: " << aniCounter << std::endl;
+					/*if ((static_cast<int>((SDL_GetTicks() / (delayTime)) % frames) - offSet) >= 0) {
+						srcRect.x = srcRect.w * (static_cast<int>((SDL_GetTicks() / (delayTime)) % frames) - offSet);
+					}
+					else {
+						srcRect.x = srcRect.w * ((static_cast<int>((SDL_GetTicks() / (delayTime)) % frames) - offSet) + frames);
+					}*/
+					if (aniCounter % delayTime == 0&&aniCounter>0) {
+						std::cout << "moving animation" << std::endl;
+						std::cout << "srcRect: " << srcRect.x << std::endl;
+						srcRect.x = aniCounter/delayTime*srcRect.w; //* ((static_cast<int>((aniCounter / (delayTime)) % frames) - offSet) + frames);
+						std::cout << "srcRect: " << srcRect.x << std::endl;
+					}
+					aniCounter++;
 				}
-				else {
-					srcRect.x = srcRect.w * ((static_cast<int>((SDL_GetTicks() / (delayTime)) % frames) - offSet) + frames);
-				}
-
 			}
 
 		}
