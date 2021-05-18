@@ -699,8 +699,9 @@ void Character::updateTurn() {
 							std::cout << "reached half" << std::endl;
 						}
 						if (reached) {
-							//mapTiles->at(loc).isUnpassable = false;
-							//mapTiles->at(loc).characterLink = "";
+							mapTiles->at(loc).isUnpassable = false;
+							mapTiles->at(loc).characterLink = "";
+
 							loc = pathWeave.at(0);
 
 							pathWeave.erase(pathWeave.begin() + 0);
