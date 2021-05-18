@@ -48,6 +48,7 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 	allObjects->getDetailObject(named)->yPos = goaly;
 	goalSet = false;
 	name = named;
+	linkID = name;
 	currentTile = tile;
 	killed = false;
 	maxHealthPoints = 0;
@@ -55,6 +56,8 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 	armorStat = 0;
 	pierceable = 1;
 	fazes = 0;
+	coolDown = 100;
+	rangeCount = 0;
 	Attack newStat = Attack(0, 0);
 	attackStat.push_back(newStat);
 	Move newStat2 = Move(0, 0);
@@ -83,6 +86,7 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 		{
 			Move newStat(creatureStats.at(i).value.at(0), creatureStats.at(i).value.at(1), creatureStats.at(i).crtrMvmt);
 			moveStat.push_back(newStat);
+
 		}
 		if (creatureStats.at(i).witch == faze)
 		{
@@ -99,19 +103,250 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 		}
 	}
 	std::cout << "armor: " << armorStat << std::endl;
+
 }
+void Creature::moveRandom()
+{
+	int currentloc = currentTile;
+	int randDirection = rand() % 6;
+	std::cout << "rnge " << moveStat.at(1).range << std::endl;
+	for (int k = 0; k < moveStat.at(1).range; k++)
+	{
+
+		//std::cout << "    Current loc at loop start: " << currentloc << "   ";
+		std::cout << "move attempt" << std::endl;
+		if (randDirection == 0) {
+			if (mapTiles->at(currentloc).c1 == -1 || mapTiles->at(mapTiles->at(currentloc).c1).isUnpassable == true) {
+				k--;
+				moveDest = currentloc;
+			}
+			else {
+				moveDest = mapTiles->at(currentloc).c1;
+
+			}
+		}
+		else if (randDirection == 1) {
+			if (mapTiles->at(currentloc).c2 == -1 || mapTiles->at(mapTiles->at(currentloc).c2).isUnpassable == true) {
+				k--;
+				moveDest = currentloc;
+			}
+			else {
+				moveDest = mapTiles->at(currentloc).c2;
+
+			}
+
+		}
+		else if (randDirection == 2) {
+			if (mapTiles->at(currentloc).c3 == -1 || mapTiles->at(mapTiles->at(currentloc).c3).isUnpassable == true) {
+				k--;
+				moveDest = currentloc;
+			}
+			else {
+				moveDest = mapTiles->at(currentloc).c3;
+
+			}
+
+		}
+		else if (randDirection == 3) {
+			if (mapTiles->at(currentloc).c4 == -1 || mapTiles->at(mapTiles->at(currentloc).c4).isUnpassable == true) {
+				k--;
+				moveDest = currentloc;
+			}
+			else {
+				moveDest = mapTiles->at(currentloc).c4;
+
+			}
+
+		}
+		else if (randDirection == 4) {
+			if (mapTiles->at(currentloc).c5 == -1 || mapTiles->at(mapTiles->at(currentloc).c5).isUnpassable == true) {
+				k--;
+				moveDest = currentloc;
+			}
+			else {
+				moveDest = mapTiles->at(currentloc).c5;
+
+			}
+
+		}
+		else if (randDirection == 5) {
+			if (mapTiles->at(currentloc).c6 == -1 || mapTiles->at(mapTiles->at(currentloc).c6).isUnpassable == true) {
+				k--;
+				moveDest = currentloc;
+			}
+			else {
+				moveDest = mapTiles->at(currentloc).c6;
+
+			}
+
+		}
+		//std::cout << "    Move destination is currently set to: " << moveDest << "     ";
+		std::cout << "k: " << k << std::endl;
+		currentloc = moveDest;
+		if (rand() % 5 == 0) {
+			randDirection = rand() % 6;
+		}
+
+	}
+	//std::cout << "   Selecting Destination of: " << moveDest << "  ";
+	if (currentTile != moveDest) {
+		moving = true;
+		int randTime = rand() % 500;
+		coolDown = 100 + (randTime / moveStat.at(1).speed);
+	}
+
+}
+int Creature::checkTilesChar(int testTile)
+{
+	std::cout << "checking tiles..." << std::endl;
+	int testDest = testTile;
+	if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+	{
+		std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
+		rangeCount++;
+		return mapTiles->at(testDest).c1;
+	}
+	else if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+	{
+		std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
+		rangeCount++;
+		return mapTiles->at(testDest).c2;
+	}
+	else if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
+	{
+		std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
+		rangeCount++;
+		return mapTiles->at(testDest).c3;
+	}
+	else if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
+	{
+		std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
+		rangeCount++;
+		return mapTiles->at(testDest).c4;
+	
+	}
+	else if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
+	{
+		std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
+		rangeCount++;
+		return mapTiles->at(testDest).c5;
+		
+	}
+	else if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
+	{
+		std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
+		rangeCount++;
+		return mapTiles->at(testDest).c6;
+		
+	}
+	std::cout << "rangecount: " << rangeCount << "  range: " << moveStat.at(1).range << std::endl;
+	if (rangeCount < moveStat.at(1).range)
+	{
+		std::cout << "enterrangeif" << std::endl;
+		rangeCount++;
+		std::cout << "rangecount: " << rangeCount << std::endl;
+		int tile1 = -1, tile2 = -1, tile3 = -1, tile4 = -1, tile5 = -1, tile6 = -1;
+		if (mapTiles->at(testDest).c1 != -1 && (mapTiles->at(mapTiles->at(testDest).c1).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c1).characterLink !=""))
+		{
+			std::cout << 1 << std::endl;
+			tile1 = checkTilesChar(mapTiles->at(testDest).c1);
+			rangeCount--;
+			if (tile1 != -1)
+			{
+				std::cout << "tile found: " << tile1 << std::endl;
+				return tile1;
+			}
+		}
+
+		if (mapTiles->at(testDest).c2 != -1 && (mapTiles->at(mapTiles->at(testDest).c2).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c2).characterLink != ""))
+		{
+			std::cout << 2 << std::endl;
+			tile2 = checkTilesChar(mapTiles->at(testDest).c2);
+			rangeCount--;
+			if (tile2 != -1)
+			{
+				std::cout << "tile found: " << tile2 << std::endl;
+				return tile2;
+			}
+		}
+
+		if (mapTiles->at(testDest).c3 != -1 && (mapTiles->at(mapTiles->at(testDest).c3).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c3).characterLink != ""))
+		{
+			std::cout << 3 << std::endl;
+			tile3 = checkTilesChar(mapTiles->at(testDest).c3);
+			rangeCount--;
+			if (tile3 != -1)
+			{
+				std::cout << "tile found: " << tile3 << std::endl;
+				return tile3;
+			}
+		}
+
+		if (mapTiles->at(testDest).c4 != -1 && (mapTiles->at(mapTiles->at(testDest).c4).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c4).characterLink != ""))
+		{
+			std::cout << 4 << std::endl;
+			tile4 = checkTilesChar(mapTiles->at(testDest).c4);
+			rangeCount--;
+			if (tile4 != -1)
+			{
+				std::cout << "tile found: " << tile4 << std::endl;
+				return tile4;
+			}
+		}
+
+		if (mapTiles->at(testDest).c5 != -1 && (mapTiles->at(mapTiles->at(testDest).c5).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c5).characterLink != ""))
+		{
+			std::cout << 5 << std::endl;
+			tile5 = checkTilesChar(mapTiles->at(testDest).c5);
+			rangeCount--;
+			if (tile5 != -1)
+			{
+				std::cout << "tile found: " << tile5 << std::endl;
+				return tile5;
+			}
+		}
+
+		if (mapTiles->at(testDest).c6 != -1 && (mapTiles->at(mapTiles->at(testDest).c6).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c6).characterLink != ""))
+		{
+			std::cout << 6 << std::endl;
+			tile6 = checkTilesChar(mapTiles->at(testDest).c6);
+			rangeCount--;
+			if (tile6 != -1)
+			{
+				std::cout << "tile found: " << tile6 << std::endl;
+				return tile6;
+			}
+		}
+
+		std::cout << "tiles: " << tile1 << tile2 << tile3 << tile4 << tile5 << tile6 << std::endl;
+		return -1;
+	}
+	else
+	{
+		rangeCount++;
+		return -1;
+	}
+
+}
+
+
+
+
 void Creature::runTurn() {
 	//std::cout << "remaining actions: " << cardsReady.size();
 	if (currentHealthPoints <= 0) {
 		killed = true;
 	}
+	std::cout << "cd: " << coolDown;
 	if (moving) {
-
+		std::cout << "here? moving" << std::endl;
 		if (goalSet == false) {
-
+			std::cout << "here? goalset" << std::endl;
 			if (pathWeave.size() == 0) {
 				//std::cout << "Destintation: " << moveDest << "   ";
+				std::cout << "here? path start" << std::endl;
 				path();
+				std::cout << "here? path end" << std::endl;
 			}
 
 			if (mapTiles->at(currentTile).c1 == pathWeave.at(0)) {
@@ -139,6 +374,7 @@ void Creature::runTurn() {
 			goalSet = true;
 		}
 		else if (goalSet == true && mapTiles->at(pathWeave.at(0)).characterLink != "") {
+			std::cout << "here? gs true" << std::endl;
 			goalSet = false;
 			halfGoal = 0;
 			pathWeave = { };
@@ -153,6 +389,7 @@ void Creature::runTurn() {
 		}
 
 		else {
+			std::cout << "here? else" << std::endl;
 			if (halfGoal == 0)
 			{
 				halfGoal = sqrt(pow(goalx - allObjects->getDetailObject(linkID)->xPos, 2) + pow(goaly - (allObjects->getDetailObject(linkID)->yPos), 2)) / 2;
@@ -164,19 +401,19 @@ void Creature::runTurn() {
 			//std::cout << "Goalx: " << goalx << "Goaly: " << goaly;
 			//if (mapTiles->at(tilenumb).isUnpassable == false) {
 			if (allObjects->getDetailObject(linkID)->yPos < goaly) {
-				allObjects->getDetailObject(linkID)->moveObject(0, 1);
+				allObjects->getDetailObject(linkID)->moveObject(0, 1 * moveStat.at(1).speed);
 				reached = false;
 			}
 			else if (allObjects->getDetailObject(linkID)->yPos > goaly) {
-				allObjects->getDetailObject(linkID)->moveObject(0, -1);
+				allObjects->getDetailObject(linkID)->moveObject(0, (-1 * moveStat.at(1).speed));
 				reached = false;
 			}
 			if (allObjects->getDetailObject(linkID)->xPos < goalx) {
-				allObjects->getDetailObject(linkID)->moveObject(1, 0);
+				allObjects->getDetailObject(linkID)->moveObject(1 * moveStat.at(1).speed, 0);
 				reached = false;
 			}
 			else if (allObjects->getDetailObject(linkID)->xPos > goalx) {
-				allObjects->getDetailObject(linkID)->moveObject(-1, 0);
+				allObjects->getDetailObject(linkID)->moveObject(-1 * moveStat.at(1).speed, 0);
 				reached = false;
 			}
 			if (sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) >= halfGoal - 5 && sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) <= halfGoal + 5)
@@ -206,132 +443,156 @@ void Creature::runTurn() {
 			}
 			//}
 			//else {
-			//	moving = false;
-			//	goalSet = false;
+			// moving = false;
+			// goalSet = false;
 			//}
 
 		}
 
 	}
+
 	else if (coolDown == 0) {
+		std::cout << "here? cd0" << std::endl;
 		if (mapTiles->size() > 0)
 		{
-
-		}
-		if ((cardsReady.size() > 0) && mapTiles->size() > 0) {
-			PlayerCard activeCard = cardsReady.at(0);
-			cardsUsed.push_back(cardsReady.at(0));
-			cardsReady.erase(cardsReady.begin() + 0);
-			coolDown = activeCard.coolDown;
-			for (int i = 0; i < activeCard.cardEvents.size(); i++)
+			if (moveStat.at(1).movement == random)
 			{
-				if (activeCard.cardEvents.at(i).action == move) {
-					if (activeCard.cardEvents.at(i).data.at(0) == 0) {
-						int thisTile = currentTile;
-						std::vector<int> targets = { };
-
-						for (int i = 0; i < activeCard.cardEvents.at(i).data.at(1); i++)
-						{
-							thisTile = mapTiles->at(thisTile).c1;
-							if (mapTiles->at(thisTile).isUnpassable == true) {
-								targets.push_back(0); // add a new variable to tiles that stores who/what is in the tile at a given moment.
-							}
-						}
-
-						moving = true;
-						coolDown = 600;
-					}
-					else if (activeCard.cardEvents.at(i).data.at(0) == 1) {
-						int currentloc = currentTile;
-						int randDirection = rand() % 6;
-						for (int k = 0; k < activeCard.cardEvents.at(i).data.at(1); k++)
-						{
-							//std::cout << "    Current loc at loop start: " << currentloc << "   ";
-
-							if (randDirection == 0) {
-								if (mapTiles->at(currentloc).c1 == -1 || mapTiles->at(mapTiles->at(currentloc).c1).isUnpassable == true) {
-									k--;
-									moveDest = currentloc;
-								}
-								else {
-									moveDest = mapTiles->at(currentloc).c1;
-
-								}
-							}
-							else if (randDirection == 1) {
-								if (mapTiles->at(currentloc).c2 == -1 || mapTiles->at(mapTiles->at(currentloc).c2).isUnpassable == true) {
-									k--;
-									moveDest = currentloc;
-								}
-								else {
-									moveDest = mapTiles->at(currentloc).c2;
-
-								}
-
-							}
-							else if (randDirection == 2) {
-								if (mapTiles->at(currentloc).c3 == -1 || mapTiles->at(mapTiles->at(currentloc).c3).isUnpassable == true) {
-									k--;
-									moveDest = currentloc;
-								}
-								else {
-									moveDest = mapTiles->at(currentloc).c3;
-
-								}
-
-							}
-							else if (randDirection == 3) {
-								if (mapTiles->at(currentloc).c4 == -1 || mapTiles->at(mapTiles->at(currentloc).c4).isUnpassable == true) {
-									k--;
-									moveDest = currentloc;
-								}
-								else {
-									moveDest = mapTiles->at(currentloc).c4;
-
-								}
-
-							}
-							else if (randDirection == 4) {
-								if (mapTiles->at(currentloc).c5 == -1 || mapTiles->at(mapTiles->at(currentloc).c5).isUnpassable == true) {
-									k--;
-									moveDest = currentloc;
-								}
-								else {
-									moveDest = mapTiles->at(currentloc).c5;
-
-								}
-
-							}
-							else if (randDirection == 5) {
-								if (mapTiles->at(currentloc).c6 == -1 || mapTiles->at(mapTiles->at(currentloc).c6).isUnpassable == true) {
-									k--;
-									moveDest = currentloc;
-								}
-								else {
-									moveDest = mapTiles->at(currentloc).c6;
-
-								}
-
-							}
-							//std::cout << "    Move destination is currently set to: " << moveDest << "     ";
-							currentloc = moveDest;
-							if (rand() % 5 == 0) {
-								randDirection = rand() % 6;
-							}
-
-						}
-						//std::cout << "   Selecting Destination of: " << moveDest << "  ";
-						if (currentTile != moveDest) {
-							moving = true;
-						}
-
-					}
+				moveRandom();
+			}
+			else if (moveStat.at(1).movement == toward)
+			{
+				rangeCount = 0;
+				int moveAttempt = checkTilesChar(currentTile);
+				std::cout << "moveattempt " << moveAttempt << std::endl;
+				if (moveAttempt != -1)
+				{
+					std::cout << "lets move toward" << std::endl;
+					moveDest = moveAttempt;
+					moving = true;
+					coolDown = 100 + ((rand() % 500) / moveStat.at(1).speed);
+				}
+				else
+				{
+					std::cout << "lets move random" << std::endl;
+					moveRandom();
 				}
 			}
 		}
+		/*if ((cardsReady.size() > 0) && mapTiles->size() > 0) {
+		PlayerCard activeCard = cardsReady.at(0);
+		cardsUsed.push_back(cardsReady.at(0));
+		cardsReady.erase(cardsReady.begin() + 0);
+		coolDown = activeCard.coolDown;
+		for (int i = 0; i < activeCard.cardEvents.size(); i++)
+		{
+		if (activeCard.cardEvents.at(i).action == move) {
+		if (activeCard.cardEvents.at(i).data.at(0) == 0) {
+		int thisTile = currentTile;
+		std::vector<int> targets = { };
+
+		for (int i = 0; i < activeCard.cardEvents.at(i).data.at(1); i++)
+		{
+		thisTile = mapTiles->at(thisTile).c1;
+		if (mapTiles->at(thisTile).isUnpassable == true) {
+		targets.push_back(0); // add a new variable to tiles that stores who/what is in the tile at a given moment.
+		}
+		}
+
+		moving = true;
+		coolDown = 600;
+		}
+		else if (activeCard.cardEvents.at(i).data.at(0) == 1) {
+		int currentloc = currentTile;
+		int randDirection = rand() % 6;
+		for (int k = 0; k < activeCard.cardEvents.at(i).data.at(1); k++)
+		{
+		//std::cout << "    Current loc at loop start: " << currentloc << "   ";
+
+		if (randDirection == 0) {
+		if (mapTiles->at(currentloc).c1 == -1 || mapTiles->at(mapTiles->at(currentloc).c1).isUnpassable == true) {
+		k--;
+		moveDest = currentloc;
+		}
+		else {
+		moveDest = mapTiles->at(currentloc).c1;
+
+		}
+		}
+		else if (randDirection == 1) {
+		if (mapTiles->at(currentloc).c2 == -1 || mapTiles->at(mapTiles->at(currentloc).c2).isUnpassable == true) {
+		k--;
+		moveDest = currentloc;
+		}
+		else {
+		moveDest = mapTiles->at(currentloc).c2;
+
+		}
+
+		}
+		else if (randDirection == 2) {
+		if (mapTiles->at(currentloc).c3 == -1 || mapTiles->at(mapTiles->at(currentloc).c3).isUnpassable == true) {
+		k--;
+		moveDest = currentloc;
+		}
+		else {
+		moveDest = mapTiles->at(currentloc).c3;
+
+		}
+
+		}
+		else if (randDirection == 3) {
+		if (mapTiles->at(currentloc).c4 == -1 || mapTiles->at(mapTiles->at(currentloc).c4).isUnpassable == true) {
+		k--;
+		moveDest = currentloc;
+		}
+		else {
+		moveDest = mapTiles->at(currentloc).c4;
+
+		}
+
+		}
+		else if (randDirection == 4) {
+		if (mapTiles->at(currentloc).c5 == -1 || mapTiles->at(mapTiles->at(currentloc).c5).isUnpassable == true) {
+		k--;
+		moveDest = currentloc;
+		}
+		else {
+		moveDest = mapTiles->at(currentloc).c5;
+
+		}
+
+		}
+		else if (randDirection == 5) {
+		if (mapTiles->at(currentloc).c6 == -1 || mapTiles->at(mapTiles->at(currentloc).c6).isUnpassable == true) {
+		k--;
+		moveDest = currentloc;
+		}
+		else {
+		moveDest = mapTiles->at(currentloc).c6;
+
+		}
+
+		}
+		//std::cout << "    Move destination is currently set to: " << moveDest << "     ";
+		currentloc = moveDest;
+		if (rand() % 5 == 0) {
+		randDirection = rand() % 6;
+		}
+
+		}
+		//std::cout << "   Selecting Destination of: " << moveDest << "  ";
+		if (currentTile != moveDest) {
+		moving = true;
+		}
+
+		}
+		}
+		}
+		}*/
 	}
-	else {
-		if (cardsReady.size() < 1) {
+	if (coolDown>0) {
+		std::cout << "here? cd++" << std::endl;
+		/*if (cardsReady.size() < 1) {
 			int size = cardsUsed.size();
 			for (int i = 0; i < size; i++)
 			{
@@ -339,7 +600,7 @@ void Creature::runTurn() {
 				cardsReady.push_back(cardsUsed.at(loc));
 				cardsUsed.erase(cardsUsed.begin() + loc);
 			}
-		}
+		}*/
 		coolDown -= 1;
 	}
 }
@@ -486,7 +747,3 @@ void Creature::path() {
 		//std::cout << pathWeave.at(i) << "  ";
 	}
 }
-
-
-
-

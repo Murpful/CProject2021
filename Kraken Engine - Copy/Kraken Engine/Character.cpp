@@ -375,7 +375,12 @@ void Character::updateTurn() {
 							}
 						}
 						std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
-						creatures->at(creatureDataLoc).currentHealthPoints -= attackQueue.at(0).damagePoints;
+						int damageTaken = attackQueue.at(0).damagePoints - creatures->at(creatureDataLoc).armorStat;
+						if (damageTaken < 0)
+						{
+							damageTaken = 0;
+						}
+						creatures->at(creatureDataLoc).currentHealthPoints -= damageTaken;
 						std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
 
 					}
@@ -683,6 +688,8 @@ void Character::updateTurn() {
 						if (reached) {
 							//mapTiles->at(loc).isUnpassable = false;
 							//mapTiles->at(loc).characterLink = "";
+							mapTiles->at(loc).characterLink = "";
+							mapTiles->at(loc).isUnpassable = false;
 							loc = pathWeave.at(0);
 
 							pathWeave.erase(pathWeave.begin() + 0);

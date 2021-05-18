@@ -38,12 +38,14 @@ public:
 	int goalx;
 	int goaly;
 	bool goalSet;
-
+	int rangeCount;
 	entityFaction faction;
 	Creature(std::vector<battleMapTile>*, ObjectDataBase*, std::string, std::string, entityFaction, int, std::vector<PlayerCard>);
 	Creature(std::vector<battleMapTile>*, ObjectDataBase*, std::string, int, std::vector<Component>);//{Component(attack,{1,1})}
 	void runTurn();
 	void path();
+	int checkTilesChar(int);
+	void moveRandom();
 };
 class Path {
 public:
