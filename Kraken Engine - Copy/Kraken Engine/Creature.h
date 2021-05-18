@@ -40,11 +40,13 @@ public:
 	bool goalSet;
 	int rangeCount;
 	entityFaction faction;
+	bool omniTileCheck(int tileNumber, bool impasable, bool character, bool enemy, bool null);
 	Creature(std::vector<battleMapTile>*, ObjectDataBase*, std::string, std::string, entityFaction, int, std::vector<PlayerCard>);
 	Creature(std::vector<battleMapTile>*, ObjectDataBase*, std::string, int, std::vector<Component>);//{Component(attack,{1,1})}
 	void runTurn();
 	void path();
 	int checkTilesChar(int);
+	int checkTilesChar(int,int&);
 	void moveRandom();
 };
 class Path {

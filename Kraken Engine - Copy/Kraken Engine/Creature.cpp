@@ -58,10 +58,10 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 	fazes = 0;
 	coolDown = 100;
 	rangeCount = 0;
-	Attack newStat = Attack(0, 0);
-	attackStat.push_back(newStat);
-	Move newStat2 = Move(0, 0);
-	moveStat.push_back(newStat2);
+	//Attack newStat = Attack(0, 0);
+	//attackStat.push_back(newStat);
+	//Move newStat2 = Move(0, 0);
+	//moveStat.push_back(newStat2);
 	for (int i = 0; i < creatureStats.size(); i++)
 	{
 		if (creatureStats.at(i).witch == attackType)
@@ -109,8 +109,8 @@ void Creature::moveRandom()
 {
 	int currentloc = currentTile;
 	int randDirection = rand() % 6;
-	std::cout << "rnge " << moveStat.at(1).range << std::endl;
-	for (int k = 0; k < moveStat.at(1).range; k++)
+	std::cout << "rnge " << moveStat.at(0).range << std::endl;
+	for (int k = 0; k < moveStat.at(0).range; k++)
 	{
 
 		//std::cout << "    Current loc at loop start: " << currentloc << "   ";
@@ -192,7 +192,7 @@ void Creature::moveRandom()
 	if (currentTile != moveDest) {
 		moving = true;
 		int randTime = rand() % 500;
-		coolDown = 100 + (randTime / moveStat.at(1).speed);
+		coolDown = 100 + (randTime / moveStat.at(0).speed);
 	}
 
 }
@@ -239,8 +239,9 @@ int Creature::checkTilesChar(int testTile)
 		return mapTiles->at(testDest).c6;
 		
 	}
-	std::cout << "rangecount: " << rangeCount << "  range: " << moveStat.at(1).range << std::endl;
-	if (rangeCount < moveStat.at(1).range)
+	std::cout << "rangecount: " << rangeCount << "  range: " << moveStat.at(0).range << std::endl;
+	std::cout << "move stat size: " << moveStat.size();
+	if (rangeCount < moveStat.at(0).range)
 	{
 		std::cout << "enterrangeif" << std::endl;
 		rangeCount++;
@@ -328,6 +329,147 @@ int Creature::checkTilesChar(int testTile)
 	}
 
 }
+int Creature::checkTilesChar(int testTile, int &distanceFrom)
+{
+	std::cout << "checking tiles..." << std::endl;
+	int testDest = testTile;
+	if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+	{
+		std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
+		distanceFrom = rangeCount+1;
+		rangeCount++;
+		return mapTiles->at(testDest).c1;
+	}
+	else if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+	{
+		std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
+		distanceFrom = rangeCount + 1;
+		rangeCount++;
+		return mapTiles->at(testDest).c2;
+	}
+	else if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
+	{
+		std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
+		distanceFrom = rangeCount + 1;
+		rangeCount++;
+		return mapTiles->at(testDest).c3;
+	}
+	else if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
+	{
+		std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
+		distanceFrom = rangeCount + 1;
+		rangeCount++;
+		return mapTiles->at(testDest).c4;
+
+	}
+	else if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
+	{
+		std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
+		distanceFrom = rangeCount + 1;
+		rangeCount++;
+		return mapTiles->at(testDest).c5;
+
+	}
+	else if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
+	{
+		std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
+		distanceFrom = rangeCount + 1;
+		rangeCount++;
+		return mapTiles->at(testDest).c6;
+
+	}
+	std::cout << "rangecount: " << rangeCount << "  range: " << moveStat.at(0).range << std::endl;
+	std::cout << "move stat size: " << moveStat.size();
+	if (rangeCount < moveStat.at(0).range)
+	{
+		std::cout << "enterrangeif" << std::endl;
+		rangeCount++;
+		//std::cout << "rangecount: " << rangeCount << std::endl;
+		int tile1 = -1, tile2 = -1, tile3 = -1, tile4 = -1, tile5 = -1, tile6 = -1;
+		if (mapTiles->at(testDest).c1 != -1 && (mapTiles->at(mapTiles->at(testDest).c1).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c1).characterLink != ""))
+		{
+			std::cout << 1 << std::endl;
+			tile1 = checkTilesChar(mapTiles->at(testDest).c1,distanceFrom);
+			rangeCount--;
+			if (tile1 != -1)
+			{
+				std::cout << "tile found: " << tile1 << std::endl;
+				return tile1;
+			}
+		}
+
+		if (mapTiles->at(testDest).c2 != -1 && (mapTiles->at(mapTiles->at(testDest).c2).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c2).characterLink != ""))
+		{
+			std::cout << 2 << std::endl;
+			tile2 = checkTilesChar(mapTiles->at(testDest).c2, distanceFrom);
+			rangeCount--;
+			if (tile2 != -1)
+			{
+				std::cout << "tile found: " << tile2 << std::endl;
+				return tile2;
+			}
+		}
+
+		if (mapTiles->at(testDest).c3 != -1 && (mapTiles->at(mapTiles->at(testDest).c3).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c3).characterLink != ""))
+		{
+			std::cout << 3 << std::endl;
+			tile3 = checkTilesChar(mapTiles->at(testDest).c3, distanceFrom);
+			rangeCount--;
+			if (tile3 != -1)
+			{
+				std::cout << "tile found: " << tile3 << std::endl;
+				return tile3;
+			}
+		}
+
+		if (mapTiles->at(testDest).c4 != -1 && (mapTiles->at(mapTiles->at(testDest).c4).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c4).characterLink != ""))
+		{
+			std::cout << 4 << std::endl;
+			tile4 = checkTilesChar(mapTiles->at(testDest).c4, distanceFrom);
+			rangeCount--;
+			if (tile4 != -1)
+			{
+				std::cout << "tile found: " << tile4 << std::endl;
+				return tile4;
+			}
+		}
+
+		if (mapTiles->at(testDest).c5 != -1 && (mapTiles->at(mapTiles->at(testDest).c5).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c5).characterLink != ""))
+		{
+			std::cout << 5 << std::endl;
+			tile5 = checkTilesChar(mapTiles->at(testDest).c5, distanceFrom);
+			rangeCount--;
+			if (tile5 != -1)
+			{
+				std::cout << "tile found: " << tile5 << std::endl;
+				return tile5;
+			}
+		}
+
+		if (mapTiles->at(testDest).c6 != -1 && (mapTiles->at(mapTiles->at(testDest).c6).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c6).characterLink != ""))
+		{
+			std::cout << 6 << std::endl;
+			tile6 = checkTilesChar(mapTiles->at(testDest).c6, distanceFrom);
+			rangeCount--;
+			if (tile6 != -1)
+			{
+				std::cout << "tile found: " << tile6 << std::endl;
+				return tile6;
+			}
+		}
+
+		std::cout << "tiles: " << tile1 << tile2 << tile3 << tile4 << tile5 << tile6 << std::endl;
+		return -1;
+	}
+	else
+	{
+		rangeCount++;
+		std::cout << "The current rage away is this: " << rangeCount;
+		return -1;
+	}
+
+}
+
 
 
 
@@ -401,19 +543,19 @@ void Creature::runTurn() {
 			//std::cout << "Goalx: " << goalx << "Goaly: " << goaly;
 			//if (mapTiles->at(tilenumb).isUnpassable == false) {
 			if (allObjects->getDetailObject(linkID)->yPos < goaly) {
-				allObjects->getDetailObject(linkID)->moveObject(0, 1 * moveStat.at(1).speed);
+				allObjects->getDetailObject(linkID)->moveObject(0, 1 * moveStat.at(0).speed);
 				reached = false;
 			}
 			else if (allObjects->getDetailObject(linkID)->yPos > goaly) {
-				allObjects->getDetailObject(linkID)->moveObject(0, (-1 * moveStat.at(1).speed));
+				allObjects->getDetailObject(linkID)->moveObject(0, (-1 * moveStat.at(0).speed));
 				reached = false;
 			}
 			if (allObjects->getDetailObject(linkID)->xPos < goalx) {
-				allObjects->getDetailObject(linkID)->moveObject(1 * moveStat.at(1).speed, 0);
+				allObjects->getDetailObject(linkID)->moveObject(1 * moveStat.at(0).speed, 0);
 				reached = false;
 			}
 			else if (allObjects->getDetailObject(linkID)->xPos > goalx) {
-				allObjects->getDetailObject(linkID)->moveObject(-1 * moveStat.at(1).speed, 0);
+				allObjects->getDetailObject(linkID)->moveObject(-1 * moveStat.at(0).speed, 0);
 				reached = false;
 			}
 			if (sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) >= halfGoal - 5 && sqrt(pow(abs(goalx - allObjects->getDetailObject(linkID)->xPos), 2) + pow(abs(goaly - (allObjects->getDetailObject(linkID)->yPos)), 2)) <= halfGoal + 5)
@@ -455,28 +597,31 @@ void Creature::runTurn() {
 		std::cout << "here? cd0" << std::endl;
 		if (mapTiles->size() > 0)
 		{
-			if (moveStat.at(1).movement == random)
-			{
-				moveRandom();
-			}
-			else if (moveStat.at(1).movement == toward)
-			{
-				rangeCount = 0;
-				int moveAttempt = checkTilesChar(currentTile);
-				std::cout << "moveattempt " << moveAttempt << std::endl;
-				if (moveAttempt != -1)
+			if (moveStat.size() > 0) {
+				if (moveStat.at(0).movement == random)
 				{
-					std::cout << "lets move toward" << std::endl;
-					moveDest = moveAttempt;
-					moving = true;
-					coolDown = 100 + ((rand() % 500) / moveStat.at(1).speed);
-				}
-				else
-				{
-					std::cout << "lets move random" << std::endl;
 					moveRandom();
 				}
+				else if (moveStat.at(0).movement == toward)
+				{
+					rangeCount = 0;
+					int moveAttempt = checkTilesChar(currentTile);
+					std::cout << "moveattempt " << moveAttempt << std::endl;
+					if (moveAttempt != -1)
+					{
+						std::cout << "lets move toward" << std::endl;
+						moveDest = moveAttempt;
+						moving = true;
+						coolDown = 100 + ((rand() % 500) / moveStat.at(0).speed);
+					}
+					else
+					{
+						std::cout << "lets move random" << std::endl;
+						moveRandom();
+					}
+				}
 			}
+			
 		}
 		/*if ((cardsReady.size() > 0) && mapTiles->size() > 0) {
 		PlayerCard activeCard = cardsReady.at(0);
@@ -604,7 +749,53 @@ void Creature::runTurn() {
 		coolDown -= 1;
 	}
 }
+
+
+
+bool Creature::omniTileCheck(int tileNumber, bool impasable, bool character, bool enemy, bool nuller) {
+
+	bool finalVal = true;
+
+	if (nuller && (tileNumber == -1)) {
+		finalVal = false; 
+	}
+	else {
+		if (impasable && (mapTiles->at(tileNumber)).isUnpassable == true) {
+			
+			if ( (!character && (mapTiles->at(tileNumber)).characterLink != "")) {
+				
+			}
+			else if (character) {
+				finalVal = false;
+				//std::cout << "Banned on account of character being blocking the tile!!!!!!!!!!!!!!!!!!1";
+			}
+			else
+			if ((!enemy && (mapTiles->at(tileNumber)).creatureLink != "")) {
+
+			}
+			else if (enemy) {
+				finalVal = false;
+			}
+			else {
+				finalVal = false;
+			}
+		} 
+		if (character && (mapTiles->at(tileNumber)).characterLink != "") {
+			finalVal = false;
+		} 
+		if (enemy && (mapTiles->at(tileNumber)).creatureLink != "") {
+			finalVal = false;
+		}
+	}
+	
+
+
+
+
+	return finalVal;
+}
 void Creature::path() {
+	
 	std::vector<Path> paths = { Path({mapTiles->at(currentTile).c1},4),Path({mapTiles->at(currentTile).c2},5),Path({mapTiles->at(currentTile).c3},6),Path({mapTiles->at(currentTile).c4},1),Path({mapTiles->at(currentTile).c5},2),Path({mapTiles->at(currentTile).c6},3) };
 	if (mapTiles->at(currentTile).c6 == -1 || mapTiles->at(mapTiles->at(currentTile).c6).isUnpassable) {
 		paths.erase(paths.begin() + 5);
@@ -629,6 +820,12 @@ void Creature::path() {
 	bool going = true;
 	int currentLeng = 1;
 	while (going) {
+		std::cout << "run path: Trying to make it to the tile that is named: " << moveDest << std::endl ;
+		std::cout << "The current paths are: " << std::endl;
+		for (int i = 0; i < paths.size(); i++)
+		{
+			std::cout << paths.at(i).weave.at(paths.at(i).weave.size() - 1) << std::endl;
+		}
 		int pathSize = paths.size();
 		for (int i = 0; i < pathSize; i++)
 		{
@@ -640,101 +837,102 @@ void Creature::path() {
 			}
 			else {
 				if (paths.at(i).from == 4) {
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false) {
+					if (omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6),true,false,true,true)) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 3;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
 					}
 
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false) {
+					if (omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2), true, false, true, true)) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 5;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
 					}
 
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false) {
+					if (omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1), true, false, true, true)) {
+						std::cout << "going up!";
 						paths.at(i).from = 4;
 						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
 					}
 
 				}
 				else if (paths.at(i).from == 5) {
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1), true, false, true, true))) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 4;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3), true, false, true, true))) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 6;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2), true, false, true, true))) {
 						paths.at(i).from = 5;
 						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
 					}
 				}
 				else if (paths.at(i).from == 6) {
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2), true, false, true, true))) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 5;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c2);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4), true, false, true, true))) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 1;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3), true, false, true, true))) {
 						paths.at(i).from = 6;
 						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3);
 					}
 				}
 				else if (paths.at(i).from == 1) {
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3), true, false, true, true))) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 6;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c3);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5), true, false, true, true))) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 2;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4), true, false, true, true))) {
 						paths.at(i).from = 1;
 						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4);
 					}
 				}
 				else if (paths.at(i).from == 2) {
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4), true, false, true, true))) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 1;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c4);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6), true, false, true, true))) {
 
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 3;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5), true, false, true, true))) {
 						paths.at(i).from = 2;
 						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5);
 					}
 				}
 				else if (paths.at(i).from == 3) {
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5), true, false, true, true))) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 2;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c5);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1), true, false, true, true))) {
 						paths.push_back(paths.at(i));
 						paths.at(paths.size() - 1).from = 4;
 						paths.at(paths.size() - 1).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c1);
 					}
-					if ((((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)) != -1) && mapTiles->at((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6)).isUnpassable == false) {
+					if ((omniTileCheck((mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6), true, false, true, true))) {
 						paths.at(i).from = 3;
 						paths.at(i).weave.push_back(mapTiles->at(paths.at(i).weave.at(paths.at(i).weave.size() - 1)).c6);
 					}
