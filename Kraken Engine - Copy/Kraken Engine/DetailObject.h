@@ -22,6 +22,7 @@ public:
     int frames;
     bool animated;
     bool aniInit;
+    int aniCounter;
     int sx;
     int sy;
     bool loop = true;

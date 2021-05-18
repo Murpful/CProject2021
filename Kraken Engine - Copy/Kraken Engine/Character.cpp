@@ -14,8 +14,12 @@ void selectMoveTile(int inf) {
 void Character::playCard() {
 	for (int i = 0; i < selectedCard.cardEvents.size(); i++)
 	{
+		std::cout << "QueueSize: " << attackQueue.size() << std::endl;
 		if (selectedCard.cardEvents.at(i).action == attack) {
-			attackQueue.push_back(Attack(selectedCard.cardEvents.at(i).data.at(0), selectedCard.cardEvents.at(i).data.at(1)));
+			std::cout << "selecting attack" << std::endl;
+			attackQueue.push_back(Attack(selectedCard.cardEvents.at(i).data.at(0), selectedCard.cardEvents.at(i).data.at(1), selectedCard.cardEvents.at(i).data.at(2),
+							selectedCard.cardEvents.at(i).data.at(3), selectedCard.cardEvents.at(i).data.at(4), selectedCard.cardEvents.at(i).actionAnimation));
+			std::cout << "atlFrame: " << attackQueue.at(0).frames << std::endl;
 		}
 		if (selectedCard.cardEvents.at(i).action == move) {
 			moveQueue.push_back(Move(selectedCard.cardEvents.at(i).data.at(0), selectedCard.cardEvents.at(i).data.at(1)));
@@ -40,6 +44,7 @@ bool doesContain(std::vector<int> list, int val) {
 	return retu;
 }
 void Character::updateTurn() {
+	//std::cout << "animation created: " << allObjects->DetectDetailObject("atkAnimation") << std::endl;
 	static int attackTimeCounter = 0;
 	//int iFrameCounter = 0;
 	//std::cout << targetLoc;
@@ -362,69 +367,77 @@ void Character::updateTurn() {
 
 			}
 			if (isAttacking) {
+				if (targetLoc != -1 && atkCounter == 0) {
+					allObjects->addObject(new DetailObject("atkAnimation", attackQueue.at(0).animation, allObjects->getDetailObject(className)->xPos,
+						allObjects->getDetailObject(className)->yPos, 50, 50, 50, 50, true, attackQueue.at(0).frames, attackQueue.at(0).frameTime, false));
+				}
+				if (atkCounter < attackQueue.at(0).atkTime) {
+					if (targetLoc != -1) {
+						allObjects->deleteAllAdvancedHexagonalButtonObject();
+						//std::cout << "frameTime: " << attackQueue.at(0).frameTime<< std::endl;
+						//std::cout << "atkTime" << attackQueue.at(0).atkTime << std::endl;
+						atkCounter++;
+						//selectedTile = -1;
+						if (atkCounter == attackQueue.at(0).subAtkTime) {
+							if (mapTiles->at(targetLoc).creatureLink != "") {
+								int creatureDataLoc;
+								for (int counter = 0; counter < creatures->size(); counter++) {
+									if (creatures->at(counter).name == mapTiles->at(targetLoc).creatureLink) {
+										creatureDataLoc = counter;
+									}
+								}
+								std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
+								creatures->at(creatureDataLoc).currentHealthPoints -= attackQueue.at(0).damagePoints;
+								std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
 
-				if (targetLoc != -1) {
-					allObjects->deleteAllAdvancedHexagonalButtonObject();
-					selectedTile = -1;
-
-					if (mapTiles->at(targetLoc).creatureLink != "") {
-						int creatureDataLoc;
-						for (int counter = 0; counter < creatures->size(); counter++) {
-							if (creatures->at(counter).name == mapTiles->at(targetLoc).creatureLink) {
-								creatureDataLoc = counter;
 							}
 						}
-						std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
-						int damageTaken = attackQueue.at(0).damagePoints - creatures->at(creatureDataLoc).armorStat;
-						if (damageTaken < 0)
-						{
-							damageTaken = 0;
+						else if (atkCounter == attackQueue.at(0).atkTime){
+							attackQueue.erase(attackQueue.begin() + 0);
+							pick.erase(pick.begin() + 0);
+							selectedTile = -1;
+							targetLoc = -1;
+							atkCounter = 0;
+							allObjects->deleteDetailObject("atkAnimation");
+							attackTimeCounter = 300;
+							isAttacking = false;
+							//deal dammage and effects to the entiteis in the square here, if its an area of effect or somthing of the like you can add that here too.
 						}
-						creatures->at(creatureDataLoc).currentHealthPoints -= damageTaken;
-						std::cout << creatures->at(creatureDataLoc).currentHealthPoints << std::endl;
+					}
+					else if (attackTimeCounter > 0) {
+						attackTimeCounter -= 1;
+						if (attackTimeCounter == 240) {
+							for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
+							{
+								allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget4.png");
+							}
+						}
+						else if (attackTimeCounter == 180) {
+							for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
+							{
+								allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget3.png");
+							}
+						}
+						else if (attackTimeCounter == 120) {
+							for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
+							{
+								allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget2.png");
+							}
+						}
+						else if (attackTimeCounter == 60) {
+							for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
+							{
+								allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget1.png");
+							}
+						}
 
 					}
-					else { std::cout << "???" << std::endl; }
-					attackQueue.erase(attackQueue.begin() + 0);
-					pick.erase(pick.begin() + 0);
-					selectedTile = -1;
-					targetLoc = -1;
-					attackTimeCounter = 300;
-					isAttacking = false;
-					//deal dammage and effects to the entiteis in the square here, if its an area of effect or somthing of the like you can add that here too.
-				}
-				else if (attackTimeCounter > 0) {
-					attackTimeCounter -= 1;
-					if (attackTimeCounter == 240) {
-						for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
-						{
-							allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget4.png");
-						}
-					}
-					else if (attackTimeCounter == 180) {
-						for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
-						{
-							allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget3.png");
-						}
-					}
-					else if (attackTimeCounter == 120) {
-						for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
-						{
-							allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget2.png");
-						}
-					}
-					else if (attackTimeCounter == 60) {
-						for (int i = 0; i < allObjects->advancedHexagonalButtonObjects.size(); i++)
-						{
-							allObjects->advancedHexagonalButtonObjects.at(i)->objTexture = TextureManager::loadTexture("assets/RegHexBaseTarget1.png");
-						}
-					}
-
 				}
 				else {
 					allObjects->deleteAllAdvancedHexagonalButtonObject();
 					pick.erase(pick.begin() + 0);
 					attackQueue.erase(attackQueue.begin() + 0);
+
 					attackTimeCounter = 300;
 					isAttacking = false;
 				}
@@ -688,8 +701,6 @@ void Character::updateTurn() {
 						if (reached) {
 							//mapTiles->at(loc).isUnpassable = false;
 							//mapTiles->at(loc).characterLink = "";
-							mapTiles->at(loc).characterLink = "";
-							mapTiles->at(loc).isUnpassable = false;
 							loc = pathWeave.at(0);
 
 							pathWeave.erase(pathWeave.begin() + 0);
@@ -798,6 +809,7 @@ Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, 
 	isDodging = false;
 	goalSet = false;
 	iFrameCounter = 0;
+	atkCounter = 0;
 	discard = { };
 	deck = { };
 	//moveQueue.push_back(Move(1, 2));
@@ -814,11 +826,11 @@ Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, 
 	goaly = allObjects->getDetailObject(objectTag)->yPos + 20;
 	allObjects->getDetailObject(setClassName)->xPos = goalx;
 	allObjects->getDetailObject(setClassName)->yPos = goaly;
-	discard.push_back(PlayerCard("atk", { CardEvent(attack, {3,1}) }, 30, "assets/AtkCard.png"));
-	discard.push_back(PlayerCard("atk", { CardEvent(attack, {3,1}) }, 30, "assets/AtkCard.png"));
+	discard.push_back(PlayerCard("atk", { CardEvent(attack, {3,1, 150, 100, 4},"assets/atkAnim.png") }, 30, "assets/AtkCard.png"));
+	discard.push_back(PlayerCard("atk", { CardEvent(attack, {3,1, 150, 100, 4},"assets/atkAnim.png") }, 30, "assets/AtkCard.png"));
 	discard.push_back(PlayerCard("mve", { CardEvent(move, {1,1}) }, 30, "assets/MovCard.png"));
-	discard.push_back(PlayerCard("mvenatk", { CardEvent(move, {1,1}),CardEvent(attack, {3,1}) }, 30, "assets/MovnAtkCard.png"));
-	discard.push_back(PlayerCard("mvenatkmov", { CardEvent(move, {2,1}),CardEvent(attack, {2,0}),CardEvent(move, {2,1}) }, 30, "assets/moveatkmovCard.png"));
+	discard.push_back(PlayerCard("mvenatk", { CardEvent(move, {1,1}),CardEvent(attack, {3,1, 150, 100,4},"assets/atkAnim.png") }, 30, "assets/MovnAtkCard.png"));
+	discard.push_back(PlayerCard("mvenatkmov", { CardEvent(move, {2,1}),CardEvent(attack, {2,0, 150, 100,4},"assets/atkAnim.png"),CardEvent(move, {2,1}) }, 30, "assets/moveatkmovCard.png"));
 	discard.push_back(PlayerCard("mvefar", { CardEvent(move, {3,2}) }, 30, "assets/LongMovCard.png"));
 	discard.push_back(PlayerCard("ddg", { CardEvent(dodge,{30}) }, 30, "assets/DdgCard.png"));
 	if (setClassName == "Brute")
