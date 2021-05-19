@@ -46,7 +46,7 @@ public:
 	void runTurn();
 	void path();
 	int checkTilesChar(int);
-	int checkTilesChar(int,int&);
+	int checkTilesChar(int,int&,std::vector<int>&);
 	void moveRandom();
 };
 class Path {
