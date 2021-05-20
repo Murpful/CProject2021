@@ -7,12 +7,14 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 	maxHealthPoints = 5;
 	halfGoal = 0;
 	currentHealthPoints = 5;
+	connect = 0;
 	faction = monster;
 	coolDown = 100;
 	cardsUsed = { };
 	currentTile = 0;
 	moveDest = -1;
 	mapTiles = map;
+	check = 0;
 	map->at(tile).creatureLink = named;
 	moving = false;
 	pathWeave = { };
@@ -35,7 +37,9 @@ Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, st
 Creature::Creature(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, std::string named, int tile, std::vector<Component> creatureStats)
 {
 	moveDest = -1;
+	connect = 0;
 	mapTiles = map;
+	check = 0;
 	map->at(tile).creatureLink = named;
 	moving = false;
 	pathWeave = { };
@@ -205,58 +209,164 @@ void Creature::moveRandom()
 }
 int Creature::checkTilesChar(int testTile)
 {
-	std::cout << "checking tiles..." << std::endl;
+	//std::cout << "checking tiles..." << std::endl;
 	int testDest = testTile;
-	if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+	if (rangeCount == 0)
 	{
-		std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
-		rangeCount++;
-		return mapTiles->at(testDest).c1;
+		check += 6;
+		if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+		{
+			//std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
+			rangeCount++;
+			return mapTiles->at(testDest).c1;
+		}
+		else if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+		{
+			//std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
+			rangeCount++;
+			return mapTiles->at(testDest).c2;
+		}
+		else if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
+		{
+			//std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
+			rangeCount++;
+			return mapTiles->at(testDest).c3;
+		}
+		else if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
+		{
+			//std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
+			rangeCount++;
+			return mapTiles->at(testDest).c4;
+
+		}
+		else if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
+		{
+			//std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
+			rangeCount++;
+			return mapTiles->at(testDest).c5;
+
+		}
+		else if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
+		{
+			//std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
+			rangeCount++;
+			return mapTiles->at(testDest).c6;
+
+		}
 	}
-	else if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+	else
 	{
-		std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
-		rangeCount++;
-		return mapTiles->at(testDest).c2;
+		if (connect == 1)
+		{
+			check += 1;
+			if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+			{
+				//std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c1;
+			}
+			else if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
+			{
+				//std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c6;
+			}
+		}
+		else if (connect == 2)
+		{
+			check += 1;
+			if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+			{
+				//std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c1;
+			}
+			else if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+			{
+				//std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c2;
+			}
+		}
+		else if (connect == 3)
+		{
+			check += 1;
+			if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
+			{
+				//std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c3;
+			}
+			else if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+			{
+				//std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c2;
+			}
+		}
+		else if (connect == 4)
+		{
+			check += 1;
+			if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
+			{
+				//std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c3;
+			}
+			else if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
+			{
+				//std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c4;
+			}
+		}
+		else if (connect == 5)
+		{
+			check += 1;
+			if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
+			{
+				//std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c5;
+			}
+			else if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
+			{
+				//std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c4;
+			}
+		}
+		else if (connect == 6)
+		{
+			check += 1;
+			if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
+			{
+				//std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c5;
+			}
+			else if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
+			{
+				//std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
+				rangeCount++;
+				return mapTiles->at(testDest).c6;
+			}
+		}
 	}
-	else if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
-	{
-		std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
-		rangeCount++;
-		return mapTiles->at(testDest).c3;
-	}
-	else if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
-	{
-		std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
-		rangeCount++;
-		return mapTiles->at(testDest).c4;
-	
-	}
-	else if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
-	{
-		std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
-		rangeCount++;
-		return mapTiles->at(testDest).c5;
-		
-	}
-	else if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
-	{
-		std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
-		rangeCount++;
-		return mapTiles->at(testDest).c6;
-		
-	}
-	std::cout << "rangecount: " << rangeCount << "  range: " << moveStat.at(0).range << std::endl;
-	std::cout << "move stat size: " << moveStat.size();
+	//std::cout << "rangecount: " << rangeCount << "  range: " << moveStat.at(0).range << std::endl;
+	//std::cout << "move stat size: " << moveStat.size();
 	if (rangeCount < moveStat.at(0).range)
 	{
-		std::cout << "enterrangeif" << std::endl;
+		//std::cout << "enterrangeif" << std::endl;
 		rangeCount++;
-		std::cout << "rangecount: " << rangeCount << std::endl;
+		//std::cout << "rangecount: " << rangeCount << std::endl;
 		int tile1 = -1, tile2 = -1, tile3 = -1, tile4 = -1, tile5 = -1, tile6 = -1;
 		if (mapTiles->at(testDest).c1 != -1 && (mapTiles->at(mapTiles->at(testDest).c1).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c1).characterLink !=""))
 		{
-			std::cout << 1 << std::endl;
+
+			check += 1;
+			//std::cout << 1 << std::endl;
+			connect = 1;
 			tile1 = checkTilesChar(mapTiles->at(testDest).c1);
 			rangeCount--;
 			if (tile1 != -1)
@@ -264,73 +374,86 @@ int Creature::checkTilesChar(int testTile)
 				std::cout << "tile found: " << tile1 << std::endl;
 				return tile1;
 			}
+
 		}
 
 		if (mapTiles->at(testDest).c2 != -1 && (mapTiles->at(mapTiles->at(testDest).c2).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c2).characterLink != ""))
 		{
-			std::cout << 2 << std::endl;
+			check += 1;
+			//std::cout << 2 << std::endl;
+			connect = 2;
 			tile2 = checkTilesChar(mapTiles->at(testDest).c2);
 			rangeCount--;
 			if (tile2 != -1)
 			{
-				std::cout << "tile found: " << tile2 << std::endl;
+				//std::cout << "tile found: " << tile2 << std::endl;
 				return tile2;
 			}
 		}
 
 		if (mapTiles->at(testDest).c3 != -1 && (mapTiles->at(mapTiles->at(testDest).c3).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c3).characterLink != ""))
 		{
-			std::cout << 3 << std::endl;
+			check += 1;
+			//std::cout << 3 << std::endl;
+			connect = 3;
 			tile3 = checkTilesChar(mapTiles->at(testDest).c3);
 			rangeCount--;
 			if (tile3 != -1)
 			{
-				std::cout << "tile found: " << tile3 << std::endl;
+				//std::cout << "tile found: " << tile3 << std::endl;
 				return tile3;
 			}
 		}
 
 		if (mapTiles->at(testDest).c4 != -1 && (mapTiles->at(mapTiles->at(testDest).c4).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c4).characterLink != ""))
 		{
-			std::cout << 4 << std::endl;
+			check += 1;
+			//std::cout << 4 << std::endl;
+			connect = 4;
 			tile4 = checkTilesChar(mapTiles->at(testDest).c4);
 			rangeCount--;
 			if (tile4 != -1)
 			{
-				std::cout << "tile found: " << tile4 << std::endl;
+				//std::cout << "tile found: " << tile4 << std::endl;
 				return tile4;
 			}
 		}
 
 		if (mapTiles->at(testDest).c5 != -1 && (mapTiles->at(mapTiles->at(testDest).c5).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c5).characterLink != ""))
 		{
-			std::cout << 5 << std::endl;
+			check += 1;
+			//std::cout << 5 << std::endl;
+			connect = 5;
 			tile5 = checkTilesChar(mapTiles->at(testDest).c5);
 			rangeCount--;
 			if (tile5 != -1)
 			{
-				std::cout << "tile found: " << tile5 << std::endl;
+				//std::cout << "tile found: " << tile5 << std::endl;
 				return tile5;
 			}
 		}
 
 		if (mapTiles->at(testDest).c6 != -1 && (mapTiles->at(mapTiles->at(testDest).c6).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c6).characterLink != ""))
 		{
-			std::cout << 6 << std::endl;
+			check += 1;
+			//std::cout << 6 << std::endl;
+			connect = 6;
 			tile6 = checkTilesChar(mapTiles->at(testDest).c6);
 			rangeCount--;
 			if (tile6 != -1)
 			{
-				std::cout << "tile found: " << tile6 << std::endl;
+				//std::cout << "tile found: " << tile6 << std::endl;
 				return tile6;
 			}
 		}
-
-		std::cout << "tiles: " << tile1 << tile2 << tile3 << tile4 << tile5 << tile6 << std::endl;
+		//std::cout << "CHECKS " << check << std::endl;
+		//std::cout << "tiles: " << tile1 << tile2 << tile3 << tile4 << tile5 << tile6 << std::endl;
 		return -1;
+		
 	}
 	else
 	{
+		//std::cout << "CHECKS " << check << std::endl;
 		rangeCount++;
 		return -1;
 	}
@@ -338,106 +461,315 @@ int Creature::checkTilesChar(int testTile)
 }
 int Creature::checkTilesChar(int testTile, int &distanceFrom, std::vector<int> &prevmoves)
 {
-	std::cout << "checking tiles..." << std::endl;
+	//std::cout << "checking tiles..." << std::endl;
 	int testDest = testTile;
-	if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+	if (rangeCount == 0)
 	{
-		prevmoves.push_back(1);
-		std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
-		distanceFrom = rangeCount+1;
-		if (distanceFrom < moveStat.at(0).minDist) {
-			distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+		if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+		{
+			check += 1;
+			prevmoves.push_back(1);
+			//std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
+			distanceFrom = rangeCount + 1;
+			if (distanceFrom < moveStat.at(0).minDist) {
+				distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+			}
+			else {
+				rangeCount++;
+			}
+			return mapTiles->at(testDest).c1;
+
 		}
-		else {
-			rangeCount++;
+		else if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+		{
+			check += 1;
+			prevmoves.push_back(2);
+			//std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
+			distanceFrom = rangeCount + 1;
+			if (distanceFrom < moveStat.at(0).minDist) {
+				distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+			}
+			else {
+				rangeCount++;
+			}
+			return mapTiles->at(testDest).c2;
 		}
-		return mapTiles->at(testDest).c1;
-		
+		else if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
+		{
+			check += 1;
+			prevmoves.push_back(3);
+			//std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
+			distanceFrom = rangeCount + 1;
+			if (distanceFrom < moveStat.at(0).minDist) {
+				distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+			}
+			else {
+				rangeCount++;
+			}
+			return mapTiles->at(testDest).c3;
+		}
+		else if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
+		{
+			check += 1;
+			prevmoves.push_back(4);
+			//std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
+			distanceFrom = rangeCount + 1;
+			if (distanceFrom < moveStat.at(0).minDist) {
+				distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+			}
+			else {
+				rangeCount++;
+			}
+			return mapTiles->at(testDest).c4;
+
+		}
+		else if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
+		{
+			check += 1;
+			prevmoves.push_back(5);
+			//std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
+			distanceFrom = rangeCount + 1;
+			if (distanceFrom < moveStat.at(0).minDist) {
+				distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+			}
+			else {
+				rangeCount++;
+			}
+			return mapTiles->at(testDest).c5;
+
+		}
+		else if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
+		{
+			check += 1;
+			prevmoves.push_back(6);
+			//std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
+			distanceFrom = rangeCount + 1;
+			if (distanceFrom < moveStat.at(0).minDist) {
+				distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+			}
+			else {
+				rangeCount++;
+			}
+			return mapTiles->at(testDest).c6;
+
+		}
 	}
-	else if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+	else
 	{
-		prevmoves.push_back(2);
-		std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
-		distanceFrom = rangeCount + 1;
-		if (distanceFrom < moveStat.at(0).minDist) {
-			distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+		if (connect == 1)
+		{
+			//std::cout << "connected1" << std::endl;
+			check += 1;
+			if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+			{
+				prevmoves.push_back(1);
+				//std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c1;
+
+			}
+			else if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
+			{
+				prevmoves.push_back(6);
+				//std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c6;
+
+			}
 		}
-		else {
-			rangeCount++;
+		else if (connect == 2)
+		{
+			//std::cout << "connected2" << std::endl;
+			check += 1;
+			if (mapTiles->at(testDest).c1 != -1 && mapTiles->at(mapTiles->at(testDest).c1).characterLink != "")
+			{
+				prevmoves.push_back(1);
+				//std::cout << "returning 1, link: " << mapTiles->at(mapTiles->at(testDest).c1).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c1;
+
+			}
+			else if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+			{
+				prevmoves.push_back(2);
+				//std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c2;
+			}
 		}
-		return mapTiles->at(testDest).c2;
-	}
-	else if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
-	{
-		prevmoves.push_back(3);
-		std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
-		distanceFrom = rangeCount + 1;
-		if (distanceFrom < moveStat.at(0).minDist) {
-			distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+		else if (connect == 3)
+		{
+			//std::cout << "connected3" << std::endl;
+			check += 1;
+			if (mapTiles->at(testDest).c2 != -1 && mapTiles->at(mapTiles->at(testDest).c2).characterLink != "")
+			{
+				prevmoves.push_back(2);
+				//std::cout << "returning 2, link: " << mapTiles->at(mapTiles->at(testDest).c2).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c2;
+			}
+			else if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
+			{
+				prevmoves.push_back(3);
+				//std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c3;
+			}
 		}
-		else {
-			rangeCount++;
+		else if (connect == 4)
+		{
+			//std::cout << "connected4" << std::endl;
+			check += 1;
+			if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
+			{
+				prevmoves.push_back(4);
+				//std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c4;
+
+			}
+			else if (mapTiles->at(testDest).c3 != -1 && mapTiles->at(mapTiles->at(testDest).c3).characterLink != "")
+			{
+				prevmoves.push_back(3);
+				//std::cout << "returning 3, link: " << mapTiles->at(mapTiles->at(testDest).c3).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c3;
+			}
 		}
-		return mapTiles->at(testDest).c3;
-	}
-	else if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
-	{
-		prevmoves.push_back(4);
-		std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
-		distanceFrom = rangeCount + 1;
-		if (distanceFrom < moveStat.at(0).minDist) {
-			distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+		else if (connect == 5)
+		{
+		//std::cout << "connected5" << std::endl;
+		check += 1;
+			if (mapTiles->at(testDest).c4 != -1 && mapTiles->at(mapTiles->at(testDest).c4).characterLink != "")
+			{
+				prevmoves.push_back(4);
+				//std::cout << "returning 4, link: " << mapTiles->at(mapTiles->at(testDest).c4).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c4;
+
+			}
+			else if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
+			{
+				prevmoves.push_back(5);
+				//std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c5;
+
+			}
 		}
-		else {
-			rangeCount++;
+		else if (connect == 6)
+		{
+		//std::cout << "connected6" << std::endl;
+		check += 1;
+			if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
+			{
+				prevmoves.push_back(6);
+				//std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c6;
+
+			}
+			else if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
+			{
+				prevmoves.push_back(5);
+				//std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
+				distanceFrom = rangeCount + 1;
+				if (distanceFrom < moveStat.at(0).minDist) {
+					distanceFrom = (distanceFrom - moveStat.at(0).minDist);
+				}
+				else {
+					rangeCount++;
+				}
+				return mapTiles->at(testDest).c5;
+
+			}
 		}
-		return mapTiles->at(testDest).c4;
 
 	}
-	else if (mapTiles->at(testDest).c5 != -1 && mapTiles->at(mapTiles->at(testDest).c5).characterLink != "")
-	{
-		prevmoves.push_back(5);
-		std::cout << "returning 5, link: " << mapTiles->at(mapTiles->at(testDest).c5).characterLink << std::endl;
-		distanceFrom = rangeCount + 1;
-		if (distanceFrom < moveStat.at(0).minDist) {
-			distanceFrom = (distanceFrom - moveStat.at(0).minDist);
-		}
-		else {
-			rangeCount++;
-		}
-		return mapTiles->at(testDest).c5;
-
-	}
-	else if (mapTiles->at(testDest).c6 != -1 && mapTiles->at(mapTiles->at(testDest).c6).characterLink != "")
-	{
-		prevmoves.push_back(6);
-		std::cout << "returning 6, link: " << mapTiles->at(mapTiles->at(testDest).c6).characterLink << std::endl;
-		distanceFrom = rangeCount + 1;
-		if (distanceFrom < moveStat.at(0).minDist) {
-			distanceFrom = (distanceFrom - moveStat.at(0).minDist);
-		}
-		else {
-			rangeCount++;
-		}
-		return mapTiles->at(testDest).c6;
-
-	}
-	std::cout << "rangecount: " << rangeCount << "  range: " << moveStat.at(0).range << std::endl;
-	std::cout << "move stat size: " << moveStat.size();
+	//std::cout << "rangecount: " << rangeCount << "  range: " << moveStat.at(0).range << std::endl;
+	//std::cout << "move stat size: " << moveStat.size();
 	if (rangeCount < moveStat.at(0).range)
 	{
-		std::cout << "enterrangeif" << std::endl;
+		//std::cout << "enterrangeif" << std::endl;
 		rangeCount++;
 		//std::cout << "rangecount: " << rangeCount << std::endl;
 		int tile1 = -1, tile2 = -1, tile3 = -1, tile4 = -1, tile5 = -1, tile6 = -1;
 		if (mapTiles->at(testDest).c1 != -1 && (mapTiles->at(mapTiles->at(testDest).c1).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c1).characterLink != ""))
 		{
-			std::cout << 1 << std::endl;
+			check += 1;
+			//std::cout << 1 << std::endl;
 			prevmoves.push_back(1);
+			connect = 1;
 			tile1 = checkTilesChar(mapTiles->at(testDest).c1,distanceFrom,prevmoves);
 			if (tile1 != -1)
 			{
-				std::cout << "tile found: " << tile1 << std::endl;
+				//std::cout << "tile found: " << tile1 << std::endl;
 				return tile1;
 			}
 			else {
@@ -448,12 +780,14 @@ int Creature::checkTilesChar(int testTile, int &distanceFrom, std::vector<int> &
 
 		if (mapTiles->at(testDest).c2 != -1 && (mapTiles->at(mapTiles->at(testDest).c2).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c2).characterLink != ""))
 		{
-			std::cout << 2 << std::endl;
+			check += 1;
+			//std::cout << 2 << std::endl;
 			prevmoves.push_back(2);
+			connect = 2;
 			tile2 = checkTilesChar(mapTiles->at(testDest).c2, distanceFrom, prevmoves);
 			if (tile2 != -1)
 			{
-				std::cout << "tile found: " << tile2 << std::endl;
+				//std::cout << "tile found: " << tile2 << std::endl;
 				return tile2;
 			}
 			else {
@@ -464,12 +798,14 @@ int Creature::checkTilesChar(int testTile, int &distanceFrom, std::vector<int> &
 
 		if (mapTiles->at(testDest).c3 != -1 && (mapTiles->at(mapTiles->at(testDest).c3).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c3).characterLink != ""))
 		{
+			check += 1;
 			prevmoves.push_back(3);
-			std::cout << 3 << std::endl;
+			//std::cout << 3 << std::endl;
+			connect = 3;
 			tile3 = checkTilesChar(mapTiles->at(testDest).c3, distanceFrom, prevmoves);
 			if (tile3 != -1)
 			{
-				std::cout << "tile found: " << tile3 << std::endl;
+				//std::cout << "tile found: " << tile3 << std::endl;
 				return tile3;
 			}
 			else {
@@ -480,13 +816,15 @@ int Creature::checkTilesChar(int testTile, int &distanceFrom, std::vector<int> &
 
 		if (mapTiles->at(testDest).c4 != -1 && (mapTiles->at(mapTiles->at(testDest).c4).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c4).characterLink != ""))
 		{
-			std::cout << 4 << std::endl;
+			check += 1;
+			//std::cout << 4 << std::endl;
 			prevmoves.push_back(4);
+			connect = 4;
 			tile4 = checkTilesChar(mapTiles->at(testDest).c4, distanceFrom, prevmoves);
 			
 			if (tile4 != -1)
 			{
-				std::cout << "tile found: " << tile4 << std::endl;
+				//std::cout << "tile found: " << tile4 << std::endl;
 				return tile4;
 			}
 			else {
@@ -497,12 +835,14 @@ int Creature::checkTilesChar(int testTile, int &distanceFrom, std::vector<int> &
 
 		if (mapTiles->at(testDest).c5 != -1 && (mapTiles->at(mapTiles->at(testDest).c5).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c5).characterLink != ""))
 		{
-			std::cout << 5 << std::endl;
+			check += 1;
+			//std::cout << 5 << std::endl;
 			prevmoves.push_back(5);
+			connect = 5;
 			tile5 = checkTilesChar(mapTiles->at(testDest).c5, distanceFrom, prevmoves);
 			if (tile5 != -1)
 			{
-				std::cout << "tile found: " << tile5 << std::endl;
+				//std::cout << "tile found: " << tile5 << std::endl;
 				return tile5;
 			}
 			else {
@@ -513,12 +853,14 @@ int Creature::checkTilesChar(int testTile, int &distanceFrom, std::vector<int> &
 
 		if (mapTiles->at(testDest).c6 != -1 && (mapTiles->at(mapTiles->at(testDest).c6).isUnpassable == false || mapTiles->at(mapTiles->at(testDest).c6).characterLink != ""))
 		{
-			std::cout << 6 << std::endl;
+			check += 1;
+			//std::cout << 6 << std::endl;
 			prevmoves.push_back(6);
+			connect = 6;
 			tile6 = checkTilesChar(mapTiles->at(testDest).c6, distanceFrom, prevmoves);
 			if (tile6 != -1)
 			{
-				std::cout << "tile found: " << tile6 << std::endl;
+				//std::cout << "tile found: " << tile6 << std::endl;
 				return tile6;
 			}
 			else {
@@ -526,14 +868,15 @@ int Creature::checkTilesChar(int testTile, int &distanceFrom, std::vector<int> &
 				rangeCount--;
 			}
 		}
-
-		std::cout << "tiles: " << tile1 << tile2 << tile3 << tile4 << tile5 << tile6 << std::endl;
+		//std::cout << "CHECKS " << check << std::endl;
+		//std::cout << "tiles: " << tile1 << tile2 << tile3 << tile4 << tile5 << tile6 << std::endl;
 		return -1;
 	}
 	else
 	{
+	//std::cout << "CHECKS " << check << std::endl;
 		rangeCount++;
-		std::cout << "The current rage away is this: " << rangeCount;
+		//std::cout << "The current rage away is this: " << rangeCount;
 		return -1;
 	}
 
@@ -674,6 +1017,8 @@ void Creature::runTurn() {
 				else if (moveStat.at(0).movement == toward)
 				{
 					rangeCount = 0;
+					connect = 0;
+					check= 0;
 					int distanceAway = 0;
 					std::vector<int> prevmov;
 					int moveAttempt = checkTilesChar(currentTile,distanceAway, prevmov);

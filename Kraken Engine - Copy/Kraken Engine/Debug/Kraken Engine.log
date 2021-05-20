@@ -1,4 +1,6 @@
-﻿  Game.cpp
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Game.cpp(425,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Game.cpp(455,36): warning C4018: '<': signed/unsigned mismatch
-  Kraken Engine.vcxproj -> C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe
+﻿  Creature.cpp
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(69,20): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(949,142): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(1276,21): warning C4018: '<': signed/unsigned mismatch
+D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(1394,20): warning C4018: '<': signed/unsigned mismatch
+  Kraken Engine.vcxproj -> D:\Users\DSchwab\Desktop\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe

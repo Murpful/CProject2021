@@ -23,6 +23,7 @@ public:
 	bool isAttacking, isMoving, isDodging;
 	int iFrameCounter;
 	int atkCounter;
+	
 	PlayerCard selectedCard;
 	std::vector<PlayerCard> deck;
 	std::vector<PlayerCard> hand;
