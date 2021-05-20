@@ -12,6 +12,7 @@
 #include "battleMapTile.h"
 #include "Creature.h"
 #include "Character.h"
+#include "ObstacleGroup.h"
 //#include "rendererStorage.h"
 
 

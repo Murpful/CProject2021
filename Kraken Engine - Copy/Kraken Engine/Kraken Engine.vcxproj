@@ -161,6 +161,7 @@
     <ClCompile Include="Kraken Engine.cpp" />
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="ObjectDataBase.cpp" />
+    <ClCompile Include="ObstacleGroup.cpp" />
     <ClCompile Include="PlayerCard.cpp" />
     <ClCompile Include="rendererStorage.cpp" />
     <ClCompile Include="testObj.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="KeyInputObject.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="ObjectDataBase.h" />
+    <ClInclude Include="ObstacleGroup.h" />
     <ClInclude Include="PlayerCard.h" />
     <ClInclude Include="rendererStorage.h" />
     <ClInclude Include="testObj.h" />
