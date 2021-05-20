@@ -380,14 +380,55 @@ void Game::handleEvents()
 
 				}
 
+				ObstacleGroup aNewBuilding = ObstacleGroup({ 
+					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png")},
+					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png")},
+					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexL.png")},
+					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png")},
+					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png")}
+					
+					
+					});
 
-				for (int i = 0; i < 18; i++)
+				int pickStart = rand() % mapTiles.size();
+				int currentPick = pickStart;
+				bool swap = true;
+				for (int i = 0; i < aNewBuilding.tileLayout.size(); i++)
 				{
-					int pick = rand() % mapTiles.size();
-					std::string name = "tile" + std::to_string(pick);
-					mapTiles.at(pick).isUnpassable = true;
-					allObjects.getDetailObject(name)->objTexture = TextureManager::loadTexture("assets/RegHexL.png");
+					for (int k = 0; k < aNewBuilding.tileLayout.at(i).size(); k++)
+					{
+						std::string name = "tile" + std::to_string(currentPick);
+						mapTiles.at(currentPick).isUnpassable = (aNewBuilding.tileLayout.at(i).at(k).obstacle);
+						allObjects.getDetailObject(name)->objTexture = TextureManager::loadTexture(aNewBuilding.tileLayout.at(i).at(k).texture);
+						if (mapTiles.at(currentPick).c4 != -1) {
+							currentPick = mapTiles.at(currentPick).c4;
+						}
+						else {
+							break;
+						}
+					}
+					if (mapTiles.at(pickStart).c3 != -1 && swap) {
+						pickStart = mapTiles.at(pickStart).c3;
+						currentPick = pickStart;
+						swap = false;
+					} else if (mapTiles.at(pickStart).c2 != -1 && !swap) {
+						pickStart = mapTiles.at(pickStart).c3;
+						currentPick = pickStart;
+						swap = true;
+					}
+					else  {
+						break;
+					}
 				}
+
+				//for (int i = 0; i < 18; i++)
+				//{
+				//	int pick = rand() % mapTiles.size();
+				//	std::string name = "tile" + std::to_string(pick);
+
+				//	mapTiles.at(pick).isUnpassable = true;
+				//	allObjects.getDetailObject(name)->objTexture = TextureManager::loadTexture("assets/RegHexL.png");
+				//}
 				allObjects.addObject(new DetailObject("dino", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				allObjects.addObject(new DetailObject("dino2", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				//allObjects.addObject(new DetailObject("dino3", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
