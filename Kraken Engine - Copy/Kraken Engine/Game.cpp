@@ -29,8 +29,8 @@ void optionScreen() {
 void loadUpGame() {
 	eventHandle.push_back(Event("loadUpGame", {}));
 }
-void startRound(int charClass) {
-	eventHandle.push_back(Event("startRound", {charClass}));
+void startRound() {
+	eventHandle.push_back(Event("startRound", {}));
 }
 void moveUp() {
 	eventHandle.push_back(Event("scrollUp", {}));
@@ -113,15 +113,13 @@ void Game::handleEvents()
 			if (action == "optionScreen") {
 				allObjects.deleteAll();
 				allObjects.addObject(new DetailObject("optionBack", "assets/tempModeSelect.png", 0, 0, 1536, 864));
-				allObjects.addObject(new ButtonObject("classicButton", "assets/tempClassic.png", &loadUpGame, 700, 400, 242, 58));
+				allObjects.addObject(new ButtonObject("classicButton", "assets/tempClassic.png", &startRound, 700, 400, 242, 58));
 			}
 			else if (action == "loadUpGame") {
 				allObjects.deleteAll();
 				allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
-				allObjects.addObject(new AdvancedButtonObject("classicButton", "assets/brutebutton.png", &startRound, 700, 400, 242, 58,1));
 			}
 			else if (action == "startRound") {
-				std::cout << "Class: " << eventHandles->at(0).integers.at(0) << std::endl;
 				paused = false;
 				int mapsize = 7;
 				int currentTile = 0;
@@ -440,14 +438,8 @@ void Game::handleEvents()
 				creatures.push_back(Creature(&mapTiles, &allObjects, "dino2", 13, { Component(armor,{2}),Component(health,{10}),Component(moveStats,{1,5,2},toward) }));
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino3", "dino3", player, 74, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino4", "dino4", player, 22, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
-				//allObjects.addObject(new DetailObject("Phil", "assets/Phil.png", 0, 0, 50, 50));
-				//playerCharacter = Character(&mapTiles, &allObjects, &creatures, "Phil", 0);//40
-				if (eventHandles->at(0).integers.at(0) == 1) {
-					allObjects.addObject(new DetailObject("Brute", "assets/Phil.png", 0, 0, 50, 50));
-					std::cout << "?" << std::endl;
-					playerCharacter = Character(&mapTiles, &allObjects, &creatures, "Brute", 0);//40
-				}
-				std::cout << "??" << std::endl;
+				allObjects.addObject(new DetailObject("Phil", "assets/Phil.png", 0, 0, 50, 50));
+				playerCharacter = Character(&mapTiles, &allObjects, &creatures, "Phil", 0);//40
 				//printALLFunc(mapTiles.at(126));
 				//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 				//std::cout << "Finals: " << mapTiles.size();

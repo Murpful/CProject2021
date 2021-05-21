@@ -2,7 +2,11 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
+<<<<<<< HEAD
       <FullPath>C:\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe</FullPath>
+=======
+      <FullPath>C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe</FullPath>
+>>>>>>> parent of 777c3a1 (Class select screen)
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
