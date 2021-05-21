@@ -10,7 +10,7 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event event;
 std::vector<Event> eventHandle = {};
 void sayHi() {
-	std::cout << "hi";
+	std::cout << "hi";\
 }
 void openHand() {
 	eventHandle.push_back(Event("openHand", {}));
