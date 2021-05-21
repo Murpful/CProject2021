@@ -1,12 +1,7 @@
-﻿  Creature.cpp
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(69,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(949,142): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(1170,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Creature.cpp(1288,20): warning C4018: '<': signed/unsigned mismatch
-  Game.cpp
+﻿  Game.cpp
 C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Game.cpp(397,23): warning C4018: '<': signed/unsigned mismatch
 C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Game.cpp(399,24): warning C4018: '<': signed/unsigned mismatch
 C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Game.cpp(467,23): warning C4018: '<': signed/unsigned mismatch
 C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Kraken Engine\Game.cpp(497,36): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
+  LINK : C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe not found or not built by the last incremental link; performing full link
   Kraken Engine.vcxproj -> C:\Users\matth\OneDrive\Desktop\Kraken Engine\CProject2021\Kraken Engine - Copy\Debug\Kraken Engine.exe
