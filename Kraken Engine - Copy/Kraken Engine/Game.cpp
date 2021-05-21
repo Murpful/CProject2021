@@ -10,7 +10,7 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event event;
 std::vector<Event> eventHandle = {};
 void sayHi() {
-	std::cout << "hi";\
+	std::cout << "hi";
 }
 void openHand() {
 	eventHandle.push_back(Event("openHand", {}));
@@ -432,13 +432,11 @@ void Game::handleEvents()
 				//}
 				allObjects.addObject(new DetailObject("dino", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				allObjects.addObject(new DetailObject("dino2", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
-				//allObjects.addObject(new DetailObject("nemesis", "assets/nemesis.png", 0, 0, 74, 41, 740, 410));	//-Tony 5/21
 				//allObjects.addObject(new DetailObject("dino3", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				//allObjects.addObject(new DetailObject("dino4", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				std::cout << "total tiles: " << mapTiles.size() << "  ";
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino", player, 91, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				creatures.push_back(Creature(&mapTiles, &allObjects, "dino2", 13, { Component(armor,{2}),Component(health,{10}),Component(moveStats,{1,5,2},toward) }));
-				//creatures.push_back(Creature(&mapTiles, &allObjects, "nemesis", 13, { Component(armor,{10}),Component(health,{2}),Component(moveStats,{1,5,2},toward) }));	//-Tony 5/21
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino3", "dino3", player, 74, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino4", "dino4", player, 22, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				allObjects.addObject(new DetailObject("Phil", "assets/Phil.png", 0, 0, 50, 50));
@@ -447,7 +445,6 @@ void Game::handleEvents()
 				//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 				//std::cout << "Finals: " << mapTiles.size();
 				//playerCharacter.updateTurn();
-
 			}
 		}
 		else {
