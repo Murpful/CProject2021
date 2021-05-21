@@ -379,13 +379,14 @@ void Game::handleEvents()
 					currentRad += 1;
 
 				}
+				
 
 				ObstacleGroup aNewBuilding = ObstacleGroup({ 
-					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png")},
-					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png")},
-					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexL.png")},
-					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png")},
-					{Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png")}
+					//{Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png")},
+					//{Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png")},
+					//{Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexL.png")},
+					//{Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png")},
+					//{Obstacle(false,"assets/RegHexHills.png"),Obstacle(false,"assets/RegHexHills.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png"),Obstacle(true,"assets/RegHexL.png")}
 					
 					
 					});

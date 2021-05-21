@@ -1074,129 +1074,11 @@ void Creature::runTurn() {
 			}
 			
 		}
-		/*if ((cardsReady.size() > 0) && mapTiles->size() > 0) {
-		PlayerCard activeCard = cardsReady.at(0);
-		cardsUsed.push_back(cardsReady.at(0));
-		cardsReady.erase(cardsReady.begin() + 0);
-		coolDown = activeCard.coolDown;
-		for (int i = 0; i < activeCard.cardEvents.size(); i++)
-		{
-		if (activeCard.cardEvents.at(i).action == move) {
-		if (activeCard.cardEvents.at(i).data.at(0) == 0) {
-		int thisTile = currentTile;
-		std::vector<int> targets = { };
-
-		for (int i = 0; i < activeCard.cardEvents.at(i).data.at(1); i++)
-		{
-		thisTile = mapTiles->at(thisTile).c1;
-		if (mapTiles->at(thisTile).isUnpassable == true) {
-		targets.push_back(0); // add a new variable to tiles that stores who/what is in the tile at a given moment.
-		}
-		}
-
-		moving = true;
-		coolDown = 600;
-		}
-		else if (activeCard.cardEvents.at(i).data.at(0) == 1) {
-		int currentloc = currentTile;
-		int randDirection = rand() % 6;
-		for (int k = 0; k < activeCard.cardEvents.at(i).data.at(1); k++)
-		{
-		//std::cout << "    Current loc at loop start: " << currentloc << "   ";
-
-		if (randDirection == 0) {
-		if (mapTiles->at(currentloc).c1 == -1 || mapTiles->at(mapTiles->at(currentloc).c1).isUnpassable == true) {
-		k--;
-		moveDest = currentloc;
-		}
-		else {
-		moveDest = mapTiles->at(currentloc).c1;
-
-		}
-		}
-		else if (randDirection == 1) {
-		if (mapTiles->at(currentloc).c2 == -1 || mapTiles->at(mapTiles->at(currentloc).c2).isUnpassable == true) {
-		k--;
-		moveDest = currentloc;
-		}
-		else {
-		moveDest = mapTiles->at(currentloc).c2;
-
-		}
-
-		}
-		else if (randDirection == 2) {
-		if (mapTiles->at(currentloc).c3 == -1 || mapTiles->at(mapTiles->at(currentloc).c3).isUnpassable == true) {
-		k--;
-		moveDest = currentloc;
-		}
-		else {
-		moveDest = mapTiles->at(currentloc).c3;
-
-		}
-
-		}
-		else if (randDirection == 3) {
-		if (mapTiles->at(currentloc).c4 == -1 || mapTiles->at(mapTiles->at(currentloc).c4).isUnpassable == true) {
-		k--;
-		moveDest = currentloc;
-		}
-		else {
-		moveDest = mapTiles->at(currentloc).c4;
-
-		}
-
-		}
-		else if (randDirection == 4) {
-		if (mapTiles->at(currentloc).c5 == -1 || mapTiles->at(mapTiles->at(currentloc).c5).isUnpassable == true) {
-		k--;
-		moveDest = currentloc;
-		}
-		else {
-		moveDest = mapTiles->at(currentloc).c5;
-
-		}
-
-		}
-		else if (randDirection == 5) {
-		if (mapTiles->at(currentloc).c6 == -1 || mapTiles->at(mapTiles->at(currentloc).c6).isUnpassable == true) {
-		k--;
-		moveDest = currentloc;
-		}
-		else {
-		moveDest = mapTiles->at(currentloc).c6;
-
-		}
-
-		}
-		//std::cout << "    Move destination is currently set to: " << moveDest << "     ";
-		currentloc = moveDest;
-		if (rand() % 5 == 0) {
-		randDirection = rand() % 6;
-		}
-
-		}
-		//std::cout << "   Selecting Destination of: " << moveDest << "  ";
-		if (currentTile != moveDest) {
-		moving = true;
-		}
-
-		}
-		}
-		}
-		}*/
+		
 	}
 	if (coolDown>0) {
 		std::cout << "here? cd++" << std::endl;
-		/*if (cardsReady.size() < 1) {
-			int size = cardsUsed.size();
-			for (int i = 0; i < size; i++)
-			{
-				int loc = (rand() % cardsUsed.size());
-				cardsReady.push_back(cardsUsed.at(loc));
-				cardsUsed.erase(cardsUsed.begin() + loc);
-			}
-		}*/
+		
 		coolDown -= 1;
 	}
 }
@@ -1206,47 +1088,60 @@ void Creature::runTurn() {
 bool Creature::omniTileCheck(int tileNumber, bool impasable, bool character, bool enemy, bool nuller) {
 
 	bool finalVal = true;
-
+	std::cout << "this is tile " << tileNumber << std::endl;
 	if (nuller && (tileNumber == -1)) {
 		finalVal = false; 
+		std::cout << "this is a null tile" << std::endl;
 	}
 	else {
 		if (impasable && (mapTiles->at(tileNumber)).isUnpassable == true) {
 			
 			if ( (!character && (mapTiles->at(tileNumber)).characterLink != "")) {
-				
+				std::cout << "this tile has a character and is impassable, therefore is a destination" << std::endl;
 			}
 			else if (character) {
+				std::cout << "this tile does not have a charactere and is impassable, therefor it is not a destination";
 				finalVal = false;
 				//std::cout << "Banned on account of character being blocking the tile!!!!!!!!!!!!!!!!!!1";
 			}
 			else
 			if ((!enemy && (mapTiles->at(tileNumber)).creatureLink != "")) {
-
+				std::cout << "this tile contains an enemy and is ipassable, therfor is a destination" << std::endl;
 			}
 			else if (enemy) {
 				finalVal = false;
+				std::cout << "this tile does not have a character and is impassible so it is not a destination" << std::endl;
 			}
 			else {
+				std::cout << "this tile is imppassable" << std::endl;
 				finalVal = false;
 			}
 		} 
 		if (character && (mapTiles->at(tileNumber)).characterLink != "") {
+			std::cout << "this has a character" << std::endl;
 			finalVal = false;
 		} 
 		if (enemy && (mapTiles->at(tileNumber)).creatureLink != "") {
+			std::cout << "this has an enemy" << std::endl;
 			finalVal = false;
 		}
+
 	}
 	
 
-
+	if (finalVal) {
+		std::cout << "tile is an option." << std::endl;
+		
+	}
+	else {
+		std::cout << "tile is not an option." << std::endl;
+	}
 
 
 	return finalVal;
 }
 void Creature::path() {
-	
+
 	std::vector<Path> paths = { Path({mapTiles->at(currentTile).c1},4),Path({mapTiles->at(currentTile).c2},5),Path({mapTiles->at(currentTile).c3},6),Path({mapTiles->at(currentTile).c4},1),Path({mapTiles->at(currentTile).c5},2),Path({mapTiles->at(currentTile).c6},3) };
 	if (mapTiles->at(currentTile).c6 == -1 || mapTiles->at(mapTiles->at(currentTile).c6).isUnpassable) {
 		paths.erase(paths.begin() + 5);
@@ -1266,16 +1161,15 @@ void Creature::path() {
 	if (mapTiles->at(currentTile).c1 == -1 || mapTiles->at(mapTiles->at(currentTile).c1).isUnpassable) {
 		paths.erase(paths.begin() + 0);
 	}
-	//std::cout << "    Paths in list: " << paths.size() << "      ";
-	//std::vector<int> currentShortest = { };
 	bool going = true;
 	int currentLeng = 1;
 	while (going) {
+		//std::cout << "current goal: " << moveDest << std::endl;
 		std::cout << "run path: Trying to make it to the tile that is named: " << moveDest << std::endl ;
 		std::cout << "The current paths are: " << std::endl;
 		for (int i = 0; i < paths.size(); i++)
 		{
-			std::cout << paths.at(i).weave.at(paths.at(i).weave.size() - 1) << std::endl;
+			//std::cout << paths.at(i).weave.at(paths.at(i).weave.size() - 1) << std::endl;
 		}
 		int pathSize = paths.size();
 		for (int i = 0; i < pathSize; i++)
