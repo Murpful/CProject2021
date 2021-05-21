@@ -22,6 +22,8 @@ public:
 	int maxHealthPoints;
 	int currentHealthPoints;
 	int coolDown;
+	int connect;
+	int check;
 	int currentTile;
 	int moveDest;
 	int armorStat;
