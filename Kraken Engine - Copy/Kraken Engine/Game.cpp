@@ -119,6 +119,8 @@ void Game::handleEvents()
 				allObjects.deleteAll();
 				allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
 				allObjects.addObject(new AdvancedButtonObject("brutebutton", "assets/brutebutton.png", &startRound, 700, 400, 242, 58, 1));
+				allObjects.addObject(new AdvancedButtonObject("knightbutton", "assets/knightbutton.png", &startRound, 400, 400, 242, 58, 2));
+
 			}
 			else if (action == "startRound") {
 				paused = false;
@@ -448,6 +450,11 @@ void Game::handleEvents()
 					std::cout << "Making brute" << std::endl;
 					allObjects.addObject(new DetailObject("Brute", "assets/Phil.png", 0, 0, 50, 50));
 					playerCharacter = Character(&mapTiles, &allObjects, &creatures, "Brute", 0);//40
+				}
+				else if (eventHandles->at(0).integers.at(0) == 2) {
+					std::cout << "Making brute" << std::endl;
+					allObjects.addObject(new DetailObject("Knight", "assets/Phil.png", 0, 0, 50, 50));
+					playerCharacter = Character(&mapTiles, &allObjects, &creatures, "Knight", 0);//40
 				}
 				//printALLFunc(mapTiles.at(126));
 				//std::cout << " " << mapTiles.at(0).c1 << std::endl;

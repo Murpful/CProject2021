@@ -857,6 +857,12 @@ Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, 
 		inventorySize = 20;
 		//loc = 2;
 		iFrame = 0; weakened = 0;
+		for (int counter = 0; counter < inventorySize / 2; counter++) {
+			discard.push_back(PlayerCard("atk", { CardEvent(attack, {3,1, 150, 100, 4},"assets/atkAnim.png") }, 30, "assets/AtkCard.png"));
+		}
+		for (int counter = 0; counter < inventorySize / 2; counter++) {
+			discard.push_back(PlayerCard("mvefar", { CardEvent(move, {3,2}) }, 30, "assets/LongMovCard.png"));
+		}
 	}
 	int repaeats = discard.size();
 	for (int f = 0; f < repaeats; f++)
