@@ -29,8 +29,8 @@ void optionScreen() {
 void loadUpGame() {
 	eventHandle.push_back(Event("loadUpGame", {}));
 }
-void startRound() {
-	eventHandle.push_back(Event("startRound", {}));
+void startRound(int classNumber) {
+	eventHandle.push_back(Event("startRound", {classNumber}));
 }
 void moveUp() {
 	eventHandle.push_back(Event("scrollUp", {}));
@@ -113,11 +113,12 @@ void Game::handleEvents()
 			if (action == "optionScreen") {
 				allObjects.deleteAll();
 				allObjects.addObject(new DetailObject("optionBack", "assets/tempModeSelect.png", 0, 0, 1536, 864));
-				allObjects.addObject(new ButtonObject("classicButton", "assets/tempClassic.png", &startRound, 700, 400, 242, 58));
+				allObjects.addObject(new ButtonObject("classicButton", "assets/tempClassic.png", &loadUpGame, 700, 400, 242, 58));
 			}
 			else if (action == "loadUpGame") {
 				allObjects.deleteAll();
 				allObjects.addObject(new DetailObject("optionBack", "assets/classSelect.png", 0, 0, 1536, 864));
+				allObjects.addObject(new AdvancedButtonObject("brutebutton", "assets/brutebutton.png", &startRound, 700, 400, 242, 58, 1));
 			}
 			else if (action == "startRound") {
 				paused = false;
@@ -437,10 +438,17 @@ void Game::handleEvents()
 				std::cout << "total tiles: " << mapTiles.size() << "  ";
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino", player, 91, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				creatures.push_back(Creature(&mapTiles, &allObjects, "dino2", 13, { Component(armor,{2}),Component(health,{10}),Component(moveStats,{1,5,2},toward) }));
+				std::cout << "int at 0: " << eventHandles->at(0).integers.at(0) << std::endl;
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino3", "dino3", player, 74, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino4", "dino4", player, 22, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
-				allObjects.addObject(new DetailObject("Phil", "assets/Phil.png", 0, 0, 50, 50));
-				playerCharacter = Character(&mapTiles, &allObjects, &creatures, "Phil", 0);//40
+				//allObjects.addObject(new DetailObject("Phil", "assets/Phil.png", 0, 0, 50, 50));
+				//playerCharacter = Character(&mapTiles, &allObjects, &creatures, "Phil", 0);//40
+				std::cout << "int at 0: " << eventHandles->at(0).integers.at(0) << std::endl;
+				if (eventHandles->at(0).integers.at(0) == 1) {
+					std::cout << "Making brute" << std::endl;
+					allObjects.addObject(new DetailObject("Brute", "assets/Phil.png", 0, 0, 50, 50));
+					playerCharacter = Character(&mapTiles, &allObjects, &creatures, "Brute", 0);//40
+				}
 				//printALLFunc(mapTiles.at(126));
 				//std::cout << " " << mapTiles.at(0).c1 << std::endl;
 				//std::cout << "Finals: " << mapTiles.size();

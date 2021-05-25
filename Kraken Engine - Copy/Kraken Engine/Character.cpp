@@ -843,10 +843,10 @@ Character::Character(std::vector<battleMapTile>* map, ObjectDataBase* dataBase, 
 		//loc = 1;
 		iFrame = 0; weakened = 0;
 		for (int counter = 0; counter < inventorySize / 2; counter++) {
-			deck.push_back(PlayerCard("atk", { CardEvent(attack, {3,1}) }, 30, ""));
+			discard.push_back(PlayerCard("atk", { CardEvent(attack, {3,1, 150, 100, 4},"assets/atkAnim.png") }, 30, "assets/AtkCard.png"));
 		}
 		for (int counter = 0; counter < inventorySize / 2; counter++) {
-			deck.push_back(PlayerCard("mve", { CardEvent(move, {2,1}) }, 30, ""));
+			discard.push_back(PlayerCard("mvefar", { CardEvent(move, {3,2}) }, 30, "assets/LongMovCard.png"));
 		}
 	}
 	if (setClassName == "Knight")
