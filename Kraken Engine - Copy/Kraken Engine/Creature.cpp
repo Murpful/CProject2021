@@ -988,6 +988,8 @@ void Creature::runTurn() {
 				pathWeave.erase(pathWeave.begin() + 0);
 				goalSet = false;
 				halfGoal = 0;
+				mapTiles->at(currentTile).creatureLink = name;
+				mapTiles->at(currentTile).isUnpassable = true;
 				//std::cout << "reached full" << std::endl;
 				if (pathWeave.size() == 0) {
 					moving = false;

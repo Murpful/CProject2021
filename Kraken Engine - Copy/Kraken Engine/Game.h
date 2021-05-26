@@ -32,6 +32,7 @@ public:
 	bool running() { return isRunning; }
 	void render();
 	void clean();
+	bool gameOver;
 	bool mouseClick;
 	static SDL_Renderer* renderer;
 	std::vector<Event>* eventHandles = {};

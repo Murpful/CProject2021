@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <cassert>
 //#include "ObjectDataBase.h"
 
 
@@ -11,6 +12,10 @@ SDL_Event event;
 std::vector<Event> eventHandle = {};
 void sayHi() {
 	std::cout << "hi";
+}
+void bye() {
+	int bye = 2;
+	assert(bye == 1);
 }
 void openHand() {
 	eventHandle.push_back(Event("openHand", {}));
@@ -60,6 +65,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 {
 	//renderer = rendererStorage::renderer;
 	int flags = 0;
+	gameOver = 0;
 	mouseClick = false;
 	if (fullscreen)
 	{
@@ -107,9 +113,17 @@ void Game::handleEvents()
 	while (eventHandles->size() > 0) {
 		//this goes first
 		std::string action = eventHandles->at(0).ID;
-
+		if (gameOver)
+		{
+			while (gameOver)
+			{
+				allObjects.addObject(new DetailObject("win", "assets/winwin.png", 533, 227, 553, 410));
+				std::cout << "gaming";
+			}
+		}
 		//define events in here sent by buttons
-		if (paused) {
+		else if (paused) {
+	
 			if (action == "optionScreen") {
 				allObjects.deleteAll();
 				allObjects.addObject(new DetailObject("optionBack", "assets/tempModeSelect.png", 0, 0, 1536, 864));
@@ -439,7 +453,7 @@ void Game::handleEvents()
 				//allObjects.addObject(new DetailObject("dino4", "assets/Dinosaur.Original.png", 0, 0, 74, 41, 740, 410));
 				std::cout << "total tiles: " << mapTiles.size() << "  ";
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino", "dino", player, 91, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
-				creatures.push_back(Creature(&mapTiles, &allObjects, "dino2", 13, { Component(armor,{2}),Component(health,{10}),Component(moveStats,{1,5,2},toward) }));
+				creatures.push_back(Creature(&mapTiles, &allObjects, "dino2", 13, { Component(armor,{0}),Component(health,{10}),Component(moveStats,{1,5,2},toward) }));
 				std::cout << "int at 0: " << eventHandles->at(0).integers.at(0) << std::endl;
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino3", "dino3", player, 74, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
 				//creatures.push_back(Creature(&mapTiles, &allObjects, "dino4", "dino4", player, 22, { PlayerCard("Wander Small", {CardEvent(move,{1,3})},180,"") }));
@@ -561,6 +575,11 @@ void Game::update()
 		if (creatures.at(i).killed == true) {
 			allObjects.deleteDetailObject(creatures.at(i).linkID);
 			creatures.erase(creatures.begin() + i);
+			paused = 1;
+			allObjects.addObject(new DetailObject("win", "assets/winwin.png", 533, 227, 553, 410));
+			//gameOver = 1;
+			allObjects.addObject(new ButtonObject("again", "assets/playAgain.png", &bye, 600, 400, 262, 91, false));
+			
 		}
 		else {
 			creatures.at(i).runTurn();
